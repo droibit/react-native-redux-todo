@@ -434,25 +434,13 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
-"@types/jest@22.x.x":
-  version "22.2.3"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.2.3.tgz#0157c0316dc3722c43a7b71de3fdf3acbccef10d"
-
 "@types/jest@^23.1.4":
   version "23.1.4"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.1.4.tgz#71e1e2d08b1db742f479ee2795536ebc999a2419"
 
-"@types/lodash@4.x.x":
-  version "4.14.110"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.110.tgz#fb07498f84152947f30ea09d89207ca07123461e"
-
-"@types/prop-types@15.x.x":
-  version "15.5.3"
-  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.3.tgz#bef071852dca2a2dbb65fecdb7bfb30cedae2de2"
-
-"@types/react-native@0.51.1":
-  version "0.51.1"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.51.1.tgz#ab47c0d17c68149cbe5233d9f67dc586c61146df"
+"@types/react-native-navigation@^1.1.12":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@types/react-native-navigation/-/react-native-navigation-1.1.12.tgz#1f43bdf88d39bce2a3c0fdded0befda5083df6ff"
   dependencies:
     "@types/react" "*"
 
@@ -469,13 +457,13 @@
     "@types/react" "*"
     redux "^4.0.0"
 
-"@types/react-test-renderer@16.x.x", "@types/react-test-renderer@^16.0.1":
+"@types/react-test-renderer@^16.0.1":
   version "16.0.1"
   resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-16.0.1.tgz#36ee8c4fe33c61d460ad0e7bc42a2d0ddcc775a1"
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@16.x.x", "@types/react@^16.4.6":
+"@types/react@*", "@types/react@^16.4.6":
   version "16.4.6"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.4.6.tgz#5024957c6bcef4f02823accf5974faba2e54fada"
   dependencies:
@@ -2524,7 +2512,7 @@ has@^1.0.1:
   dependencies:
     function-bind "^1.1.1"
 
-hoist-non-react-statics@2.x.x, hoist-non-react-statics@^2.5.0:
+hoist-non-react-statics@^2.5.0:
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
 
@@ -4302,7 +4290,7 @@ prompts@^0.1.9:
     clorox "^1.0.3"
     sisteransi "^0.1.1"
 
-prop-types@15.x.x, prop-types@^15.5.8, prop-types@^15.6.0:
+prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -4369,10 +4357,6 @@ react-is@^16.3.1:
   version "16.4.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.1.tgz#d624c4650d2c65dbd52c72622bbf389435d9776e"
 
-react-lifecycles-compat@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-2.0.0.tgz#71d9c4cde47114c4102454f76da055c2bc48c948"
-
 react-native-config@^0.11.5:
   version "0.11.5"
   resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.11.5.tgz#516cb7b6ec437c7739236ca075971db3aabdcb95"
@@ -4391,20 +4375,11 @@ react-native-i18n@^2.0.12:
   dependencies:
     i18n-js "^3.0.3"
 
-react-native-navigation@^2.0.2396:
-  version "2.0.2396"
-  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-2.0.2396.tgz#f66d4cb7710fbc6fa18562a74a4aa9945e101f71"
+react-native-navigation@^1.1.474:
+  version "1.1.474"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.474.tgz#e4ef4d152aa673453f9f39b7682253ad136ffbe3"
   dependencies:
-    "@types/jest" "22.x.x"
-    "@types/lodash" "4.x.x"
-    "@types/prop-types" "15.x.x"
-    "@types/react" "16.x.x"
-    "@types/react-native" "0.51.1"
-    "@types/react-test-renderer" "16.x.x"
-    hoist-non-react-statics "2.x.x"
     lodash "4.x.x"
-    prop-types "15.x.x"
-    react-lifecycles-compat "2.0.0"
 
 react-native-typescript-transformer@^1.2.10:
   version "1.2.10"
