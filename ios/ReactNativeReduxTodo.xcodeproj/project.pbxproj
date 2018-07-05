@@ -41,6 +41,8 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B3F04983E932403B975CA3B2 /* libRNI18n-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A50B3F4255F74D2A8065D08A /* libRNI18n-tvOS.a */; };
 		DA33D4FC20EE1B37001D4B2E /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA33D4FB20EE1A6C001D4B2E /* libReactNativeNavigation.a */; };
+		DA33D53B20EE29E7001D4B2E /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA33D53A20EE29D8001D4B2E /* libRNVectorIcons.a */; };
+		DA33D53E20EE2BB0001D4B2E /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA33D53D20EE2BB0001D4B2E /* MaterialIcons.ttf */; };
 		EAD02287258B4D9DB758061C /* libReactNativeConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D463A23318534A15AB9C069B /* libReactNativeConfig.a */; };
 /* End PBXBuildFile section */
 
@@ -346,6 +348,13 @@
 			remoteGlobalIDString = D8AFADBD1BEE6F3F00A4592D;
 			remoteInfo = ReactNativeNavigation;
 		};
+		DA33D53920EE29D8001D4B2E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA33D50C20EE29D8001D4B2E /* RNVectorIcons.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
+			remoteInfo = RNVectorIcons;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -381,6 +390,8 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		D463A23318534A15AB9C069B /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
 		DA33D4F620EE1A6B001D4B2E /* ReactNativeNavigation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeNavigation.xcodeproj; path = "../node_modules/react-native-navigation/ios/ReactNativeNavigation.xcodeproj"; sourceTree = "<group>"; };
+		DA33D50C20EE29D8001D4B2E /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		DA33D53D20EE2BB0001D4B2E /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -412,6 +423,7 @@
 				EAD02287258B4D9DB758061C /* libReactNativeConfig.a in Frameworks */,
 				8F180D73AFF045BB8886C0C6 /* libRNI18n.a in Frameworks */,
 				DA33D4FC20EE1B37001D4B2E /* libReactNativeNavigation.a in Frameworks */,
+				DA33D53B20EE29E7001D4B2E /* libRNVectorIcons.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +543,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				DA33D53D20EE2BB0001D4B2E /* MaterialIcons.ttf */,
 			);
 			name = ReactNativeReduxTodo;
 			sourceTree = "<group>";
@@ -587,6 +600,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				DA33D50C20EE29D8001D4B2E /* RNVectorIcons.xcodeproj */,
 				DA33D4F620EE1A6B001D4B2E /* ReactNativeNavigation.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -681,6 +695,14 @@
 			isa = PBXGroup;
 			children = (
 				DA33D4FB20EE1A6C001D4B2E /* libReactNativeNavigation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DA33D50D20EE29D8001D4B2E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA33D53A20EE29D8001D4B2E /* libRNVectorIcons.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -855,6 +877,10 @@
 				{
 					ProductGroup = DA33D4EE20EE1A40001D4B2E /* Products */;
 					ProjectRef = 1629CE6CB4D34A92990BA00B /* RNI18n.xcodeproj */;
+				},
+				{
+					ProductGroup = DA33D50D20EE29D8001D4B2E /* Products */;
+					ProjectRef = DA33D50C20EE29D8001D4B2E /* RNVectorIcons.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1155,6 +1181,13 @@
 			remoteRef = DA33D4FA20EE1A6C001D4B2E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		DA33D53A20EE29D8001D4B2E /* libRNVectorIcons.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNVectorIcons.a;
+			remoteRef = DA33D53920EE29D8001D4B2E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1171,6 +1204,7 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				DA33D53E20EE2BB0001D4B2E /* MaterialIcons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1355,6 +1389,7 @@
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 				);
 				INFOPLIST_FILE = ReactNativeReduxTodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1379,6 +1414,7 @@
 					"$(SRCROOT)/../node_modules/react-native-config/ios/ReactNativeConfig",
 					"$(SRCROOT)/../node_modules/react-native-i18n/ios",
 					"$(SRCROOT)/../node_modules/react-native-navigation/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 				);
 				INFOPLIST_FILE = ReactNativeReduxTodo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

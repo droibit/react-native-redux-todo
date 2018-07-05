@@ -10,6 +10,7 @@ import {
   Text,
   View,
 } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons"
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" +
@@ -32,6 +33,7 @@ export default class App extends Component<Props> {
         <Text style={styles.instructions}>
           {instructions}
         </Text>
+        <Icon name="done" size={30} color="#900" />
       </View>
     );
   }
