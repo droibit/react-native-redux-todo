@@ -1,4 +1,10 @@
-import { AppRegistry } from 'react-native';
 import App from './src/App';
+import { Navigation } from 'react-native-navigation';
 
-AppRegistry.registerComponent('ReactNativeReduxTodo', () => App);
+Navigation.registerComponent("app", () => App);
+Navigation.startSingleScreenApp({
+  screen: {
+    screen: "app",
+    title: "ReactNativeReduxTodo"
+  }
+});

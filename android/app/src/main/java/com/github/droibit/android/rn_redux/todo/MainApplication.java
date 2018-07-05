@@ -1,43 +1,36 @@
 package com.github.droibit.android.rn_redux.todo;
 
-import android.app.Application;
-import com.facebook.react.ReactApplication;
-import com.facebook.react.ReactNativeHost;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
-import com.facebook.soloader.SoLoader;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
+import com.reactnativenavigation.NavigationApplication;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends NavigationApplication {
 
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-    @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
-    }
-
-    @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
-      );
-    }
-
-    @Override
-    protected String getJSMainModuleName() {
-      return "index";
-    }
-  };
-
-  @Override
-  public ReactNativeHost getReactNativeHost() {
-    return mReactNativeHost;
+  @Override public boolean isDebug() {
+    return BuildConfig.DEBUG;
   }
 
-  @Override
-  public void onCreate() {
-    super.onCreate();
-    SoLoader.init(this, /* native exopackage */ false);
+  @NonNull
+  protected List<ReactPackage> getPackages() {
+    return Arrays.asList(
+        new MainReactPackage(),
+        new RNI18nPackage(),
+        new ReactNativeConfigPackage()
+    );
+  }
+
+  @Nullable @Override
+  public List<ReactPackage> createAdditionalReactPackages() {
+    return getPackages();
+  }
+
+  @Nullable @Override public String getJSMainModuleName() {
+    return "index";
   }
 }
