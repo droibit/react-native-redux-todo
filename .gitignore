@@ -58,3 +58,6 @@ buck-out/
 # Jest
 #
 .jest/
+
+# Local playground
+playground/
