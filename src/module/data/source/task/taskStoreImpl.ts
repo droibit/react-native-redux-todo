@@ -3,7 +3,7 @@ import TaskEntity from "./taskEntity";
 import TaskStore from "./taskStore";
 import * as Config from "../../../../config/config";
 
-const KEY_TASKS = Config.Storage.KEY_TASKS;
+const { KEY_TASKS } = Config.Storage;
 
 export default class TaskStoreImpl implements TaskStore {
 
@@ -58,7 +58,7 @@ export default class TaskStoreImpl implements TaskStore {
     await this.storage.setItem(KEY_TASKS, JSON.stringify(tasks));
     return true;
   }
-  
+
   async delete(id: string): Promise<boolean> {
     const tasks: Array<TaskEntity> = await this.getTasks();
     const taskIndex = tasks.findIndex(t => t.id == id);
@@ -69,7 +69,7 @@ export default class TaskStoreImpl implements TaskStore {
     await this.storage.setItem(KEY_TASKS, JSON.stringify(tasks));
     return true;
   }
-  
+
   async deleteAll(): Promise<boolean> {
     await this.storage.removeItem(KEY_TASKS);
     return true;

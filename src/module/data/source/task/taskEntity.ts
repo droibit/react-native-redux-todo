@@ -1,14 +1,13 @@
-export type TaskEntityJson = {
-  id: string,
-  title: string,
-  description?: string,
-  timestamp: number,
-  completed: boolean,
-}
 
 export default class TaskEntity {
-
-  public static fromJson(json: TaskEntityJson): TaskEntity {
+  
+  public static fromJson(json: {
+    id: string,
+    title: string,
+    description?: string,
+    timestamp: number,
+    completed: boolean,
+  }): TaskEntity {
     return new TaskEntity(json.id, json.title, json.description, json.timestamp, json.completed);
   }
 

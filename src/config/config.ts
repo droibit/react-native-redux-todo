@@ -1,5 +1,5 @@
 
-export class Storage {
-
-  static KEY_TASKS = "KEY_TASKS";
-}
+export const Storage = {
+  KEY_TASKS: "KEY_TASKS",
+  KEY_SETTINGS: "KEY_SETTINGS"
+};
