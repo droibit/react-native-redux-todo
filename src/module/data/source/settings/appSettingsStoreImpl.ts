@@ -20,9 +20,8 @@ export default class AppSettingsStoreImpl implements AppSettingsStore {
     return settings.taskSortSetting;
   }
 
-  async setTaskSortSetting(sortBy: AppSettings.SortBy, order: AppSettings.SortByOrder): Promise<boolean> {
-    let newSettings: AppSettings.TaskSortSetting = { sortBy, order };
-    await this.storage.mergeItem(KEY_SETTINGS, JSON.stringify(newSettings));
+  async setTaskSortSetting(setting: AppSettings.TaskSortSetting): Promise<boolean> {
+    await this.storage.mergeItem(KEY_SETTINGS, JSON.stringify(setting));
     return true;
   }
 }
