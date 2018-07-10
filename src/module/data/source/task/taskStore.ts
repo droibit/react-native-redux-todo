@@ -1,10 +1,11 @@
 import TaskEntity from "./taskEntity";
+import uuid from "uuid/v4";
 
-export default interface TaskStore {
+export interface TaskStore {
 
   getTasks(): Promise<TaskEntity[]>;
 
-  create(task: TaskEntity): Promise<boolean>;
+  create(title: string, description: string | undefined): Promise<TaskEntity>;
 
   update(id: string, title: string, description: string | undefined): Promise<boolean>;
 
@@ -15,4 +16,13 @@ export default interface TaskStore {
   delete(id: string): Promise<boolean>;
 
   deleteAll(): Promise<boolean>;
+}
+
+export namespace TaskStore {
+
+  export class IdProvider {
+    generateId(): string {
+      return uuid();
+    }
+  }
 }

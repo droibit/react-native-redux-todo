@@ -1,13 +1,18 @@
 import { AsyncStorage } from "react-native";
 import TaskEntity from "./taskEntity";
-import TaskStore from "./taskStore";
+import { TaskStore } from "./taskStore";
 import * as Config from "../../../../config/config";
+import TimeProvider from "../time/timeProvider";
 
 const { KEY_TASKS } = Config.Storage;
 
 export default class TaskStoreImpl implements TaskStore {
 
-  constructor(private storage: AsyncStorage) {
+  constructor(
+    private storage: AsyncStorage,
+    private idProvider: TaskStore.IdProvider,
+    private timeProvider: TimeProvider,
+  ) {
   }
 
   async getTasks(): Promise<TaskEntity[]> {
@@ -19,11 +24,18 @@ export default class TaskStoreImpl implements TaskStore {
     return tasksJson.map(json => TaskEntity.fromJson(json));
   }
 
-  async create(task: TaskEntity): Promise<boolean> {
+  async create(title: string, description: string | undefined): Promise<TaskEntity> {
+    const newTask = new TaskEntity(
+      this.idProvider.generateId(),
+      title,
+      description,
+      this.timeProvider.currentTimeMillis(),
+      false
+    );
     const tasks = await this.getTasks();
-    tasks.push(task);
+    tasks.push(newTask);
     await this.storage.setItem(KEY_TASKS, JSON.stringify(tasks));
-    return true;
+    return newTask;
   }
 
   async update(id: string, title: string, description: string | undefined): Promise<boolean> {
