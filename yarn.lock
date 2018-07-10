@@ -438,6 +438,10 @@
   version "23.1.4"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.1.4.tgz#71e1e2d08b1db742f479ee2795536ebc999a2419"
 
+"@types/node@*":
+  version "10.5.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.5.2.tgz#f19f05314d5421fe37e74153254201a7bf00a707"
+
 "@types/react-native-navigation@^1.1.12":
   version "1.1.12"
   resolved "https://registry.yarnpkg.com/@types/react-native-navigation/-/react-native-navigation-1.1.12.tgz#1f43bdf88d39bce2a3c0fdded0befda5083df6ff"
@@ -475,6 +479,12 @@
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.4.6.tgz#5024957c6bcef4f02823accf5974faba2e54fada"
   dependencies:
     csstype "^2.2.0"
+
+"@types/uuid@^3.4.3":
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-3.4.3.tgz#121ace265f5569ce40f4f6d0ff78a338c732a754"
+  dependencies:
+    "@types/node" "*"
 
 abab@^1.0.4:
   version "1.0.4"
@@ -5418,7 +5428,7 @@ uuid@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
-uuid@^3.1.0:
+uuid@^3.1.0, uuid@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 
