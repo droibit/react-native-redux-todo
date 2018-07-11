@@ -2,27 +2,28 @@ import { Partial } from "../../../../utils/types";
 
 export default class TaskEntity {
   
-  public static fromJson(json: TaskEntity.Props): TaskEntity {
-    return new TaskEntity(json.id, json.title, json.description, json.timestamp, json.completed);
-  }
+  public readonly id: string;
+  public readonly title: string;
+  public readonly description: string | undefined;
+  public readonly timestamp: number;
+  public readonly completed: boolean;
 
-  constructor(
-    public readonly id: string,
-    public readonly title: string,
-    public readonly description: string | undefined,
-    public readonly timestamp: number,
-    public readonly completed: boolean
-  ) {
+  constructor(values: TaskEntity.Props) {
+    this.id = values.id;
+    this.title = values.title;
+    this.description = values.description;
+    this.timestamp = values.timestamp;
+    this.completed = values.completed;
   }
 
   public copyWith(src: TaskEntity.PartialProps): TaskEntity {
-    return new TaskEntity(
-      (src.id || this.id),
-      (src.title || this.title),
-      (src.description || this.description),
-      (src.timestamp || this.timestamp),
-      (src.completed || this.completed)
-    )
+    return new TaskEntity({
+      id: (src.id || this.id),
+      title: (src.title || this.title),
+      description: (src.description || this.description),
+      timestamp: (src.timestamp || this.timestamp),
+      completed: (src.completed || this.completed)
+    });
   }
 }
 

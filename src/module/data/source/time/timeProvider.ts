@@ -2,7 +2,7 @@ import moment from 'moment';
 
 export default class TimeProvider {
 
-  public currentTimeMillis(): number {
+  public get currentTimeMillis(): number {
     return moment().unix();
   }
 }

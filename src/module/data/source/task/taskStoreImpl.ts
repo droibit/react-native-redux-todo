@@ -21,17 +21,17 @@ export default class TaskStoreImpl implements TaskStore {
       return [];
     }
     const tasksJson: Array<any> = JSON.parse(json);
-    return tasksJson.map(json => TaskEntity.fromJson(json));
+    return tasksJson.map(json => new TaskEntity(json));
   }
 
   async create(title: string, description: string | undefined): Promise<TaskEntity> {
-    const newTask = new TaskEntity(
-      this.idProvider.generateId(),
+    const newTask = new TaskEntity({
+      id: this.idProvider.generateId(),
       title,
       description,
-      this.timeProvider.currentTimeMillis(),
-      false
-    );
+      timestamp: this.timeProvider.currentTimeMillis,
+      completed: false
+    });
     const tasks = await this.getTasks();
     tasks.push(newTask);
     await this.storage.setItem(KEY_TASKS, JSON.stringify(tasks));

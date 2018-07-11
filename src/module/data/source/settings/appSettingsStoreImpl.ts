@@ -16,7 +16,7 @@ export default class AppSettingsStoreImpl implements AppSettingsStore {
       return null
     }
     const appSettingsJson: any = JSON.parse(json);
-    const settings = AppSettings.fromJson(appSettingsJson);
+    const settings = new AppSettings(appSettingsJson);
     return settings.taskSortSetting;
   }
 

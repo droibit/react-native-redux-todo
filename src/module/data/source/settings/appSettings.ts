@@ -2,19 +2,16 @@ import { Partial } from "../../../../utils/types";
 
 export class AppSettings {
 
-  public static fromJson(json: AppSettings.Props): AppSettings {
-    return new AppSettings(json.taskSortSetting);
-  }
+  public readonly taskSortSetting: AppSettings.TaskSortSetting;
 
-  constructor(
-    public readonly taskSortSetting: AppSettings.TaskSortSetting,
-  ) {
+  constructor(values: AppSettings.Props) {
+    this.taskSortSetting = values.taskSortSetting;
   }
 
   public copyWith(src: AppSettings.PartialProps): AppSettings {
-    return new AppSettings(
-      (src.taskSortSetting || this.taskSortSetting)
-    )
+    return new AppSettings({
+      taskSortSetting: (src.taskSortSetting || this.taskSortSetting)
+    })
   }
 }
 
