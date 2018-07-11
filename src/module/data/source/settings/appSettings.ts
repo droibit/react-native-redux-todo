@@ -1,8 +1,8 @@
+import { Partial } from "../../../../utils/types";
+
 export class AppSettings {
 
-  public static fromJson(json: {
-    taskSortSetting: AppSettings.TaskSortSetting
-  }): AppSettings {
+  public static fromJson(json: AppSettings.Props): AppSettings {
     return new AppSettings(json.taskSortSetting);
   }
 
@@ -11,9 +11,7 @@ export class AppSettings {
   ) {
   }
 
-  public copyWith(src: {
-    taskSortSetting?: AppSettings.TaskSortSetting
-  }): AppSettings {
+  public copyWith(src: AppSettings.PartialProps): AppSettings {
     return new AppSettings(
       (src.taskSortSetting || this.taskSortSetting)
     )
@@ -21,9 +19,14 @@ export class AppSettings {
 }
 
 export namespace AppSettings {
+  export type Props = {
+    taskSortSetting: AppSettings.TaskSortSetting
+  };
+  export type PartialProps = Partial<Props>;
+
   export type TaskSortSetting = {
-    sortBy: AppSettings.SortBy,
-    order: AppSettings.SortByOrder
+    sortBy: SortBy,
+    order: SortByOrder
   };
   export enum SortBy {
     TITLE = 0, TIMESTAMP

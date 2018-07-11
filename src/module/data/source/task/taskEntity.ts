@@ -1,13 +1,8 @@
+import { Partial } from "../../../../utils/types";
 
 export default class TaskEntity {
   
-  public static fromJson(json: {
-    id: string,
-    title: string,
-    description?: string,
-    timestamp: number,
-    completed: boolean,
-  }): TaskEntity {
+  public static fromJson(json: TaskEntity.Props): TaskEntity {
     return new TaskEntity(json.id, json.title, json.description, json.timestamp, json.completed);
   }
 
@@ -20,15 +15,7 @@ export default class TaskEntity {
   ) {
   }
 
-  public copyWith(
-    src: {
-      id?: string,
-      title?: string,
-      description?: string,
-      timestamp?: number,
-      completed?: boolean,
-    }
-  ): TaskEntity {
+  public copyWith(src: TaskEntity.PartialProps): TaskEntity {
     return new TaskEntity(
       (src.id || this.id),
       (src.title || this.title),
@@ -37,4 +24,15 @@ export default class TaskEntity {
       (src.completed || this.completed)
     )
   }
+}
+
+namespace TaskEntity {
+  export type Props = {
+    id: string,
+    title: string,
+    description?: string,
+    timestamp: number,
+    completed: boolean,
+  };
+  export type PartialProps = Partial<Props>;
 }
