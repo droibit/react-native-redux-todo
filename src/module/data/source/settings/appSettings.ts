@@ -1,5 +1,3 @@
-import { Partial } from "../../../../utils/types";
-
 export class AppSettings {
 
   public readonly taskSortSetting: AppSettings.TaskSortSetting;

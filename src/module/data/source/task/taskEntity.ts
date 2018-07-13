@@ -1,5 +1,3 @@
-import { Partial } from "../../../../utils/types";
-
 export default class TaskEntity {
   
   public readonly id: string;

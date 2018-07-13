@@ -1,7 +1,5 @@
 import { Record } from "immutable";
-import { AppSettings as AppSettingsSource } from "../../data/source/settings"
 import { TaskSortSetting } from "./taskSortSetting";
-import { Partial } from "../../../utils/types";
 
 export default class AppSettings extends Record({
   taskSortSetting: {},
