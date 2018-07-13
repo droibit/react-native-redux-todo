@@ -1,5 +1,5 @@
 export default class TaskEntity {
-  
+
   public readonly id: string;
   public readonly title: string;
   public readonly description: string | undefined;
@@ -20,7 +20,7 @@ export default class TaskEntity {
       title: (src.title || this.title),
       description: (src.description || this.description),
       timestamp: (src.timestamp || this.timestamp),
-      completed: (src.completed || this.completed)
+      completed: (src.completed || this.completed),
     });
   }
 }

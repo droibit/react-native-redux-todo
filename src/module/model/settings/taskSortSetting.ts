@@ -1,5 +1,4 @@
 import { Record } from "immutable";
-import { Partial } from "../../../utils/types";
 
 export enum TaskSortBy {
   TITLE = 0, TIMESTAMP

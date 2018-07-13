@@ -13,12 +13,12 @@ export class TaskList extends Record({
   }
   
   public get tasks(): List<Task> {
-    let tasks = this.get("src") as Map<String, Task>;
+    const tasks = this.get("src") as Map<string, Task>;
     return List(tasks.values);
   }
 
   public getTaskById(id: string): Task | null {
-    let src = this.get("src") as Map<String, Task>;
+    const src = this.get("src") as Map<string, Task>;
     if (src.has(id)) {
       return src.get(id);
     }
@@ -27,15 +27,15 @@ export class TaskList extends Record({
 
   public addTask(task: Task): TaskList {
     return this.withMutations(s => {
-      let newTasks = s.get("src").set(task.id, task);
+      const newTasks = s.get("src").set(task.id, task);
       s.set("src", newTasks);
     }) as TaskList;
   }
 
   public updateTask(task: Task): TaskList {
     return this.withMutations(s => {
-      let src = s.get("src") as Map<String, Task>;
-      let newTasks = src.update(task.id, () => task);
+      const src = s.get("src") as Map<string, Task>;
+      const newTasks = src.update(task.id, () => task);
       s.set("src", newTasks);
     }) as TaskList;
   }
@@ -45,15 +45,15 @@ export class TaskList extends Record({
     //   return this;
     // }
     return this.withMutations(s => {
-      let src = s.get("src") as Map<String, Task>;
+      const src = s.get("src") as Map<string, Task>;
       s.set("src", src.remove(taskId));
     }) as TaskList;
   }
 
   public clearCompletedTasks(): TaskList {
     return this.withMutations(s => {
-      let src = s.get("src") as Map<String, Task>;
-      let newTasks = src.filterNot((v, k) => (v && v.completed) === true);
+      const src = s.get("src") as Map<string, Task>;
+      const newTasks = src.filterNot((v, k) => (v && v.completed) === true);
       s.set("src", newTasks);
     }) as TaskList;
   }
@@ -62,6 +62,6 @@ export class TaskList extends Record({
 export namespace TaskList {
 
   export type Props = {
-    src: Map<String, Task>
+    src: Map<string, Task>
   };
 }

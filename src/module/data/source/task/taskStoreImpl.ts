@@ -15,7 +15,7 @@ export default class TaskStoreImpl implements TaskStore {
   ) {
   }
 
-  async getTasks(): Promise<TaskEntity[]> {
+  public async getTasks(): Promise<Array<TaskEntity>> {
     const json = await this.storage.getItem(KEY_TASKS);
     if (json === null) {
       return [];
@@ -24,7 +24,7 @@ export default class TaskStoreImpl implements TaskStore {
     return tasksJson.map(json => new TaskEntity(json));
   }
 
-  async create(title: string, description: string | undefined): Promise<TaskEntity> {
+  public async create(title: string, description: string | undefined): Promise<TaskEntity> {
     const newTask = new TaskEntity({
       id: this.idProvider.generateId(),
       title,
@@ -38,9 +38,9 @@ export default class TaskStoreImpl implements TaskStore {
     return newTask;
   }
 
-  async update(id: string, title: string, description: string | undefined): Promise<boolean> {
+  public async update(id: string, title: string, description: string | undefined): Promise<boolean> {
     const tasks: Array<TaskEntity> = await this.getTasks();
-    const taskIndex = tasks.findIndex(t => t.id == id);
+    const taskIndex = tasks.findIndex(t => t.id === id);
     if (taskIndex === -1) {
       return false;
     }
@@ -49,9 +49,9 @@ export default class TaskStoreImpl implements TaskStore {
     return true;
   }
 
-  async active(id: string): Promise<boolean> {
+   async active(id: string): Promise<boolean> {
     const tasks: Array<TaskEntity> = await this.getTasks();
-    const taskIndex = tasks.findIndex(t => t.id == id);
+    const taskIndex = tasks.findIndex(t => t.id === id);
     if (taskIndex === -1) {
       return false;
     }
@@ -60,9 +60,9 @@ export default class TaskStoreImpl implements TaskStore {
     return true;
   }
 
-  async complete(id: string): Promise<boolean> {
+  public async complete(id: string): Promise<boolean> {
     const tasks: Array<TaskEntity> = await this.getTasks();
-    const taskIndex = tasks.findIndex(t => t.id == id);
+    const taskIndex = tasks.findIndex(t => t.id === id);
     if (taskIndex === -1) {
       return false;
     }
@@ -71,9 +71,9 @@ export default class TaskStoreImpl implements TaskStore {
     return true;
   }
 
-  async delete(id: string): Promise<boolean> {
+  public async delete(id: string): Promise<boolean> {
     const tasks: Array<TaskEntity> = await this.getTasks();
-    const taskIndex = tasks.findIndex(t => t.id == id);
+    const taskIndex = tasks.findIndex(t => t.id === id);
     if (taskIndex === -1) {
       return true;
     }
@@ -82,7 +82,7 @@ export default class TaskStoreImpl implements TaskStore {
     return true;
   }
 
-  async deleteAll(): Promise<boolean> {
+  public async deleteAll(): Promise<boolean> {
     await this.storage.removeItem(KEY_TASKS);
     return true;
   }

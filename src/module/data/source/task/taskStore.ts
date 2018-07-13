@@ -3,7 +3,7 @@ import uuid from "uuid/v4";
 
 export interface TaskStore {
 
-  getTasks(): Promise<TaskEntity[]>;
+  getTasks(): Promise<Array<TaskEntity>>;
 
   create(title: string, description: string | undefined): Promise<TaskEntity>;
 

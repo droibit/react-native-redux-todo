@@ -8,26 +8,28 @@ export class AppSettings {
 
   public copyWith(src: AppSettings.PartialProps): AppSettings {
     return new AppSettings({
-      taskSortSetting: (src.taskSortSetting || this.taskSortSetting)
+      taskSortSetting: (src.taskSortSetting || this.taskSortSetting),
     })
   }
 }
 
 export namespace AppSettings {
   export type Props = {
-    taskSortSetting: AppSettings.TaskSortSetting
+    taskSortSetting: AppSettings.TaskSortSetting,
   };
+
   export type PartialProps = Partial<Props>;
 
   export type TaskSortSetting = {
     sortBy: SortBy,
-    order: SortByOrder
+    order: SortByOrder,
   };
+
   export enum SortBy {
-    TITLE = 0, TIMESTAMP
+    TITLE = 0, TIMESTAMP,
   };
 
   export enum SortByOrder {
-    ASC = 0, DESC
-  }
+    ASC = 0, DESC,
+  };
 }

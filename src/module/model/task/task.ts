@@ -34,11 +34,11 @@ export namespace Task {
     title: string,
     description: string,
     timestamp: Date,
-    completed: boolean
+    completed: boolean,
   };
   export type UpdatableProps = {
     title?: string,
     description?: string,
-    completed?: boolean
+    completed?: boolean,
   };
 }

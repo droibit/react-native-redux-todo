@@ -4,7 +4,7 @@ import { AppSettingsStore, AppSettings } from "../../source/settings";
 export default class AppSettingsRepositoryImpl implements AppSettingsRepository {
 
   constructor(
-    private readonly store: AppSettingsStore
+    private readonly store: AppSettingsStore,
   ) {
   }
 

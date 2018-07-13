@@ -10,17 +10,17 @@ export default class AppSettingsStoreImpl implements AppSettingsStore {
   constructor(private storage: AsyncStorage) {
   }
 
-  async getTaskSortSetting(): Promise<AppSettings.TaskSortSetting | null> {
+  public async getTaskSortSetting(): Promise<AppSettings.TaskSortSetting | null> {
     const json = await this.storage.getItem(KEY_SETTINGS);
     if (json == null) {
-      return null
+      return null;
     }
     const appSettingsJson: any = JSON.parse(json);
     const settings = new AppSettings(appSettingsJson);
     return settings.taskSortSetting;
   }
 
-  async setTaskSortSetting(setting: AppSettings.TaskSortSetting): Promise<boolean> {
+  public async setTaskSortSetting(setting: AppSettings.TaskSortSetting): Promise<boolean> {
     await this.storage.mergeItem(KEY_SETTINGS, JSON.stringify(setting));
     return true;
   }
