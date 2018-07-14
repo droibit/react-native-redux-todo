@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import * as Immutable from "../playground/node_modules/immutable";
+import * as Immutable from "immutable";
 import {
   Task,
   TaskList,
