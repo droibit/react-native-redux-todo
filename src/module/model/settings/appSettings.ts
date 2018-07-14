@@ -5,7 +5,7 @@ export default class AppSettings extends Record({
   taskSortSetting: {},
 } as AppSettings.Props) {
 
-  public readonly taskSortSetting: TaskSortSetting;
+  public readonly taskSortSetting!: TaskSortSetting;
 
   constructor(values: AppSettings.Props) {
     super(values);

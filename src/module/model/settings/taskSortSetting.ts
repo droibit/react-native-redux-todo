@@ -1,21 +1,21 @@
 import { Record } from "immutable";
 
 export enum TaskSortBy {
-  TITLE = 0, TIMESTAMP
-};
+  TITLE = 0, TIMESTAMP,
+}
 
 export enum TaskSortByOrder {
-  ASC = 0, DESC
+  ASC = 0, DESC,
 }
 
 export class TaskSortSetting extends Record({
   taskSortBy: TaskSortBy.TITLE,
-  taskSortByOrder: TaskSortByOrder.ASC
+  taskSortByOrder: TaskSortByOrder.ASC,
 } as TaskSortSetting.Props) {
 
-  public taskSortBy: TaskSortBy;
+  public readonly taskSortBy!: TaskSortBy;
 
-  public taskSortByOrder: TaskSortByOrder;
+  public readonly taskSortByOrder!: TaskSortByOrder;
 
   constructor(values: TaskSortSetting.Props) {
     super(values);

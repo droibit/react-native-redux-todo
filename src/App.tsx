@@ -4,30 +4,22 @@
  */
 
 import React, { Component } from "react";
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import * as Immutable from "immutable";
-import {
-  Task,
-  TaskList,
-} from "./module/model/task";
+import { Task, TaskList } from "./module/model/task";
 import {
   AppSettings,
   TaskSortSetting,
   TaskSortBy,
-  TaskSortByOrder,
+  TaskSortByOrder
 } from "./module/model/settings";
 
 const instructions = Platform.select({
-  ios: "Press Cmd+R to reload,\n" +
-    "Cmd+D or shake for dev menu",
-  android: "Double tap R on your keyboard to reload,\n" +
-    "Shake or press menu button for dev menu",
+  ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
+  android:
+    "Double tap R on your keyboard to reload,\n" +
+    "Shake or press menu button for dev menu"
 });
 
 type Props = {};
@@ -38,7 +30,7 @@ export default class App extends Component<Props> {
       title: "huga",
       description: "",
       timestamp: new Date(),
-      completed: true,
+      completed: true
     });
     console.log(`${t}, ${t.id}, ${t.title}`);
 
@@ -59,15 +51,15 @@ export default class App extends Component<Props> {
     let tl = new TaskList({
       src: Immutable.Map([[t.id, t]])
     });
-    tl = tl.addTask(new Task(
-      {
+    tl = tl.addTask(
+      new Task({
         id: "yes!!",
         title: "huga",
         description: "",
         timestamp: new Date(),
-        completed: true,
-      }
-    ))
+        completed: true
+      })
+    );
     // console.log(`update: ${
     //   tl.updateTask(t.with({title: "yeah!!!!!!!!!", completed: false}))
     //   }`);
@@ -84,22 +76,18 @@ export default class App extends Component<Props> {
       })
     });
     console.log(`${as1}`);
-    as1 = as1.with(
-      { taskSortSetting: as1.taskSortSetting.with({ taskSortBy: TaskSortBy.TIMESTAMP }) }
-    )
+    as1 = as1.with({
+      taskSortSetting: as1.taskSortSetting.with({
+        taskSortBy: TaskSortBy.TIMESTAMP
+      })
+    });
     console.log(`${as1}`);
 
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+        <Text style={styles.welcome}>Welcome to React Native!!</Text>
+        <Text style={styles.instructions}>To get started, edit App.js</Text>
+        <Text style={styles.instructions}>{instructions}</Text>
         <Icon name="done" size={30} color="#900" />
       </View>
     );
@@ -115,16 +103,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#F5FCFF",
+    backgroundColor: "#F5FCFF"
   },
   welcome: {
     fontSize: 20,
     textAlign: "center",
-    margin: 10,
+    margin: 10
   },
   instructions: {
     textAlign: "center",
     color: "#333333",
-    marginBottom: 5,
-  },
+    marginBottom: 5
+  }
 });

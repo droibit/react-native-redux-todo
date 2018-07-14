@@ -1,27 +1,29 @@
 export default class Result<T, E extends Error | undefined> {
+  public static EMPTY = new Result<undefined, undefined>(false, undefined, undefined);
 
-  static EMPTY = new Result<undefined, undefined>(false);
-
-  static inProgress(): Result<undefined, undefined> {
-    return new Result<undefined, undefined>(true);
+  public static inProgress(): Result<undefined, undefined> {
+    return new Result<undefined, undefined>(true, undefined, undefined);
   }
 
-  static success<T>(data: T): Result<T, undefined> {
-    return new Result(false, data);
+  public static success<T>(data: T): Result<T, undefined> {
+    return new Result(false, data, undefined);
   }
 
-  static error<E extends Error>(e: E): Result<undefined, E> {
+  public static error<E extends Error>(e: E): Result<undefined, E> {
     return new Result(false, undefined, e);
   }
 
   private constructor(
-    public readonly inProgress: boolean = false,
-    public readonly data: T | undefined = undefined,
-    public readonly error: E | undefined = undefined,
-  ) {
-  }
+    public readonly inProgress: boolean,
+    public readonly data: T | undefined,
+    public readonly error: E | undefined,
+  ) {}
 
   public isSuccess(): boolean {
-    return this.inProgress !== false && this.error === undefined && this.data !== undefined;
+    return (
+      this.inProgress !== false &&
+      this.error === undefined &&
+      this.data !== undefined
+    );
   }
 }

@@ -3,15 +3,14 @@ import { Task } from "./task";
 
 // TODO: Suppress tslint error.
 export class TaskList extends Record({
-  src: Map()
+  src: Map<string, Task>()
 } as TaskList.Props) {
-
   // private readonly src: Map<String, Task>;
 
   constructor(values: TaskList.Props) {
     super(values);
   }
-  
+
   public get tasks(): List<Task> {
     const tasks = this.get("src") as Map<string, Task>;
     return List(tasks.values);
@@ -60,8 +59,7 @@ export class TaskList extends Record({
 }
 
 export namespace TaskList {
-
   export type Props = {
-    src: Map<string, Task>
+    src: Map<string, Task>;
   };
 }

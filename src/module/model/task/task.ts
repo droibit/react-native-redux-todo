@@ -5,21 +5,20 @@ export class Task extends Record({
   title: "",
   description: "",
   timestamp: {},
-  completed: false
+  completed: false,
 } as Task.Props) {
+  public readonly id!: string;
 
-  public readonly id: string;
+  public readonly title!: string;
 
-  public readonly title: string;
+  public readonly description!: string;
 
-  public readonly description: string;
+  public readonly timestamp!: Date;
 
-  public readonly timestamp: Date;
-
-  public readonly completed: boolean;
+  public readonly completed!: boolean;
 
   constructor(values: Task.Props) {
-    super(values)
+    super(values);
   }
 
   public with(src: Task.UpdatableProps): Task {
@@ -28,17 +27,17 @@ export class Task extends Record({
 }
 
 export namespace Task {
-
   export type Props = {
-    id: string,
-    title: string,
-    description: string,
-    timestamp: Date,
-    completed: boolean,
+    id: string;
+    title: string;
+    description: string;
+    timestamp: Date;
+    completed: boolean;
   };
+
   export type UpdatableProps = {
-    title?: string,
-    description?: string,
-    completed?: boolean,
+    title?: string;
+    description?: string;
+    completed?: boolean;
   };
 }
