@@ -21,23 +21,24 @@ export class Task extends Record({
     super(values);
   }
 
-  public with(src: Task.UpdatableProps): Task {
+  public get isActive(): boolean {
+    return !this.completed;
+  }
+
+  public with(src: Partial<Task.UpdatableProps>): Task {
     return this.withMutations(s => s.merge(src)) as Task;
   }
 }
 
 namespace Task {
   export type Props = {
-    id: string;
-    title: string;
-    description: string;
-    timestamp: Date;
-    completed: boolean;
-  };
+    id: string,
+    timestamp: Date,
+  } & UpdatableProps;
 
   export type UpdatableProps = {
-    title?: string;
-    description?: string;
-    completed?: boolean;
+    title: string,
+    description: string,
+    completed: boolean,
   };
 }

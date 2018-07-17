@@ -5,7 +5,7 @@ export class TaskList extends Record({
   src: Map<string, Task>()
 } as TaskList.Props) {
 
-  constructor(values: TaskList.Props) {
+  constructor(values: TaskList.Props = { src: Map() }) {
     super(values);
   }
 
@@ -20,6 +20,16 @@ export class TaskList extends Record({
       return src.get(id);
     }
     return null;
+  }
+
+  public addTasks(tasks: Array<Task>): TaskList {
+    return this.withMutations(s => {
+      const newTasks = s.get("src") as Map<string, Task>;
+      for (let task of tasks) {
+        newTasks.set(task.id, task);
+      }
+      s.set("src", newTasks);
+    }) as TaskList;
   }
 
   public addTask(task: Task): TaskList {

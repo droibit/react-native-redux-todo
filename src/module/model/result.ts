@@ -5,7 +5,6 @@ export class Result<T, E extends Error = Error> extends Immutable.Record({
   data: undefined,
   error: undefined,
 }) {
-  public static EMPTY = new Result<undefined>();
 
   public readonly inProgress!: boolean;
 
