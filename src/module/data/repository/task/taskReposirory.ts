@@ -4,9 +4,9 @@ export default interface TaskRepository {
 
   getTasks(): Promise<TaskEntity[]>;
 
-  createTask(title: string, description: string | undefined): Promise<TaskEntity>;
+  createTask(title: string, description?: string): Promise<TaskEntity>;
 
-  updateTask(taskId: string, title: string, description: string | undefined): Promise<boolean>;
+  updateTask(taskId: string, title: string, description?: string): Promise<boolean>;
 
   activeTask(taskId: string): Promise<boolean>;
 

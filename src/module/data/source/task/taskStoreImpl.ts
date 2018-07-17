@@ -24,7 +24,7 @@ export default class TaskStoreImpl implements TaskStore {
     return tasksJson.map(json => new TaskEntity(json));
   }
 
-  public async create(title: string, description: string | undefined): Promise<TaskEntity> {
+  public async create(title: string, description?: string): Promise<TaskEntity> {
     const newTask = new TaskEntity({
       id: this.idProvider.generateId(),
       title,
@@ -38,7 +38,7 @@ export default class TaskStoreImpl implements TaskStore {
     return newTask;
   }
 
-  public async update(id: string, title: string, description: string | undefined): Promise<boolean> {
+  public async update(id: string, title: string, description?: string): Promise<boolean> {
     const tasks: Array<TaskEntity> = await this.getTasks();
     const taskIndex = tasks.findIndex(t => t.id === id);
     if (taskIndex === -1) {

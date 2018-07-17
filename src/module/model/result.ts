@@ -9,9 +9,9 @@ export class Result<T, E extends Error = Error> extends Immutable.Record({
 
   public readonly inProgress!: boolean;
 
-  public readonly data: T | undefined;
+  public readonly data?: T;
 
-  public readonly error: E | undefined;
+  public readonly error?: E;
 
   constructor(values: Result.Props<T, E> = { inProgress: false }) {
     super(values);

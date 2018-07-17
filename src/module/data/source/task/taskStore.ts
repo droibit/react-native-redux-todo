@@ -5,9 +5,9 @@ export interface TaskStore {
 
   getTasks(): Promise<Array<TaskEntity>>;
 
-  create(title: string, description: string | undefined): Promise<TaskEntity>;
+  create(title: string, description?: string): Promise<TaskEntity>;
 
-  update(id: string, title: string, description: string | undefined): Promise<boolean>;
+  update(id: string, title: string, description?: string): Promise<boolean>;
 
   active(id: string): Promise<boolean>;
 

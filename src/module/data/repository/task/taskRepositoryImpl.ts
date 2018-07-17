@@ -13,11 +13,11 @@ export default class TaskRepositoryImpl implements TaskRepository {
     return this.store.getTasks();
   }
 
-  public createTask(title: string, description: string | undefined): Promise<TaskEntity> {
+  public createTask(title: string, description?: string): Promise<TaskEntity> {
     return this.store.create(title, description);
   }
 
-  public updateTask(taskId: string, title: string, description: string | undefined): Promise<boolean> {
+  public updateTask(taskId: string, title: string, description?: string): Promise<boolean> {
     return this.store.update(taskId, title, description);
   }
 

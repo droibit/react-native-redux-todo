@@ -2,7 +2,7 @@ export default class TaskEntity {
 
   public readonly id: string;
   public readonly title: string;
-  public readonly description: string | undefined;
+  public readonly description?: string;
   public readonly timestamp: number;
   public readonly completed: boolean;
 
