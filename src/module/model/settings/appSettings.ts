@@ -1,11 +1,15 @@
 import { Record } from "immutable";
 import { TaskSortSetting } from "./taskSortSetting";
+import { TaskVisibilityFilter } from "./taskVisiblityFilter";
 
 export default class AppSettings extends Record({
   taskSortSetting: {},
+  taskVisibilityFilter: {},
 } as AppSettings.Props) {
 
   public readonly taskSortSetting!: TaskSortSetting;
+
+  public readonly taskVisibilityFilter!: TaskVisibilityFilter;
 
   constructor(values: AppSettings.Props) {
     super(values);
@@ -19,6 +23,7 @@ export default class AppSettings extends Record({
 export namespace AppSettings {
 
   export type Props = {
-    taskSortSetting: TaskSortSetting
+    taskSortSetting: TaskSortSetting,
+    taskVisibilityFilter: TaskVisibilityFilter,
   };
 }
