@@ -11,7 +11,7 @@ import {
   SETTINGS_UPDATE_TASK_VISIBILITY_FILTER
 } from "../action";
 
-type FSAction = FSA<TaskSortSetting | TaskVisibilityFilter>;
+type FSAction = FSA<TaskSortSetting> | FSA<TaskVisibilityFilter>;
 
 const initialState = new AppSettings({
   taskSortSetting: new TaskSortSetting({
@@ -24,9 +24,13 @@ const initialState = new AppSettings({
 export function appSettingsReducer(state: AppSettings = initialState, action: FSAction): AppSettings {
   switch (action.type) {
     case SETTINGS_UPDATE_TASK_SORTING:
-      return state.with({ taskSortSetting: action.payload as TaskSortSetting });
+      return state.with({
+        taskSortSetting: action.payload as TaskSortSetting
+      });
     case SETTINGS_UPDATE_TASK_VISIBILITY_FILTER:
-      return state.with({ taskVisibilityFilter: action.payload as TaskVisibilityFilter });
+      return state.with({
+        taskVisibilityFilter: action.payload as TaskVisibilityFilter
+      });
     default:
       return state;
   }
