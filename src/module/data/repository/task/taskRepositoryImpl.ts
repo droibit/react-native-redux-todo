@@ -9,7 +9,7 @@ export default class TaskRepositoryImpl implements TaskRepository {
     
   }
 
-  public getTasks(): Promise<TaskEntity[]> {
+  public getTasks(): Promise<Array<TaskEntity>> {
     return this.store.getTasks();
   }
 

@@ -9,9 +9,9 @@ const { KEY_TASKS } = Config.Storage;
 export default class TaskStoreImpl implements TaskStore {
 
   constructor(
-    private storage: AsyncStorage,
-    private idProvider: TaskStore.IdProvider,
-    private timeProvider: TimeProvider,
+    private readonly storage: AsyncStorage,
+    private readonly idProvider: TaskStore.IdProvider,
+    private readonly timeProvider: TimeProvider,
   ) {
   }
 
@@ -49,7 +49,7 @@ export default class TaskStoreImpl implements TaskStore {
     return true;
   }
 
-   async active(id: string): Promise<boolean> {
+  async active(id: string): Promise<boolean> {
     const tasks: Array<TaskEntity> = await this.getTasks();
     const taskIndex = tasks.findIndex(t => t.id === id);
     if (taskIndex === -1) {

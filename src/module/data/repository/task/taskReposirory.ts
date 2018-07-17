@@ -2,7 +2,7 @@ import TaskEntity from "../../source/task/taskEntity";
 
 export default interface TaskRepository {
 
-  getTasks(): Promise<TaskEntity[]>;
+  getTasks(): Promise<Array<TaskEntity>>;
 
   createTask(title: string, description?: string): Promise<TaskEntity>;
 
