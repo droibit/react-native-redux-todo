@@ -7,12 +7,13 @@ import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import * as Immutable from "immutable";
-import { Task, TaskList } from "./module/model/task";
+import { Task, TaskList, TaskState } from "./module/model/task";
 import {
   AppSettings,
   TaskSortSetting,
   TaskSortBy,
-  TaskSortByOrder
+  TaskSortByOrder,
+  TaskVisibilityFilter,
 } from "./module/model/settings";
 import { Result } from "./module/model/result";
 import { TaskEntity } from "./module/data/source/task";
@@ -93,6 +94,23 @@ export default class App extends Component<Props> {
         completed: true
       })
     );
+
+    let ts = new TaskState();
+    console.log(`TaskState: ${JSON.stringify(ts)}`);
+    ts = ts.withTasks(tl);
+    console.log(`TaskState(tasks): ${JSON.stringify(ts)}`);
+    ts = ts.withCreateResult(new Result({
+      inProgress: false,
+      data: new Task({
+        id: "oh, yes!!",
+        title: "huga",
+        description: "",
+        timestamp: new Date(),
+        completed: true
+      }),
+    }));
+    console.log(`TaskState(createResult): ${JSON.stringify(ts)}`);
+
     // console.log(`update: ${
     //   tl.updateTask(t.with({title: "yeah!!!!!!!!!", completed: false}))
     //   }`);
@@ -102,19 +120,20 @@ export default class App extends Component<Props> {
     // console.log(`getById2: ${tl.getTaskById("yes")}`);
     // console.log(`delete: ${tl.deleteTask("hoge")}`);
 
-    let as1 = new AppSettings({
-      taskSortSetting: new TaskSortSetting({
-        taskSortBy: TaskSortBy.TITLE,
-        taskSortByOrder: TaskSortByOrder.ASC
-      })
-    });
-    console.log(`${as1}`);
-    as1 = as1.with({
-      taskSortSetting: as1.taskSortSetting.with({
-        taskSortBy: TaskSortBy.TIMESTAMP
-      })
-    });
-    console.log(`${as1}`);
+    // let as1 = new AppSettings({
+    //   taskSortSetting: new TaskSortSetting({
+    //     taskSortBy: TaskSortBy.TITLE,
+    //     taskSortByOrder: TaskSortByOrder.ASC
+    //   }),
+    //   taskVisibilityFilter: TaskVisibilityFilter.ALL,
+    // });
+    // console.log(`${as1}`);
+    // as1 = as1.with({
+    //   taskSortSetting: as1.taskSortSetting.with({
+    //     taskSortBy: TaskSortBy.TIMESTAMP
+    //   })
+    // });
+    // console.log(`${as1}`);
 
     return (
       <View style={styles.container}>
