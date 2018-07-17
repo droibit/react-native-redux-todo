@@ -2,7 +2,6 @@ import { FSA } from "flux-standard-action";
 import { Action, ActionCreator, Store } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
-export type FSActionCreator<P = undefined> = ActionCreator<FSA<P>>;
 export type ThunkActionCreator<
   S = any,
   A extends Action = Action
