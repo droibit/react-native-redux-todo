@@ -14,14 +14,8 @@ export default class TaskEntity {
     this.completed = values.completed;
   }
 
-  public copyWith(src: TaskEntity.PartialProps): TaskEntity {
-    return new TaskEntity({
-      id: (src.id || this.id),
-      title: (src.title || this.title),
-      description: (src.description || this.description),
-      timestamp: (src.timestamp || this.timestamp),
-      completed: (src.completed || this.completed),
-    });
+  public copyWith(src: Partial<TaskEntity.Props>): TaskEntity {
+    return Object.assign({}, this, src) as TaskEntity;
   }
 }
 
@@ -33,5 +27,4 @@ namespace TaskEntity {
     timestamp: number,
     completed: boolean,
   };
-  export type PartialProps = Partial<Props>;
 }

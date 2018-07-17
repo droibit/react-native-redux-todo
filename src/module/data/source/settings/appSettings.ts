@@ -6,10 +6,8 @@ export class AppSettings {
     this.taskSortSetting = values.taskSortSetting;
   }
 
-  public copyWith(src: AppSettings.PartialProps): AppSettings {
-    return new AppSettings({
-      taskSortSetting: (src.taskSortSetting || this.taskSortSetting),
-    })
+  public copyWith(src: Partial<AppSettings.Props>): AppSettings {
+    return Object.assign({}, this, src);
   }
 }
 
@@ -17,8 +15,6 @@ export namespace AppSettings {
   export type Props = {
     taskSortSetting: AppSettings.TaskSortSetting,
   };
-
-  export type PartialProps = Partial<Props>;
 
   export type TaskSortSetting = {
     sortBy: SortBy,

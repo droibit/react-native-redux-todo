@@ -15,6 +15,7 @@ import {
   TaskSortByOrder
 } from "./module/model/settings";
 import { Result } from "./module/model/result";
+import { TaskEntity } from "./module/data/source/task";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -48,6 +49,21 @@ export default class App extends Component<Props> {
     //   let e = Date.now();
     //   console.log(`withMutation: ${t}, elapsed=${e - s}ms(e=${e}, s=${s})`);
     // }
+
+    let te = new TaskEntity({
+      id: "yes!!",
+      title: "huga",
+      description: "",
+      timestamp: new Date().getUTCMilliseconds(),
+      completed: true
+    });
+    console.log(`TaskEntity.src=${JSON.stringify(te)}`);
+    te = Object.assign(te, { completed: false }) as TaskEntity;
+    console.log(`TaskEntity.assigned1=$${JSON.stringify(te)}`);
+    te = Object.assign(te, { title: "hoge" }) as TaskEntity;
+    console.log(`TaskEntity.assigned2=$${JSON.stringify(te)}`);
+    te = te.copyWith({ id: "no!!" });
+    console.log(`TaskEntity.assigned3=$${JSON.stringify(te)}`);
 
     let r = new Result<Task>();
     console.log(`Result.empty: ${JSON.stringify(r)}, isSuccess: ${r.isSuccess}, isError: ${r.isError}`);
