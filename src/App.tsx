@@ -14,6 +14,7 @@ import {
   TaskSortBy,
   TaskSortByOrder
 } from "./module/model/settings";
+import { Result } from "./module/model/result";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -47,6 +48,22 @@ export default class App extends Component<Props> {
     //   let e = Date.now();
     //   console.log(`withMutation: ${t}, elapsed=${e - s}ms(e=${e}, s=${s})`);
     // }
+
+    let r = new Result<Task>();
+    console.log(`Result.empty: ${JSON.stringify(r)}, isSuccess: ${r.isSuccess}, isError: ${r.isError}`);
+    r = r.asInProgress();
+    console.log(`Result.inProgress: ${JSON.stringify(r)}, isSuccess: ${r.isSuccess}, isError: ${r.isError}`);
+    r = r.asSuccess(new Task({
+      id: "yes!!",
+      title: "huga",
+      description: "",
+      timestamp: new Date(),
+      completed: true
+    }));
+    // r.data!.id;
+    console.log(`Result.success: ${JSON.stringify(r)}, isSuccess: ${r.isSuccess}, isError: ${r.isError}`);
+    r = r.asError(new Error("error!"));
+    console.log(`Result.error: ${JSON.stringify(r)}, isSuccess: ${r.isSuccess}, isError: ${r.isError}`);
 
     let tl = new TaskList({
       src: Immutable.Map([[t.id, t]])
