@@ -11,7 +11,7 @@ export default class AppSettings extends Record({
     super(values);
   }
 
-  public with(src: AppSettings.PartialProps): AppSettings {
+  public with(src: Partial<AppSettings.Props>): AppSettings {
     return this.withMutations(s => s.merge(src)) as AppSettings;
   }
 }
@@ -21,5 +21,4 @@ export namespace AppSettings {
   export type Props = {
     taskSortSetting: TaskSortSetting
   };
-  export type PartialProps = Partial<Props>;
 }

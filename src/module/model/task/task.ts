@@ -26,7 +26,7 @@ export class Task extends Record({
   }
 }
 
-export namespace Task {
+namespace Task {
   export type Props = {
     id: string;
     title: string;

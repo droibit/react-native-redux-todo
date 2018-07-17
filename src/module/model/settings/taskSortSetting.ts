@@ -21,7 +21,7 @@ export class TaskSortSetting extends Record({
     super(values);
   }
 
-  public with(src: TaskSortSetting.PartialProps): TaskSortSetting {
+  public with(src: Partial<TaskSortSetting.Props>): TaskSortSetting {
     return this.withMutations(s => s.merge(src)) as TaskSortSetting;
   }
 }
@@ -32,6 +32,4 @@ export namespace TaskSortSetting {
     taskSortBy: TaskSortBy,
     taskSortByOrder: TaskSortByOrder
   };
-
-  export type PartialProps = Partial<Props>;
 }
