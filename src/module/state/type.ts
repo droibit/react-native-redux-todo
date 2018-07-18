@@ -10,3 +10,4 @@ export type TaskStateProps = {
 };
 
 export type RootStateProps = AppSettingsStateProps & TaskStateProps;
+export type RootStateKeys = keyof RootStateProps;

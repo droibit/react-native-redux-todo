@@ -15,7 +15,10 @@ import { AsyncStorage } from "react-native";
 import * as Config from "../../config/config";
 import { taskReducer } from "./task/reducer";
 import { appSettingsReducer } from "./settings/reducer";
-import { RootStateProps } from "./type";
+import {
+  RootStateProps,
+  RootStateKeys,
+} from "./type";
 
 const reducers = {
   task: taskReducer,
@@ -28,8 +31,7 @@ const persistConfig: PersistConfig = {
   key: KEY_SETTINGS,
   storage: AsyncStorage,
   version: PERSIST_VERSION,
-  // TODO: Add assetion.
-  whitelist: ["appSettings"],
+  whitelist: ["appSettings"] as RootStateKeys[],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
