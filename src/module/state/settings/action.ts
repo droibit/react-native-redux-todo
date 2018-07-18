@@ -15,7 +15,7 @@ export const updateTaskSortSetting = (taskSortBy: TaskSortBy, taskSortByOrder: T
     type: SETTINGS_UPDATE_TASK_SORTING,
     payload: new TaskSortSetting({ taskSortBy, taskSortByOrder }),
   };
-}
+};
 
 export const updateTaskVisibilityFilter = (taskVisibilityFilter: TaskVisibilityFilter): FSA<TaskVisibilityFilter> => {
   return {
