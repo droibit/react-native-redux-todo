@@ -6,10 +6,9 @@ export default class TaskRepositoryImpl implements TaskRepository {
   constructor(
     private readonly store: TaskStore,
   ) {
-    
   }
 
-  public getTasks(): Promise<Array<TaskEntity>> {
+  public getTasks(): Promise<ReadonlyArray<TaskEntity>> {
     return this.store.getTasks();
   }
 
@@ -17,23 +16,23 @@ export default class TaskRepositoryImpl implements TaskRepository {
     return this.store.create(title, description);
   }
 
-  public updateTask(taskId: string, title: string, description?: string): Promise<boolean> {
+  public updateTask(taskId: string, title: string, description?: string): Promise<TaskEntity> {
     return this.store.update(taskId, title, description);
   }
 
-  public activeTask(taskId: string): Promise<boolean> {
+  public activeTask(taskId: string): Promise<TaskEntity> {
     return this.store.active(taskId);
   }
 
-  public completeTask(taskId: string): Promise<boolean> {
+  public completeTask(taskId: string): Promise<TaskEntity> {
     return this.store.complete(taskId);
   }
 
-  public deleteTask(taskId: string): Promise<boolean> {
+  public deleteTask(taskId: string): Promise<void> {
     return this.store.delete(taskId);
   }
 
-  public deleteAllTasks(): Promise<boolean> {
+  public deleteAllTasks(): Promise<void> {
     return this.store.deleteAll();
   }
 }

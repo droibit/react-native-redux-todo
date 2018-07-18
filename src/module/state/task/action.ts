@@ -11,7 +11,7 @@ import { taskRepository } from "../../data/repository";
 import { TaskEntity } from "../../data/source/task";
 
 export const getTasks = () => {
-  return async (dispatch: Dispatch<FSA<Array<TaskEntity>>>) => {
+  return async (dispatch: Dispatch<FSA<ReadonlyArray<TaskEntity>>>) => {
     // dispatch({ type: TASK_GET_REQUEST });
     const taskEntities = await taskRepository.getTasks();
     dispatch({

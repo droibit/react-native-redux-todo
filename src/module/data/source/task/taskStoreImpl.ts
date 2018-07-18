@@ -38,52 +38,53 @@ export default class TaskStoreImpl implements TaskStore {
     return newTask;
   }
 
-  public async update(id: string, title: string, description?: string): Promise<boolean> {
+  public async update(id: string, title: string, description?: string): Promise<TaskEntity> {
     const tasks: Array<TaskEntity> = await this.getTasks();
     const taskIndex = tasks.findIndex(t => t.id === id);
     if (taskIndex === -1) {
-      return false;
+      throw new Error(`Unknown task id: ${id}.`);
     }
-    tasks[taskIndex] = tasks[taskIndex].copyWith({ title, description });
+    const updatedTask = tasks[taskIndex].copyWith({ title, description });
+    tasks[taskIndex] = updatedTask;
     await this.storage.setItem(KEY_TASKS, JSON.stringify(tasks));
-    return true;
+    return updatedTask;
   }
 
-  async active(id: string): Promise<boolean> {
+  async active(id: string): Promise<TaskEntity> {
     const tasks: Array<TaskEntity> = await this.getTasks();
     const taskIndex = tasks.findIndex(t => t.id === id);
     if (taskIndex === -1) {
-      return false;
+      throw new Error(`Unknown task id: ${id}.`);
     }
-    tasks[taskIndex] = tasks[taskIndex].copyWith({ completed: false });
+    const updatedTask = tasks[taskIndex].copyWith({ completed: false });
+    tasks[taskIndex] = updatedTask;
     await this.storage.setItem(KEY_TASKS, JSON.stringify(tasks));
-    return true;
+    return updatedTask;
   }
 
-  public async complete(id: string): Promise<boolean> {
+  public async complete(id: string): Promise<TaskEntity> {
     const tasks: Array<TaskEntity> = await this.getTasks();
     const taskIndex = tasks.findIndex(t => t.id === id);
     if (taskIndex === -1) {
-      return false;
+      throw new Error(`Unknown task id: ${id}.`);
     }
-    tasks[taskIndex] = tasks[taskIndex].copyWith({ completed: true });
+    const updatedTask = tasks[taskIndex].copyWith({ completed: true });
+    tasks[taskIndex] = updatedTask;
     await this.storage.setItem(KEY_TASKS, JSON.stringify(tasks));
-    return true;
+    return updatedTask;
   }
 
-  public async delete(id: string): Promise<boolean> {
+  public async delete(id: string): Promise<void> {
     const tasks: Array<TaskEntity> = await this.getTasks();
     const taskIndex = tasks.findIndex(t => t.id === id);
     if (taskIndex === -1) {
-      return true;
+      return;
     }
     tasks.splice(taskIndex, 1);
     await this.storage.setItem(KEY_TASKS, JSON.stringify(tasks));
-    return true;
   }
 
-  public async deleteAll(): Promise<boolean> {
+  public async deleteAll(): Promise<void> {
     await this.storage.removeItem(KEY_TASKS);
-    return true;
   }
 }

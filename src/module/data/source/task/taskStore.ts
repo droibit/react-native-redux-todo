@@ -3,19 +3,19 @@ import uuid from "uuid/v4";
 
 export interface TaskStore {
 
-  getTasks(): Promise<Array<TaskEntity>>;
+  getTasks(): Promise<ReadonlyArray<TaskEntity>>;
 
   create(title: string, description?: string): Promise<TaskEntity>;
 
-  update(id: string, title: string, description?: string): Promise<boolean>;
+  update(id: string, title: string, description?: string): Promise<TaskEntity>;
 
-  active(id: string): Promise<boolean>;
+  active(id: string): Promise<TaskEntity>;
 
-  complete(id: string): Promise<boolean>;
+  complete(id: string): Promise<TaskEntity>;
 
-  delete(id: string): Promise<boolean>;
+  delete(id: string): Promise<void>;
 
-  deleteAll(): Promise<boolean>;
+  deleteAll(): Promise<void>;
 }
 
 export namespace TaskStore {
