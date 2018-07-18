@@ -17,6 +17,7 @@ import {
 } from "./module/model/settings";
 import { Result } from "./module/model/result";
 import { TaskEntity } from "./module/data/source/task";
+import { store, configurePersistStore } from "./module/state";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -27,6 +28,17 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+
+  constructor(props: Props) {
+    super(props);
+
+    configurePersistStore(store, this.onPersitBootstrapped.bind(this));
+  }
+
+  public onPersitBootstrapped() {
+    console.log("Bootstrapped.");
+  }
+
   public render() {
     let t: Task = new Task({
       id: "hoge",
@@ -109,7 +121,7 @@ export default class App extends Component<Props> {
         completed: true
       }),
     }));
-    console.log(`TaskState(createResult): ${JSON.stringify(ts)}`);
+    console.log(`TaskState(createResult): ${JSON.stringify(ts)}`);    
 
     // console.log(`update: ${
     //   tl.updateTask(t.with({title: "yeah!!!!!!!!!", completed: false}))

@@ -3,12 +3,14 @@ import {
   applyMiddleware,
   combineReducers,
   Store,
+  Action,
 } from "redux";
 import {
   persistReducer,
   persistStore,
   PersistConfig,
   Persistor,
+  BoostrappedCallback,
 } from "redux-persist";
 import thunk from "redux-thunk";
 import { AsyncStorage } from "react-native";
@@ -31,12 +33,16 @@ const persistConfig: PersistConfig = {
   key: KEY_SETTINGS,
   storage: AsyncStorage,
   version: PERSIST_VERSION,
-  whitelist: ["appSettings"] as RootStateKeys[],
+  whitelist: ["appSettings"] as Array<RootStateKeys>,
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const store: Store<RootStateProps> = createStore(
+export const store: Store<RootStateProps, Action> = createStore(
   persistedReducer,
   applyMiddleware(thunk),
 );
-export const persistor: Persistor = persistStore(store);
+
+export function configurePersistStore(store: Store, bootstrappedCallback: BoostrappedCallback): Persistor {
+  console.log("Start Boot.")
+  return persistStore(store, {}, bootstrappedCallback);
+}

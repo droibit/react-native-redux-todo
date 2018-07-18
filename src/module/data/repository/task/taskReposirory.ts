@@ -2,17 +2,17 @@ import TaskEntity from "../../source/task/taskEntity";
 
 export default interface TaskRepository {
 
-  getTasks(): Promise<Array<TaskEntity>>;
+  getTasks(): Promise<ReadonlyArray<TaskEntity>>;
 
   createTask(title: string, description?: string): Promise<TaskEntity>;
 
-  updateTask(taskId: string, title: string, description?: string): Promise<boolean>;
+  updateTask(taskId: string, title: string, description?: string): Promise<TaskEntity>;
 
-  activeTask(taskId: string): Promise<boolean>;
+  activeTask(taskId: string): Promise<TaskEntity>;
 
-  completeTask(taskId: string): Promise<boolean>;
+  completeTask(taskId: string): Promise<TaskEntity>;
 
-  deleteTask(taskId: string): Promise<boolean>;
+  deleteTask(taskId: string): Promise<void>;
 
-  deleteAllTasks(): Promise<boolean>;
+  deleteAllTasks(): Promise<void>;
 }
