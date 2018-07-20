@@ -1,55 +1,77 @@
 import React, {
   Component
 } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
+import {
+  Container,
+  Content,
+  Spinner,
+} from 'native-base';
 import { connect } from "react-redux";
 import { NavigationScreenOptions } from "react-navigation";
-import { Dispatch, Action } from "redux";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import { Action } from "redux";
+import { List } from "immutable";
+import Loading from "./loading";
+import EmptyView from "./emptyView";
+import {
+  TaskStateProps,
+  AppSettingsStateProps,
+} from "../../../module/state/type";
+import { filteredAndSortedTasks } from "../../../module/state/task/selector";
+import { Task } from "../../../module/model/task";
+import * as Actions from "../../../module/state/task/action";
+import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
 
 type Props = {
+  tasks: List<Task>,
+  getTasks(): void,
 };
-class TaskListScreen extends Component<Props> {
-  
+type State = {
+  loading: boolean;
+};
+class TaskListScreen extends Component<Props, State> {
+
   static navigationOptions: NavigationScreenOptions = {
     title: "TO-DO",
   };
 
   constructor(props: Props) {
     super(props);
+    this.state = { loading: true, };
+  }
+
+  public componentDidMount() {
+    console.log("TaskListScreen.componentDidMount()");
+    this.props.getTasks();
+  }
+
+  public componentWillReceiveProps(nextProps: Readonly<Props>) {
+    console.log("TaskListScreen.componentWillReceiveProps()");
+    this.setState({ loading: false });
   }
 
   public render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>TASKS!</Text>
-        <Icon name="done" size={30} color="#900" />
-      </View>
-    );
+    console.log(`TaskListScreen.state=${JSON.stringify(this.state)}`);
+    const { loading } = this.state;
+
+    if (loading) {
+      return <Loading label="Loading..." />
+    }
+    return <EmptyView />
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F5FCFF"
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  }
-});
-
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: TaskStateProps & AppSettingsStateProps) => {
   return {
+    tasks: filteredAndSortedTasks(state)
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
+const mapDispatchToProps = (dispatch: ReduxThunkDispatch<Action>) => {
   return {
+    getTasks: () => {
+      dispatch(Actions.getTasks());
+    },
   };
 };
 

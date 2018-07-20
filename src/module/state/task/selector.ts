@@ -1,14 +1,12 @@
 import { List } from "immutable";
 import {
   createSelector,
-  Selector,
 } from "reselect";
 import {
   Task,
   TaskList,
 } from "../../model/task";
 import {
-  AppSettings,
   TaskSortSetting,
   TaskSortBy,
   TaskSortByOrder,

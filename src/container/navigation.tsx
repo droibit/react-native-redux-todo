@@ -41,7 +41,7 @@ const MainTab = createBottomTabNavigator({
       tabBarIcon: ({ tintColor }) => {
         const { routeName } = navigation.state;
         const iconName = mainTabIcons[routeName].icon;
-        console.log(`Selected Tab: ${routeName}, icon:${iconName}`);
+        // console.log(`Selected Tab: ${routeName}, icon:${iconName}`);
         return <Icon
           name={iconName}
           size={24}
