@@ -9,10 +9,9 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 type Props = {
 };
-class TaskListScreen extends Component<Props> {
-  
+class StatisticsScreen extends Component<Props> {
   static navigationOptions: NavigationScreenOptions = {
-    title: "TO-DO",
+    title: "Statistics",
   };
 
   constructor(props: Props) {
@@ -22,7 +21,7 @@ class TaskListScreen extends Component<Props> {
   public render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>TASKS!</Text>
+        <Text style={styles.welcome}>Statistics!</Text>
         <Icon name="done" size={30} color="#900" />
       </View>
     );
@@ -48,12 +47,6 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => {
-  return {
-  };
-};
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(TaskListScreen);
+)(StatisticsScreen);

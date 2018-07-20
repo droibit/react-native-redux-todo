@@ -13,10 +13,6 @@ import { AppNavigator } from "./navigation";
 type Props = {};
 export default class App extends Component<Props> {
 
-  constructor(props: Props) {
-    super(props);
-  }
-
   public render() {
     return (
       <Provider store={store}>
