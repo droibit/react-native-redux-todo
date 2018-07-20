@@ -136,7 +136,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-navigation')
     compile project(':react-native-i18n')
     compile project(':react-native-config')
     compile project(':react-native-vector-icons')
