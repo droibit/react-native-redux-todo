@@ -15,27 +15,6 @@ type Props = {
   color?: string;
   label: string;
 }
-export default class Loading extends Component<Props> {
-
-  constructor(props: Props) {
-    super(props);
-  }
-
-  public render() {
-    const { color, label } = this.props;
-    return (
-      <Container>
-        <Content contentContainerStyle={styles.container}>
-          <Spinner
-            color={color}
-            size="large"
-          />
-          <Text style={styles.label}>{label}</Text>
-        </Content>
-      </Container>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -45,5 +24,22 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-  }
+  },
 });
+
+const Loading: React.SFC<Props> = (props: Props) => {
+  const { color, label } = props;
+  return (
+    <Container>
+      <Content contentContainerStyle={styles.container}>
+        <Spinner
+          color={color}
+          size="large"
+        />
+        <Text style={styles.label}>{label}</Text>
+      </Content>
+    </Container>
+  );
+};
+
+export default Loading;

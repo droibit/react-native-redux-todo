@@ -11,22 +11,9 @@ import {
 } from 'native-base';
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-export default class EmptyView extends Component {
-
-  public render() {
-    return (
-      <Container>
-        <Content contentContainerStyle={styles.container}>
-          <Icon
-            name="done"
-            size={52}
-          />
-          <Text style={styles.label}>No TO-DOs.</Text>
-        </Content>
-      </Container>
-    );      
-  }
-}
+type Props = {
+  text: string,
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -39,3 +26,19 @@ const styles = StyleSheet.create({
     paddingTop: 12
   }
 });
+
+const EmptyView: React.SFC<Props> = (props: Props) => {
+  const { text } = props;
+  return (
+    <Container>
+      <Content contentContainerStyle={styles.container}>
+        <Icon
+          name="done"
+          size={52}
+        />
+        <Text style={styles.label}>{text}</Text>
+      </Content>
+    </Container>
+  ); 
+};
+export default EmptyView;
