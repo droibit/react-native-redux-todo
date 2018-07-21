@@ -1,6 +1,6 @@
 import { AsyncStorage } from "react-native";
 import TaskEntity from "./taskEntity";
-import { TaskStore } from "./taskStore";
+import { TaskStore, TaskNotFoundError } from "./taskStore";
 import * as Config from "../../../../config/config";
 import TimeProvider from "../time/timeProvider";
 
@@ -42,7 +42,7 @@ export default class TaskStoreImpl implements TaskStore {
     const tasks: Array<TaskEntity> = await this.getTasks();
     const taskIndex = tasks.findIndex(t => t.id === id);
     if (taskIndex === -1) {
-      throw new Error(`Unknown task id: ${id}.`);
+      throw new TaskNotFoundError(id);
     }
     const updatedTask = tasks[taskIndex].copyWith({ title, description });
     tasks[taskIndex] = updatedTask;
@@ -54,7 +54,7 @@ export default class TaskStoreImpl implements TaskStore {
     const tasks: Array<TaskEntity> = await this.getTasks();
     const taskIndex = tasks.findIndex(t => t.id === id);
     if (taskIndex === -1) {
-      throw new Error(`Unknown task id: ${id}.`);
+      throw new TaskNotFoundError(id);
     }
     const updatedTask = tasks[taskIndex].copyWith({ completed: false });
     tasks[taskIndex] = updatedTask;
@@ -66,7 +66,7 @@ export default class TaskStoreImpl implements TaskStore {
     const tasks: Array<TaskEntity> = await this.getTasks();
     const taskIndex = tasks.findIndex(t => t.id === id);
     if (taskIndex === -1) {
-      throw new Error(`Unknown task id: ${id}.`);
+      throw new TaskNotFoundError(id);
     }
     const updatedTask = tasks[taskIndex].copyWith({ completed: true });
     tasks[taskIndex] = updatedTask;

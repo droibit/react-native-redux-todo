@@ -18,6 +18,13 @@ export interface TaskStore {
   deleteAll(): Promise<void>;
 }
 
+export class TaskNotFoundError extends Error {
+
+  constructor(public readonly taskId: string) {
+    super(`Unknown task id: ${taskId}`);
+  }
+}
+
 export namespace TaskStore {
 
   export class IdProvider {
