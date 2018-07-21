@@ -2,6 +2,16 @@ import { Task, TaskList } from ".";
 import { Result } from "../result";
 import * as Immutable from "immutable";
 
+type Props = {
+  tasks: TaskList;
+  createResult: Result<Task>;
+  editResult: Result<Task>;
+  activeResult: Result<Task>;
+  completeResult: Result<Task>;
+  clearCompletedResult: Result<any>;
+  deleteResult: Result<string>;
+};
+
 // TODO: Unit test.
 export class TaskState extends Immutable.Record({
   tasks: new TaskList(),
@@ -11,7 +21,7 @@ export class TaskState extends Immutable.Record({
   completeResult: {},
   clearCompletedResult: {},
   deleteResult: {},
-} as TaskState.Props) {
+} as Props) {
 
   public readonly tasks!: TaskList;
   public readonly createResult!: Result<Task>;
@@ -80,16 +90,4 @@ export class TaskState extends Immutable.Record({
     }
     return s;
   }
-}
-
-namespace TaskState {
-  export type Props = {
-    tasks: TaskList,
-    createResult: Result<Task>,
-    editResult: Result<Task>,
-    activeResult: Result<Task>,
-    completeResult: Result<Task>,
-    clearCompletedResult: Result<any>,
-    deleteResult: Result<string>,
-  };
 }

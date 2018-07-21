@@ -1,12 +1,23 @@
 import { Record } from "immutable";
 
+type Props = {
+  id: string;
+  timestamp: Date;
+} & UpdatableProps;
+
+type UpdatableProps = {
+  title: string;
+  description: string;
+  completed: boolean;
+};
+
 export class Task extends Record({
   id: "",
   title: "",
   description: "",
   timestamp: {},
   completed: false,
-} as Task.Props) {
+} as Props) {
   public readonly id!: string;
 
   public readonly title!: string;
@@ -17,7 +28,7 @@ export class Task extends Record({
 
   public readonly completed!: boolean;
 
-  constructor(values: Task.Props) {
+  constructor(values: Props) {
     super(values);
   }
 
@@ -25,20 +36,7 @@ export class Task extends Record({
     return !this.completed;
   }
 
-  public with(src: Partial<Task.UpdatableProps>): Task {
+  public with(src: Partial<UpdatableProps>): Task {
     return this.withMutations(s => s.merge(src)) as Task;
   }
-}
-
-namespace Task {
-  export type Props = {
-    id: string,
-    timestamp: Date,
-  } & UpdatableProps;
-
-  export type UpdatableProps = {
-    title: string,
-    description: string,
-    completed: boolean,
-  };
 }

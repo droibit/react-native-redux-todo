@@ -1,3 +1,11 @@
+export type Props = {
+  id: string;
+  title: string;
+  description?: string;
+  timestamp: number;
+  completed: boolean;
+};
+
 export default class TaskEntity {
 
   public readonly id: string;
@@ -6,7 +14,7 @@ export default class TaskEntity {
   public readonly timestamp: number;
   public readonly completed: boolean;
 
-  constructor(values: TaskEntity.Props) {
+  constructor(values: Props) {
     this.id = values.id;
     this.title = values.title;
     this.description = values.description;
@@ -14,17 +22,7 @@ export default class TaskEntity {
     this.completed = values.completed;
   }
 
-  public copyWith(src: Partial<TaskEntity.Props>): TaskEntity {
+  public copyWith(src: Partial<Props>): TaskEntity {
     return Object.assign({}, this, src) as TaskEntity;
   }
-}
-
-namespace TaskEntity {
-  export type Props = {
-    id: string,
-    title: string,
-    description?: string,
-    timestamp: number,
-    completed: boolean,
-  };
 }

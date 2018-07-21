@@ -1,11 +1,15 @@
 import { Map, Record, List } from "immutable";
 import { Task } from "./task";
 
+type Props = {
+  src: Map<string, Task>;
+};
+
 export class TaskList extends Record({
   src: Map<string, Task>()
-} as TaskList.Props) {
+} as Props) {
 
-  constructor(values: TaskList.Props = { src: Map() }) {
+  constructor(values: Props = { src: Map() }) {
     super(values);
   }
 
@@ -64,10 +68,4 @@ export class TaskList extends Record({
       s.set("src", newTasks);
     }) as TaskList;
   }
-}
-
-namespace TaskList {
-  export type Props = {
-    src: Map<string, Task>;
-  };
 }

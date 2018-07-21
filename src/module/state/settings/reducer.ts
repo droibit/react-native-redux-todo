@@ -34,5 +34,4 @@ export function appSettingsReducer(state: AppSettings = initialState, action: FS
     default:
       return state;
   }
-  return state;
 }

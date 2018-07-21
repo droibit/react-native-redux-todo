@@ -1,5 +1,11 @@
 import * as Immutable from "immutable";
 
+type Props<T, E extends Error = Error> = {
+  inProgress: boolean;
+  data?: T;
+  error?: E;
+};
+
 export class Result<T, E extends Error = Error> extends Immutable.Record({
   inProgress: false,
   data: undefined,
@@ -12,7 +18,7 @@ export class Result<T, E extends Error = Error> extends Immutable.Record({
 
   public readonly error?: E;
 
-  constructor(values: Result.Props<T, E> = { inProgress: false }) {
+  constructor(values: Props<T, E> = { inProgress: false }) {
     super(values);
   }
 
@@ -47,12 +53,4 @@ export class Result<T, E extends Error = Error> extends Immutable.Record({
         .set("error", e);
     }) as Result<T, E>;
   }
-}
-
-namespace Result {
-  export type Props<T, E extends Error = Error> = {
-    inProgress: boolean;
-    data?: T;
-    error?: E;
-  };
 }
