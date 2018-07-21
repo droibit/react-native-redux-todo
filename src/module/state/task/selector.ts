@@ -17,33 +17,35 @@ import {
   AppSettingsStateProps,
 } from "../type";
 
-export const filteredAndSortedTasks = createSelector<TaskStateProps & AppSettingsStateProps, TaskList, TaskSortSetting, TaskVisibilityFilter, List<Task>>(
+export const filteredAndSortedTasks = createSelector<TaskStateProps & AppSettingsStateProps, TaskList, TaskSortSetting, TaskVisibilityFilter, Array<Task>>(
   (state) => state.task.tasks,
   (state) => state.appSettings.taskSortSetting,
   (state) => state.appSettings.taskVisibilityFilter,
-  (tasks, sortSettings, visibilityFilter) => {
-    return tasks.tasks.filter((t) => {
+  (srcTasks, sortSetting, visibilityFilter) => {
+    const destTasks = srcTasks.tasks.filter((t) => {
       switch (visibilityFilter) {
         case TaskVisibilityFilter.ALL:
-          return true;
+        return true;
         case TaskVisibilityFilter.ACTIVE:
-          return t!.isActive;
+        return t!.isActive;
         case TaskVisibilityFilter.COMPLETED:
-          return t!.completed;
+        return t!.completed;
       }
     }).sort((lhs, rhs) => {
-      switch (sortSettings.taskSortBy) {
+      switch (sortSetting.taskSortBy) {
         case TaskSortBy.TITLE:
-          return (sortSettings.taskSortByOrder == TaskSortByOrder.ASC) ?
-            lhs.title.localeCompare(rhs.title) :
-            rhs.title.localeCompare(lhs.title);
+        return (sortSetting.taskSortByOrder == TaskSortByOrder.ASC) ?
+        lhs.title.localeCompare(rhs.title) :
+        rhs.title.localeCompare(lhs.title);
         case TaskSortBy.TIMESTAMP:
-          // ref. https://github.com/Microsoft/TypeScript/issues/5710
-          return (sortSettings.taskSortByOrder == TaskSortByOrder.ASC) ?
-            +lhs.timestamp - +rhs.timestamp :
-            +rhs.timestamp - +lhs.timestamp;
+        // ref. https://github.com/Microsoft/TypeScript/issues/5710
+        return (sortSetting.taskSortByOrder == TaskSortByOrder.ASC) ?
+        +lhs.timestamp - +rhs.timestamp :
+        +rhs.timestamp - +lhs.timestamp;
       }
     })
-      .toList();
+    .toArray();
+    console.log(`filteredAndSortedTasks(): ${JSON.stringify(destTasks)}`);
+    return destTasks;
   }
 )
