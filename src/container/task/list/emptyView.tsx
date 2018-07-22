@@ -1,25 +1,18 @@
-import React, {
-  Component
-} from "react";
-import {
-  Text,
-  StyleSheet,
-} from "react-native";
-import {
-  Container,
-  Content,
-} from 'native-base';
+import React from "react";
+import { Text, StyleSheet } from "react-native";
+import { Content, Fab } from "native-base";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 type Props = {
-  text: string,
+  text: string;
+  onAddClick(): void;
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center"
   },
   label: {
     fontSize: 14,
@@ -28,17 +21,20 @@ const styles = StyleSheet.create({
 });
 
 const EmptyView: React.SFC<Props> = (props: Props) => {
-  const { text } = props;
+  const { text, onAddClick } = props;
   return (
-    <Container>
-      <Content contentContainerStyle={styles.container}>
-        <Icon
-          name="done"
-          size={52}
-        />
-        <Text style={styles.label}>{text}</Text>
-      </Content>
-    </Container>
-  ); 
+    <Content contentContainerStyle={styles.container}>
+      <Icon name="done" size={52} />
+      <Text style={styles.label}>{text}</Text>
+
+      <Fab
+        active={true}
+        position="bottomRight"
+        onPress={onAddClick}
+      >
+        <Icon name="add" />
+      </Fab>
+    </Content>
+  );
 };
 export default EmptyView;

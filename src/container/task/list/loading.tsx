@@ -1,12 +1,9 @@
-import React, {
-  Component
-} from "react";
+import React from "react";
 import {
   Text,
   StyleSheet,
 } from "react-native";
 import {
-  Container,
   Content,
   Spinner,
 } from 'native-base';
@@ -30,15 +27,13 @@ const styles = StyleSheet.create({
 const Loading: React.SFC<Props> = (props: Props) => {
   const { color, label } = props;
   return (
-    <Container>
-      <Content contentContainerStyle={styles.container}>
+    <Content contentContainerStyle={styles.container}>
         <Spinner
           color={color}
           size="large"
         />
         <Text style={styles.label}>{label}</Text>
       </Content>
-    </Container>
   );
 };
 
