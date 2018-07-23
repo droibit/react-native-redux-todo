@@ -8,7 +8,7 @@ import {
 } from "react-navigation";
 import { Action } from "redux";
 import EditTask from "./editTask";
-import { CloseHeaderButton, DoneHeaderButton } from "./headerItem";
+import { CloseHeaderButton, DoneHeaderButton } from "../../shared/headerItem";
 import { Result } from "../../../module/model/result";
 import { TaskStateProps } from "../../../module/state/type";
 import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
