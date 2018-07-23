@@ -12,7 +12,7 @@ export default class TaskRepositoryImpl implements TaskRepository {
     return this.store.getTasks();
   }
 
-  public createTask(title: string, description?: string): Promise<TaskEntity> {
+  public createTask(title: string, description: string): Promise<TaskEntity> {
     return this.store.create(title, description);
   }
 

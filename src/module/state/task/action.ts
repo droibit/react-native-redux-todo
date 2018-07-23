@@ -28,9 +28,9 @@ export const getTasks = () => {
 export type CreateTaskStartAction = FSActionOnly;
 export type CreateTaskDoneAction = FSA<TaskEntity> | ErrorFSA<Error>;
 
-export const createTask = (title: string, description?: string) => {
+export const createTask = (title: string, description: string) => {
   return async (
-    dispatch: Dispatch<CreateTaskStartAction | CreateTaskDoneAction>
+    dispatch: Dispatch<CreateTaskStartAction | CreateTaskDoneAction>,
   ) => {
     console.log("createTask()");
     try {

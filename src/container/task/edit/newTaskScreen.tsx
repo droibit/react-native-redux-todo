@@ -6,8 +6,14 @@ import {
   NavigationRoute,
   NavigationScreenConfig
 } from "react-navigation";
+import { Action } from "redux";
 import EditTask from "./editTask";
 import { CloseHeaderButton, DoneHeaderButton } from "./headerItem";
+import { Result } from "../../../module/model/result";
+import { TaskStateProps } from "../../../module/state/type";
+import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
+import * as Actions from "../../../module/state/task/action";
+import { Toast } from "native-base";
 
 type NavigationParams = {
   disabledDoneButton: boolean;
@@ -16,6 +22,8 @@ type NavigationParams = {
 
 type Props = {
   navigation: NavigationScreenProp<NavigationRoute, NavigationParams>;
+  createTaskResult: Result<Task>;
+  createTask(title: string, description: string): void;
 };
 
 type State = {
@@ -53,6 +61,31 @@ class NewTaskScreen extends Component<Props, State> {
     });
   }
 
+  public componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) {
+    console.log(`NewTaskScreen.componentDidUpdate(
+        prevProps=${JSON.stringify(prevProps)},
+        props=${JSON.stringify(this.props)},
+    )`);
+
+    if (this.props.createTaskResult !== prevProps.createTaskResult) {
+      this.onCreateTask(this.props.createTaskResult);
+    }
+  }
+
+  private onCreateTask(result: Result<Task>) {
+    const { navigation } = this.props;
+    if (result.isSuccess) {
+      console.log(`Create task success: ${JSON.stringify(result.data)}.`);
+      navigation.goBack(null);
+    } else if (result.isError) {
+      Toast.show({
+        text: "Failed to create new TO-DO.",
+        type: "danger",
+      })
+      console.log(`Create task error: ${result.error!.message}.`);
+    }
+  }
+
   public render() {
     const { title, description } = this.state;
     return (
@@ -67,6 +100,11 @@ class NewTaskScreen extends Component<Props, State> {
 
   private onDoneButtonPressed() {
     console.log("#onDoneButtonPressed()");
+    if (!this.props.createTaskResult.inProgress) {
+      const { title, description } = this.state;
+      this.props.createTask(title, description);
+      console.log("Dispatch create task action.")
+    }
   }
 
   private onTitleChanged(title: string) {
@@ -80,4 +118,22 @@ class NewTaskScreen extends Component<Props, State> {
   }
 }
 
-export default connect()(NewTaskScreen);
+const mapStateToProps = (
+  state: TaskStateProps
+): Partial<Props> => {
+  return {
+    createTaskResult: state.task.createResult,
+  };
+}
+
+const mapDispatchToProps = (
+  dispatch: ReduxThunkDispatch<Action>
+): Partial<Props> => {
+  return {
+    createTask: (title, description) => {
+      dispatch(Actions.createTask(title, description));
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewTaskScreen);

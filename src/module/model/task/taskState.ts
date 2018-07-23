@@ -16,8 +16,8 @@ type Props = {
 // TODO: Unit test.
 export class TaskState extends Immutable.Record({
   tasks: new TaskList(),
-  loadingResult: {},
-  createResult: {},
+  loadingResult: new Result<Task>(),
+  createResult: new Result<Task>(),
   editResult: {},
   activeResult: {},
   completeResult: {},

@@ -4,7 +4,7 @@ export default interface TaskRepository {
 
   getTasks(): Promise<ReadonlyArray<TaskEntity>>;
 
-  createTask(title: string, description?: string): Promise<TaskEntity>;
+  createTask(title: string, description: string): Promise<TaskEntity>;
 
   updateTask(taskId: string, title: string, description?: string): Promise<TaskEntity>;
 
