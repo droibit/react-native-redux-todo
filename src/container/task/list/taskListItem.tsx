@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     height: 56,
   },
   title: {
-    fontSize: 22,
+    fontSize: 20,
     marginLeft: 8,
   },
   completeCheckBox: {
