@@ -17,6 +17,7 @@ import { AsyncStorage } from "react-native";
 import * as Config from "../../config/config";
 import { taskReducer } from "./task/reducer";
 import { appSettingsReducer } from "./settings/reducer";
+import immutableTransform from "redux-persist-transform-immutable";
 import {
   RootStateProps,
   RootStateKeys,
@@ -33,7 +34,11 @@ const persistConfig: PersistConfig = {
   key: KEY_SETTINGS,
   storage: AsyncStorage,
   version: PERSIST_VERSION,
-  whitelist: ["appSettings"] as Array<RootStateKeys>,
+  transforms: [
+    immutableTransform({
+      whitelist: ["appSettings"] as Array<RootStateKeys>,
+    })
+  ]
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
