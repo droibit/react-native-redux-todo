@@ -19,7 +19,7 @@ import { filteredAndSortedTasks } from "../../../module/state/task/selector";
 import { Task } from "../../../module/model/task";
 import * as Actions from "../../../module/state/task/action";
 import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
-import { SCREEN_TASK_NEW } from "../../navigation";
+import { SCREEN_TASK_NEW, SCREEN_TASK_FILTER_CHOOSER } from "../../navigation";
 import { Result } from "../../../module/model/result";
 import { TaskSortSetting, TaskVisibilityFilter } from "../../../module/model/settings";
 
@@ -155,6 +155,7 @@ class TaskListScreen extends Component<Props, State> {
 
   private onFilterButtonPress() {
     console.log("#onFilterButtonPress()");
+    this.props.navigation.navigate(SCREEN_TASK_FILTER_CHOOSER);
   }
 }
 

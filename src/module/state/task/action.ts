@@ -2,13 +2,14 @@ import {
   TASK_GET_STARTED,
   TASK_GET_DONE,
   TASK_CREATE_STARTED,
-  TASK_CREATE_DONE
+  TASK_CREATE_DONE,
 } from "../action";
 import { Dispatch, Action } from "redux";
 import { FSActionOnly } from "../reduxActionType";
 import { FSA, ErrorFSA } from "flux-standard-action";
 import { taskRepository } from "../../data/repository";
 import { TaskEntity } from "../../data/repository/task";
+import { TaskSortBy, TaskSortByOrder, TaskVisibilityFilter } from "../../model/settings";
 
 export type GetTaskStartAction = FSActionOnly;
 export type GetTaskDoneAction = FSA<ReadonlyArray<TaskEntity>>;

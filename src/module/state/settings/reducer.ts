@@ -7,11 +7,20 @@ import {
   TaskVisibilityFilter,
 } from "../../model/settings";
 import {
-  SETTINGS_UPDATE_TASK_SORTING,
+  SETTINGS_UPDATE_TASK_SORT_BY,
+  SETTINGS_UPDATE_TASK_SORT_BY_ORDER,
   SETTINGS_UPDATE_TASK_VISIBILITY_FILTER
 } from "../action";
+import {
+  UpdateTaskSortByAction,
+  UpdateTaskSortByOrderAction,
+  UpdateTaskVisiblityFilterAction
+} from "./action";
 
-type FSAction = FSA<TaskSortSetting> | FSA<TaskVisibilityFilter>;
+type FSAction =
+  UpdateTaskSortByAction |
+  UpdateTaskSortByOrderAction |
+  UpdateTaskVisiblityFilterAction;
 
 const initialState = new AppSettings({
   taskSortSetting: new TaskSortSetting({
@@ -22,10 +31,19 @@ const initialState = new AppSettings({
 });
 
 export function appSettingsReducer(state: AppSettings = initialState, action: FSAction): AppSettings {
+  console.log(`appSettingsReducer(action=${JSON.stringify(action)})`);
   switch (action.type) {
-    case SETTINGS_UPDATE_TASK_SORTING:
+    case SETTINGS_UPDATE_TASK_SORT_BY:
       return state.with({
-        taskSortSetting: action.payload as TaskSortSetting
+        taskSortSetting: state.taskSortSetting.with({
+          taskSortBy: action.payload as TaskSortBy,
+        }),
+      });
+    case SETTINGS_UPDATE_TASK_SORT_BY_ORDER:
+      return state.with({
+        taskSortSetting: state.taskSortSetting.with({
+          taskSortByOrder: action.payload as TaskSortByOrder,
+        }),
       });
     case SETTINGS_UPDATE_TASK_VISIBILITY_FILTER:
       return state.with({

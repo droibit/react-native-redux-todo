@@ -1,25 +1,36 @@
 import {
-  SETTINGS_UPDATE_TASK_SORTING,
-  SETTINGS_UPDATE_TASK_VISIBILITY_FILTER
+  SETTINGS_UPDATE_TASK_VISIBILITY_FILTER,
+  SETTINGS_UPDATE_TASK_SORT_BY,
+  SETTINGS_UPDATE_TASK_SORT_BY_ORDER
 } from "../action";
 import {
   TaskSortBy,
   TaskSortByOrder,
-  TaskSortSetting,
   TaskVisibilityFilter
 } from "../../model/settings";
 import { FSA } from "flux-standard-action";
 
-export const updateTaskSortSetting = (taskSortBy: TaskSortBy, taskSortByOrder: TaskSortByOrder): FSA<TaskSortSetting> => {
+export type UpdateTaskSortByAction = FSA<TaskSortBy>;
+export type UpdateTaskSortByOrderAction = FSA<TaskSortByOrder>;
+export type UpdateTaskVisiblityFilterAction = FSA<TaskVisibilityFilter>;
+
+export const updateTaskSortBy = (sortBy: TaskSortBy) => {
   return {
-    type: SETTINGS_UPDATE_TASK_SORTING,
-    payload: new TaskSortSetting({ taskSortBy, taskSortByOrder }),
+    type: SETTINGS_UPDATE_TASK_SORT_BY,
+    payload: sortBy,
   };
 };
 
-export const updateTaskVisibilityFilter = (taskVisibilityFilter: TaskVisibilityFilter): FSA<TaskVisibilityFilter> => {
+export const updateTaskSortByOrder = (order: TaskSortByOrder) => {
+  return {
+    type: SETTINGS_UPDATE_TASK_SORT_BY_ORDER,
+    payload: order,
+  };
+};
+
+export const updateTaskVisiblityFilter = (filter: TaskVisibilityFilter) => {
   return {
     type: SETTINGS_UPDATE_TASK_VISIBILITY_FILTER,
-    payload: taskVisibilityFilter
+    payload: filter,
   };
 };
