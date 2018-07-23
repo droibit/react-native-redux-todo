@@ -9,28 +9,32 @@ export class TaskList extends Record({
   src: Map<string, Task>()
 } as Props) {
 
+  private readonly src!: Map<string, Task>;
+
   constructor(values: Props = { src: Map() }) {
     super(values);
   }
 
+  public get length(): number {
+    return this.src.size
+  }
+
   public get tasks(): List<Task> {
-    const tasks = this.get("src") as Map<string, Task>;
-    return List(tasks.values);
+    return List(this.src.valueSeq());
   }
 
   public getTaskById(id: string): Task | null {
-    const src = this.get("src") as Map<string, Task>;
-    if (src.has(id)) {
-      return src.get(id);
+    if (this.src.has(id)) {
+      return this.src.get(id);
     }
     return null;
   }
 
   public addTasks(tasks: Array<Task>): TaskList {
     return this.withMutations(s => {
-      const newTasks = s.get("src") as Map<string, Task>;
+      let newTasks = s.get("src") as Map<string, Task>;
       for (let task of tasks) {
-        newTasks.set(task.id, task);
+        newTasks = newTasks.set(task.id, task);
       }
       s.set("src", newTasks);
     }) as TaskList;

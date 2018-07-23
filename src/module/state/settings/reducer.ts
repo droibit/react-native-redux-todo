@@ -15,8 +15,8 @@ type FSAction = FSA<TaskSortSetting> | FSA<TaskVisibilityFilter>;
 
 const initialState = new AppSettings({
   taskSortSetting: new TaskSortSetting({
-    taskSortBy: TaskSortBy.TITLE,
-    taskSortByOrder: TaskSortByOrder.ASC,
+    taskSortBy: TaskSortBy.TIMESTAMP,
+    taskSortByOrder: TaskSortByOrder.DESC,
   }),
   taskVisibilityFilter: TaskVisibilityFilter.ALL,
 });

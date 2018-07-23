@@ -44,8 +44,8 @@ export const filteredAndSortedTasks = createSelector<TaskStateProps & AppSetting
         +rhs.timestamp - +lhs.timestamp;
       }
     })
-    .toArray();
-    console.log(`filteredAndSortedTasks(): ${JSON.stringify(destTasks)}`);
+      .toArray();
+    console.log(`filteredAndSortedTasks(srcTasks(len)=${srcTasks.length}, sortSetting=${JSON.stringify(sortSetting)}, visibilityFilter=${JSON.stringify(visibilityFilter)}): ${JSON.stringify(destTasks)}`);
     return destTasks;
   }
 )
