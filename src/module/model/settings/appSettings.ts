@@ -10,7 +10,7 @@ type Props = {
 export default class AppSettings extends Record({
   taskSortSetting: {},
   taskVisibilityFilter: {},
-} as Props) {
+} as Props, "AppSettings") {
 
   public readonly taskSortSetting!: TaskSortSetting;
 

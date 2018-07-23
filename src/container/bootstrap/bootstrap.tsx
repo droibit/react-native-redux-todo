@@ -1,7 +1,7 @@
 import React, {
   Component
 } from "react";
-import { View } from "react-native";
+import { View, AsyncStorage } from "react-native";
 import { store, configurePersistStore } from "../../module/state";
 import { NavigationScreenProp } from "react-navigation";
 import { SCREEN_MAIN } from "../navigation";
@@ -17,7 +17,7 @@ export default class Bootstrap extends Component<Props> {
     configurePersistStore(store, this.onPersitBootstrapped.bind(this));
   }
 
-  private onPersitBootstrapped() {
+  private async onPersitBootstrapped() {
     console.log("Bootstrapped.");
     this.props.navigation.navigate(SCREEN_MAIN);
   }

@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { TaskSortSetting, TaskVisibilityFilter, TaskSortBy, TaskSortByOrder } from "../../../module/model/settings";
+import { TaskSortSetting, TaskVisibilityFilter, TaskSortByOrder } from "../../../module/model/settings";
+import { resolveSortByText, resolveVisiblFilterLongText } from "../filter/textResolover";
 
 const styles = StyleSheet.create({
   header: {
@@ -56,39 +57,27 @@ const FilterAndSortButton: React.SFC<FilterButtonProps> = (props) => {
     <TouchableOpacity
       onPress={onFilterPress}
       style={styles.headerFilter}>
-      <Text style={styles.filterLabel}>{resolveVisiblFilterText(taskVisibilityFilter)}</Text>
+      <Text style={styles.filterLabel}>{resolveVisiblFilterLongText(taskVisibilityFilter)}</Text>
       <Icon name="filter-list" size={20} />
     </TouchableOpacity>
   )
 };
 
-function resolveVisiblFilterText(filter: TaskVisibilityFilter): string {
-  switch (filter) {
-    case TaskVisibilityFilter.ALL: return "All TO-DOs";
-    case TaskVisibilityFilter.ACTIVE: return "Active TO-DOs";
-    case TaskVisibilityFilter.COMPLETED: return "Completed TO-DOs";
-  }
-}
-
 type SortLabelProps = {
   taskSortSetting: TaskSortSetting;
+  onSortPress(): void;
 };
 const SortLabel: React.SFC<SortLabelProps> = (props) => {
-  const { taskSortSetting } = props;
+  const { taskSortSetting, onSortPress } = props;
   return (
-    <View style={styles.headerSort}>
+    <TouchableOpacity
+      onPress={onSortPress}
+      style={styles.headerSort}>
       <Text style={styles.sortLabel}>{resolveSortByText(taskSortSetting.taskSortBy)}</Text>
       <Icon name={resolveSortByOrderIconName(taskSortSetting.taskSortByOrder)} size={20} />
-    </View>
+    </TouchableOpacity>
   );
 };
-
-function resolveSortByText(sortBy: TaskSortBy): string {
-  switch (sortBy) {
-    case TaskSortBy.TITLE: return "Title";
-    case TaskSortBy.TIMESTAMP: return "Created Date";
-  }
-}
 
 function resolveSortByOrderIconName(order: TaskSortByOrder): string {
   switch (order) {

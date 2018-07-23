@@ -6,7 +6,6 @@ import { Content } from 'native-base';
 import TaskListItem from "./taskListItem";
 import { Task } from "../../../module/model/task";
 import TaskListHeader, { TaskListHeaderProps } from "./taskListHeader";
-import { TaskSortSetting, TaskVisibilityFilter } from "../../../module/model/settings";
 
 type Props = {
   tasks: ReadonlyArray<Task>;

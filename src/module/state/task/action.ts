@@ -16,14 +16,18 @@ export type GetTaskDoneAction = FSA<ReadonlyArray<TaskEntity>>;
 
 export const getTasks = () => {
   return async (dispatch: Dispatch<GetTaskStartAction | GetTaskDoneAction>) => {
-    console.log("getTasks()");
-    dispatch({ type: TASK_GET_STARTED });
-    const taskEntities = await taskRepository.getTasks();
-    console.log(`getTasks(${JSON.stringify(taskEntities)})`);
-    dispatch({
-      type: TASK_GET_DONE,
-      payload: taskEntities
-    });
+    try {
+      console.log("getTasks()");
+      dispatch({ type: TASK_GET_STARTED });
+      const taskEntities = await taskRepository.getTasks();
+      console.log(`getTasks(${JSON.stringify(taskEntities)})`);
+      dispatch({
+        type: TASK_GET_DONE,
+        payload: taskEntities
+      });
+    } catch (error) {
+      console.log(`getTask(error=${error})`);
+    }
   };
 };
 

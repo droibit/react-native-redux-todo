@@ -17,11 +17,12 @@ import {
 } from "../../../module/state/type";
 import { filteredAndSortedTasks } from "../../../module/state/task/selector";
 import { Task } from "../../../module/model/task";
-import * as Actions from "../../../module/state/task/action";
+import * as TaskActions from "../../../module/state/task/action";
+import * as SettingsActions from "../../../module/state/settings/action";
 import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
 import { SCREEN_TASK_NEW, SCREEN_TASK_FILTER_CHOOSER } from "../../navigation";
 import { Result } from "../../../module/model/result";
-import { TaskSortSetting, TaskVisibilityFilter } from "../../../module/model/settings";
+import { TaskSortSetting, TaskVisibilityFilter, TaskSortByOrder } from "../../../module/model/settings";
 
 type Props = {
   navigation: NavigationScreenProp<NavigationRoute>;
@@ -31,6 +32,7 @@ type Props = {
   taskVisibilityFilter: TaskVisibilityFilter;
   createTaskResult: Result<Task>;
   getTasks(): void;
+  updateTaskSortOrder(order: TaskSortByOrder): void;
 };
 
 type State = {
@@ -121,6 +123,7 @@ class TaskListScreen extends Component<Props, State> {
         onItemPress={this.onTaskItemPress.bind(this)}
         onCompleteChecBoxPress={this.onTaskCompleteCheckBoxPress.bind(this)}
         onFilterPress={this.onFilterButtonPress.bind(this)}
+        onSortPress={this.onSortButtonPress.bind(this)}
       />
     } else {
       content = <EmptyView text="No TO-DOs." />;
@@ -157,11 +160,20 @@ class TaskListScreen extends Component<Props, State> {
     console.log("#onFilterButtonPress()");
     this.props.navigation.navigate(SCREEN_TASK_FILTER_CHOOSER);
   }
+
+  private onSortButtonPress() {
+    console.log("#onSortButtonPress()");
+    this.props.updateTaskSortOrder(
+      this.props.taskSortSetting.taskSortByOrder == TaskSortByOrder.ASC
+        ? TaskSortByOrder.DESC : TaskSortByOrder.ASC
+    )
+  }
 }
 
 const mapStateToProps = (
   state: TaskStateProps & AppSettingsStateProps
 ): Partial<Props> => {
+  // console.log(`mapStateToProps: ${JSON.stringify(state)}`);
   return {
     tasks: filteredAndSortedTasks(state),
     taskSortSetting: state.appSettings.taskSortSetting,
@@ -176,8 +188,11 @@ const mapDispatchToProps = (
 ): Partial<Props> => {
   return {
     getTasks: () => {
-      dispatch(Actions.getTasks());
-    }
+      dispatch(TaskActions.getTasks());
+    },
+    updateTaskSortOrder: (order) => {
+      dispatch(SettingsActions.updateTaskSortByOrder(order));
+    },
   };
 };
 

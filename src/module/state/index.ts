@@ -22,6 +22,7 @@ import {
   RootStateProps,
   RootStateKeys,
 } from "./type";
+import { AppSettings } from "../model/settings";
 
 const reducers = {
   task: taskReducer,
@@ -36,9 +37,11 @@ const persistConfig: PersistConfig = {
   version: PERSIST_VERSION,
   transforms: [
     immutableTransform({
-      whitelist: ["appSettings"] as Array<RootStateKeys>,
-    })
-  ]
+      records: [AppSettings],
+      whitelist: ["appSettings"] as Array<RootStateKeys>,    
+    }),
+  ],
+  whitelist: ["appSettings"] as Array<RootStateKeys>,
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
