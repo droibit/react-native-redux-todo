@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Loading: React.SFC<Props> = (props: Props) => {
+const Loading: React.SFC<Props> = (props) => {
   const { color, label } = props;
   return (
     <Content contentContainerStyle={styles.container}>

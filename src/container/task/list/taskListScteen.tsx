@@ -6,9 +6,11 @@ import {
   NavigationRoute
 } from "react-navigation";
 import { Action } from "redux";
-import { Container, Toast } from "native-base";
+import { Container, Toast, Content, Fab } from "native-base";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import Loading from "./loading";
 import EmptyView from "./emptyView";
+import TaskList from "./taskList";
 import {
   TaskStateProps,
   AppSettingsStateProps
@@ -19,12 +21,15 @@ import * as Actions from "../../../module/state/task/action";
 import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
 import { SCREEN_TASK_NEW } from "../../navigation";
 import { Result } from "../../../module/model/result";
+import { TaskSortSetting, TaskVisibilityFilter } from "../../../module/model/settings";
 
 type Props = {
   navigation: NavigationScreenProp<NavigationRoute>;
-  tasks: ReadonlyArray<Task>;
   loading: boolean;
-  createTaskResult: Result<Task>,
+  tasks: ReadonlyArray<Task>;
+  taskSortSetting: TaskSortSetting;
+  taskVisibilityFilter: TaskVisibilityFilter;
+  createTaskResult: Result<Task>;
   getTasks(): void;
 };
 
@@ -57,7 +62,9 @@ class TaskListScreen extends Component<Props, State> {
       return { mounted: true };
     }
     if (prevState.loading !== nextProps.loading) {
-      return { loading: nextProps.loading };
+      return {
+        loading: nextProps.loading,
+      };
     }
     return null;
   }
@@ -67,7 +74,7 @@ class TaskListScreen extends Component<Props, State> {
     console.log(`TaskListScreen.props: ${JSON.stringify(props)}`);
     this.state = {
       loading: true,
-      mounted: false
+      mounted: false,
     };
   }
 
@@ -77,10 +84,10 @@ class TaskListScreen extends Component<Props, State> {
   }
 
   public componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
-    console.log(`#componentDidUpdate(
-      prevProps=${JSON.stringify(prevProps)},
-      props=${JSON.stringify(this.props)},
-    )`);
+    // console.log(`#componentDidUpdate(
+    //   prevProps=${JSON.stringify(prevProps)},
+    //   props=${JSON.stringify(this.props)},
+    // )`);
     const { createTaskResult } = this.props;
     if (createTaskResult !== prevProps.createTaskResult && createTaskResult.isSuccess) {
       Toast.show({
@@ -92,7 +99,6 @@ class TaskListScreen extends Component<Props, State> {
 
 
   public render() {
-    console.log(`TaskListScreen.render(state=${JSON.stringify(this.state)}`);
     return (
       <Container>
         {this.renderContent()}
@@ -101,19 +107,54 @@ class TaskListScreen extends Component<Props, State> {
   }
 
   private renderContent() {
+    console.log(`TaskListScreen.render(state=${JSON.stringify(this.state)})`);
     const { loading } = this.state;
     if (loading) {
       return <Loading label="Loading..." />;
     }
-    return <EmptyView
-      text="No TO-DOs."
-      onAddClick={this.onAddButtonClick.bind(this)}
-    />;
+
+    // const { tasks, taskVisibleFilter, taskSortSetting, } = this.props;
+    let content: JSX.Element;
+    if (this.props.tasks.length > 0) {
+      content = <TaskList
+        {...this.props}
+        onItemPress={this.onTaskItemPress.bind(this)}
+        onCompleteChecBoxPress={this.onTaskCompleteCheckBoxPress.bind(this)}
+        onFilterPress={this.onFilterButtonPress.bind(this)}
+      />
+    } else {
+      content = <EmptyView text="No TO-DOs." />;
+    }
+
+    return (
+      <Content contentContainerStyle={{ flex: 1 }}>
+        {content}
+        <Fab
+          active={true}
+          position="bottomRight"
+          onPress={this.onAddButtonClick.bind(this)}
+        >
+          <Icon name="add" />
+        </Fab>
+      </Content>
+    );
+  }
+
+  private onTaskItemPress(task: Task) {
+    console.log(`#onTaskItemPress(task=${JSON.stringify(task)})`);
+  }
+
+  private onTaskCompleteCheckBoxPress(task: Task) {
+    console.log(`#onTaskCompleteCheckBoxPress(task=${JSON.stringify(task)})`);
   }
 
   private onAddButtonClick() {
     console.log("#onAddButtonClick()");
     this.props.navigation.navigate(SCREEN_TASK_NEW)
+  }
+
+  private onFilterButtonPress() {
+    console.log("#onFilterButtonPress()");
   }
 }
 
@@ -122,6 +163,8 @@ const mapStateToProps = (
 ): Partial<Props> => {
   return {
     tasks: filteredAndSortedTasks(state),
+    taskSortSetting: state.appSettings.taskSortSetting,
+    taskVisibilityFilter: state.appSettings.taskVisibilityFilter,
     loading: state.task.loadingResult.inProgress,
     createTaskResult: state.task.createResult,
   };

@@ -1,11 +1,13 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
-import { Content, Fab } from "native-base";
+import {
+  View,
+  Text,
+  StyleSheet
+} from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 type Props = {
   text: string;
-  onAddClick(): void;
 };
 
 const styles = StyleSheet.create({
@@ -20,21 +22,13 @@ const styles = StyleSheet.create({
   }
 });
 
-const EmptyView: React.SFC<Props> = (props: Props) => {
-  const { text, onAddClick } = props;
+const EmptyView: React.SFC<Props> = (props) => {
+  const { text } = props;
   return (
-    <Content contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Icon name="done" size={52} />
       <Text style={styles.label}>{text}</Text>
-
-      <Fab
-        active={true}
-        position="bottomRight"
-        onPress={onAddClick}
-      >
-        <Icon name="add" />
-      </Fab>
-    </Content>
+    </View>
   );
 };
 export default EmptyView;
