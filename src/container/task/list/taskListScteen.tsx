@@ -31,7 +31,12 @@ type Props = {
   taskSortSetting: TaskSortSetting;
   taskVisibilityFilter: TaskVisibilityFilter;
   createTaskResult: Result<Task>;
+  completeTaskResult: Result<Task>;
+  activeTaskResult: Result<Task>;
+
   getTasks(): void;
+  completeTask(taskId: string): void;
+  activeTask(taskId: string): void;
   updateTaskSortOrder(order: TaskSortByOrder): void;
 };
 
@@ -90,11 +95,25 @@ class TaskListScreen extends Component<Props, State> {
     //   prevProps=${JSON.stringify(prevProps)},
     //   props=${JSON.stringify(this.props)},
     // )`);
-    const { createTaskResult } = this.props;
+    const { createTaskResult, completeTaskResult, activeTaskResult } = this.props;
     if (createTaskResult !== prevProps.createTaskResult && createTaskResult.isSuccess) {
       Toast.show({
         text: "TO-DO created.",
         type: "success",
+      });
+    }
+
+    if (completeTaskResult !== prevProps.completeTaskResult && completeTaskResult.isError) {
+      Toast.show({
+        text: "Failed to complete TO-DO.",
+        type: "danger",
+      });
+    }
+
+    if (activeTaskResult !== prevProps.activeTaskResult && activeTaskResult.isError) {
+      Toast.show({
+        text: "Failed to active TO-DO.",
+        type: "danger",
       });
     }
   }
@@ -149,6 +168,11 @@ class TaskListScreen extends Component<Props, State> {
 
   private onTaskCompleteCheckBoxPress(task: Task) {
     console.log(`#onTaskCompleteCheckBoxPress(task=${JSON.stringify(task)})`);
+    if (task.isActive) {
+      this.props.completeTask(task.id);
+    } else {
+      this.props.activeTask(task.id);
+    }
   }
 
   private onAddButtonClick() {
@@ -180,6 +204,8 @@ const mapStateToProps = (
     taskVisibilityFilter: state.appSettings.taskVisibilityFilter,
     loading: state.task.loadingResult.inProgress,
     createTaskResult: state.task.createResult,
+    completeTaskResult: state.task.completeResult,
+    activeTaskResult: state.task.activeResult,
   };
 };
 
@@ -189,6 +215,12 @@ const mapDispatchToProps = (
   return {
     getTasks: () => {
       dispatch(TaskActions.getTasks());
+    },
+    completeTask: (taskId) => {
+      dispatch(TaskActions.completeTask(taskId));
+    },
+    activeTask: (taskId) => {
+      dispatch(TaskActions.activeTask(taskId));
     },
     updateTaskSortOrder: (order) => {
       dispatch(SettingsActions.updateTaskSortByOrder(order));

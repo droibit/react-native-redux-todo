@@ -19,8 +19,8 @@ export class TaskState extends Immutable.Record({
   loadingResult: new Result<Task>(),
   createResult: new Result<Task>(),
   editResult: {},
-  activeResult: {},
-  completeResult: {},
+  activeResult: new Result<Task>(),
+  completeResult: new Result<Task>(),
   clearCompletedResult: {},
   deleteResult: {}
 } as Props) {

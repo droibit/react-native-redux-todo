@@ -3,6 +3,8 @@ import {
   TASK_GET_DONE,
   TASK_CREATE_STARTED,
   TASK_CREATE_DONE,
+  TASK_COMPLETE,
+  TASK_ACTIVE,
 } from "../action";
 import { Dispatch, Action } from "redux";
 import { FSActionOnly } from "../reduxActionType";
@@ -13,6 +15,10 @@ import { TaskSortBy, TaskSortByOrder, TaskVisibilityFilter } from "../../model/s
 
 export type GetTaskStartAction = FSActionOnly;
 export type GetTaskDoneAction = FSA<ReadonlyArray<TaskEntity>>;
+export type CreateTaskStartAction = FSActionOnly;
+export type CreateTaskDoneAction = FSA<TaskEntity> | ErrorFSA<Error>;
+export type CompleteTaskAction = FSA<TaskEntity> | ErrorFSA<Error>;
+export type ActiveTaskAction = FSA<TaskEntity> | ErrorFSA<Error>;
 
 export const getTasks = () => {
   return async (dispatch: Dispatch<GetTaskStartAction | GetTaskDoneAction>) => {
@@ -26,13 +32,10 @@ export const getTasks = () => {
         payload: taskEntities
       });
     } catch (error) {
-      console.log(`getTask(error=${error})`);
+      console.error(`getTask(error=${error})`);
     }
   };
 };
-
-export type CreateTaskStartAction = FSActionOnly;
-export type CreateTaskDoneAction = FSA<TaskEntity> | ErrorFSA<Error>;
 
 export const createTask = (title: string, description: string) => {
   return async (
@@ -46,13 +49,56 @@ export const createTask = (title: string, description: string) => {
         type: TASK_CREATE_DONE,
         payload: entity
       });
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.error(`createTask(error=${error})`);
       dispatch({
         type: TASK_CREATE_DONE,
         error: true,
-        payload: e as Error
+        payload: error as Error
       });
     }
   };
 };
+
+export const completeTask = (taskId: string) => {
+  return async (
+    dispatch: Dispatch<CompleteTaskAction>,
+  ) => {
+    try {
+      const completedTask = await taskRepository.completeTask(taskId);
+      dispatch({
+        type: TASK_COMPLETE,
+        payload: completedTask,
+      })
+    } catch (error) {
+      console.error(`completeTask(error=${error})`);
+      dispatch({
+        type: TASK_COMPLETE,
+        error: true,
+        payload: error as Error,
+      });
+    }
+  };
+};
+
+
+export const activeTask = (taskId: string) => {
+  return async (dispatch: Dispatch<ActiveTaskAction>) => {
+    try {
+      console.log("#activeTask()");
+      const activedTask = await taskRepository.activeTask(taskId);
+      dispatch({
+        type: TASK_ACTIVE,
+        payload: activedTask,
+      })
+    } catch (error) {
+      console.error(`activeTask(error=${error})`);
+      dispatch({
+        type: TASK_ACTIVE,
+        error: true,
+        payload: error as Error,
+      });
+    }
+  };
+};
+

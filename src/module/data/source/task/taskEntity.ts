@@ -23,6 +23,12 @@ export default class TaskEntity {
   }
 
   public copyWith(src: Partial<Props>): TaskEntity {
-    return Object.assign({}, this, src) as TaskEntity;
+    return new TaskEntity({
+      id: (src.id || this.id),
+      title: (src.title || this.title),
+      description: (src.description || this.description),
+      timestamp: (src.timestamp || this.timestamp),
+      completed: (src.completed !== undefined) ? src.completed :  this.completed,
+    });
   }
 }

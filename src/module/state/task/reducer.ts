@@ -4,7 +4,9 @@ import {
   TASK_GET_DONE,
   TASK_CREATE_STARTED,
   TASK_CREATE_DONE,
-  TASK_GET_STARTED
+  TASK_GET_STARTED,
+  TASK_COMPLETE,
+  TASK_ACTIVE
 } from "../action";
 import { Result } from "../../model/result";
 import { TaskEntity } from "../../data/source/task";
@@ -12,14 +14,18 @@ import {
   GetTaskStartAction,
   GetTaskDoneAction,
   CreateTaskStartAction,
-  CreateTaskDoneAction
+  CreateTaskDoneAction,
+  CompleteTaskAction,
+  ActiveTaskAction
 } from "./action";
 
 type TaskAction =
   | GetTaskStartAction
   | GetTaskDoneAction
   | CreateTaskStartAction
-  | CreateTaskDoneAction;
+  | CreateTaskDoneAction
+  | CompleteTaskAction
+  | ActiveTaskAction;
 
 export function taskReducer(
   state: TaskState = new TaskState(),
@@ -34,7 +40,11 @@ export function taskReducer(
     case TASK_CREATE_STARTED:
       return onWillCreateTask(state);
     case TASK_CREATE_DONE:
-      return onDidCreateTask(state, action as FSA<TaskEntity | Error>);
+      return onDidCreateTask(state, action as CreateTaskDoneAction);
+    case TASK_COMPLETE:
+      return onCompleteTask(state, action as CompleteTaskAction);
+    case TASK_ACTIVE:
+      return onActiveTask(state, action as ActiveTaskAction);
     default:
       return state;
   }
@@ -58,18 +68,36 @@ function onWillCreateTask(state: TaskState): TaskState {
 
 function onDidCreateTask(
   state: TaskState,
-  action: FSA<TaskEntity | Error>
+  action: CreateTaskDoneAction
 ): TaskState {
   let result: Result<Task>;
   if (isError(action)) {
     // TODO: Convert custom error.
-    result = state.createResult.asError(action.payload as Error);
+    result = state.createResult.asError(action.payload!);
   } else {
-    result = state.createResult.asSuccess(
-      entityToTask(action.payload as TaskEntity)
-    );
+    result = state.createResult.asSuccess(entityToTask(action.payload!));
   }
   return state.withCreateResult(result);
+}
+
+function onCompleteTask(state: TaskState, action: CompleteTaskAction): TaskState {
+  let result: Result<Task>;
+  if (isError(action)) {
+    result = state.completeResult.asError(action.payload!);
+  } else {
+    result = state.createResult.asSuccess(entityToTask(action.payload!));
+  }
+  return state.withCompleteResult(result);
+}
+
+function onActiveTask(state: TaskState, action: ActiveTaskAction): TaskState {
+  let result: Result<Task>;
+  if (isError(action)) {
+    result = state.activeResult.asError(action.payload!);
+  } else {
+    result = state.activeResult.asSuccess(entityToTask(action.payload!));
+  }
+  return state.withActiveResult(result);
 }
 
 function entityToTask(entity: TaskEntity): Task {

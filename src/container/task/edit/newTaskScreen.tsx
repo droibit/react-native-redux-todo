@@ -62,10 +62,10 @@ class NewTaskScreen extends Component<Props, State> {
   }
 
   public componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) {
-    console.log(`NewTaskScreen.componentDidUpdate(
-        prevProps=${JSON.stringify(prevProps)},
-        props=${JSON.stringify(this.props)},
-    )`);
+    // console.log(`NewTaskScreen.componentDidUpdate(
+    //     prevProps=${JSON.stringify(prevProps)},
+    //     props=${JSON.stringify(this.props)},
+    // )`);
 
     if (this.props.createTaskResult !== prevProps.createTaskResult) {
       this.onCreateTask(this.props.createTaskResult);

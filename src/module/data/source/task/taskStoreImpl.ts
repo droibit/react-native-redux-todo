@@ -52,24 +52,28 @@ export default class TaskStoreImpl implements TaskStore {
 
   async active(id: string): Promise<TaskEntity> {
     const tasks: Array<TaskEntity> = await this.getTasks();
-    const taskIndex = tasks.findIndex(t => t.id === id);
-    if (taskIndex === -1) {
+    const srcTaskIndex = tasks.findIndex(t => t.id === id);
+    if (srcTaskIndex === -1) {
       throw new TaskNotFoundError(id);
     }
-    const updatedTask = tasks[taskIndex].copyWith({ completed: false });
-    tasks[taskIndex] = updatedTask;
+    const srcTask = tasks[srcTaskIndex];
+    const updatedTask = srcTask.copyWith({ completed: false });
+    tasks[srcTaskIndex] = updatedTask;
+
     await this.storage.setItem(KEY_TASKS, JSON.stringify(tasks));
     return updatedTask;
   }
 
   public async complete(id: string): Promise<TaskEntity> {
     const tasks: Array<TaskEntity> = await this.getTasks();
-    const taskIndex = tasks.findIndex(t => t.id === id);
-    if (taskIndex === -1) {
+    const srcTaskIndex = tasks.findIndex(t => t.id === id);
+    if (srcTaskIndex === -1) {
       throw new TaskNotFoundError(id);
     }
-    const updatedTask = tasks[taskIndex].copyWith({ completed: true });
-    tasks[taskIndex] = updatedTask;
+    const srcTask = tasks[srcTaskIndex];
+    const updatedTask = srcTask.copyWith({ completed: true });
+    tasks[srcTaskIndex] = updatedTask;
+
     await this.storage.setItem(KEY_TASKS, JSON.stringify(tasks));
     return updatedTask;
   }
