@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, ScrollView, TextInput } from "react-native";
+import { Text, StyleSheet, ScrollView, TextInput, Platform } from "react-native";
 import { Container, Content } from "native-base";
 
 type Props = {
@@ -28,12 +28,25 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginLeft: 16,
     marginRight: 16,
+    ...Platform.select({
+      ios: {
+        borderBottomWidth: 1,
+        borderBottomColor: "black",
+      },
+    }),
   },
   descriptionInput: {
     fontSize: 22,
     marginLeft: 16,
     marginRight: 16,
     textAlignVertical: "top",
+    ...Platform.select({
+      ios: {
+        borderBottomWidth: 1,
+        borderBottomColor: "black",
+        paddingBottom: 4,
+      },
+    }),
   }
 });
 

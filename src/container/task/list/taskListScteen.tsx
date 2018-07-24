@@ -122,18 +122,14 @@ class TaskListScreen extends Component<Props, State> {
   }
 
   public render() {
-    return (
-      <Container>
-        {this.renderContent()}
-      </Container>
-    );
-  }
-
-  private renderContent() {
     console.log(`TaskListScreen.render(state=${JSON.stringify(this.state)})`);
     const { loading } = this.state;
     if (loading) {
-      return <Loading label="Loading..." />;
+      return (
+        <Container>
+          <Loading label="Loading..." />
+        </Container>
+      );
     }
 
     // const { tasks, taskVisibleFilter, taskSortSetting, } = this.props;
@@ -150,13 +146,15 @@ class TaskListScreen extends Component<Props, State> {
     }
 
     return (
-      <Content contentContainerStyle={{ flex: 1 }}>
+      <Container>
         <TaskListHeader
           {...this.props}
           onFilterPress={this.onFilterButtonPress.bind(this)}
           onSortPress={this.onSortButtonPress.bind(this)}
         />
+      <Content contentContainerStyle={{ flex: 1 }}>
         {content}
+        </Content>
         <Fab
           active={true}
           position="bottomRight"
@@ -164,7 +162,7 @@ class TaskListScreen extends Component<Props, State> {
         >
           <Icon name="add" />
         </Fab>
-      </Content>
+      </Container>
     );
   }
 
