@@ -1,35 +1,30 @@
 import React, { Component } from "react";
-import {
-  FlatList,
-} from "react-native";
-import { Content } from 'native-base';
-import TaskListItem from "./taskListItem";
+import { ListView } from "react-native";
+import { Content, List } from 'native-base';
+import { TaskListItem, DeleteTaskListItemButton } from "./taskListItem";
 import { Task } from "../../../module/model/task";
-import TaskListHeader, { TaskListHeaderProps } from "./taskListHeader";
 
 type Props = {
   tasks: ReadonlyArray<Task>;
   onItemPress(task: Task): void;
   onCompleteChecBoxPress(task: Task): void;
-} & TaskListHeaderProps;
+  onItemDeletePress(task: Task): void;
+};
 
+const ds = new ListView.DataSource({ rowHasChanged: (lhs, rhs) => lhs !== rhs });
 const TaskList: React.SFC<Props> = (props) => {
-  const { tasks, onItemPress, onCompleteChecBoxPress } = props;
+  const { tasks } = props;
   return (
     <Content>
-      <TaskListHeader {...props} />
-      <FlatList
-        data={tasks}
-        keyExtractor={(item) => item.id}
-        renderItem={(info) => (
-          <TaskListItem
-            task={info.item}
-            onPress={onItemPress}
-            onChecBoxPress={onCompleteChecBoxPress} />
-        )}
+      <List
+        disableRightSwipe={true}
+        rightOpenValue={-75}
+        dataSource={ds.cloneWithRows(tasks)}
+        renderRow={(data: Task) => <TaskListItem {...props} task={data} />}
+        renderRightHiddenRow={(data: Task) => <DeleteTaskListItemButton {...props} task={data} />}
       />
     </Content>
   );
-}
+};
 
 export default TaskList;

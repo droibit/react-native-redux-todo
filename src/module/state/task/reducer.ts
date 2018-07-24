@@ -6,7 +6,8 @@ import {
   TASK_CREATE_DONE,
   TASK_GET_STARTED,
   TASK_COMPLETE,
-  TASK_ACTIVE
+  TASK_ACTIVE,
+  TASK_DELETE
 } from "../action";
 import { Result } from "../../model/result";
 import { TaskEntity } from "../../data/source/task";
@@ -16,7 +17,8 @@ import {
   CreateTaskStartAction,
   CreateTaskDoneAction,
   CompleteTaskAction,
-  ActiveTaskAction
+  ActiveTaskAction,
+  DeleteTaskAction
 } from "./action";
 
 type TaskAction =
@@ -25,7 +27,8 @@ type TaskAction =
   | CreateTaskStartAction
   | CreateTaskDoneAction
   | CompleteTaskAction
-  | ActiveTaskAction;
+  | ActiveTaskAction
+  | DeleteTaskAction;
 
 export function taskReducer(
   state: TaskState = new TaskState(),
@@ -45,6 +48,8 @@ export function taskReducer(
       return onCompleteTask(state, action as CompleteTaskAction);
     case TASK_ACTIVE:
       return onActiveTask(state, action as ActiveTaskAction);
+    case TASK_DELETE:
+      return onDeleteTask(state, action as DeleteTaskAction);
     default:
       return state;
   }
@@ -98,6 +103,16 @@ function onActiveTask(state: TaskState, action: ActiveTaskAction): TaskState {
     result = state.activeResult.asSuccess(entityToTask(action.payload!));
   }
   return state.withActiveResult(result);
+}
+
+function onDeleteTask(state: TaskState, action: DeleteTaskAction): TaskState {
+  let result: Result<string>;
+  if (isError(action)) {
+    result = state.deleteResult.asError(action.payload!);
+  } else {
+    result = state.deleteResult.asSuccess(action.payload!);
+  }
+  return state.withDeleteResult(result);
 }
 
 function entityToTask(entity: TaskEntity): Task {

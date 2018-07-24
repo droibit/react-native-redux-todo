@@ -5,6 +5,7 @@ import {
   TASK_CREATE_DONE,
   TASK_COMPLETE,
   TASK_ACTIVE,
+  TASK_DELETE,
 } from "../action";
 import { Dispatch, Action } from "redux";
 import { FSActionOnly } from "../reduxActionType";
@@ -19,6 +20,7 @@ export type CreateTaskStartAction = FSActionOnly;
 export type CreateTaskDoneAction = FSA<TaskEntity> | ErrorFSA<Error>;
 export type CompleteTaskAction = FSA<TaskEntity> | ErrorFSA<Error>;
 export type ActiveTaskAction = FSA<TaskEntity> | ErrorFSA<Error>;
+export type DeleteTaskAction = FSA<string> | ErrorFSA<Error>;
 
 export const getTasks = () => {
   return async (dispatch: Dispatch<GetTaskStartAction | GetTaskDoneAction>) => {
@@ -81,7 +83,6 @@ export const completeTask = (taskId: string) => {
   };
 };
 
-
 export const activeTask = (taskId: string) => {
   return async (dispatch: Dispatch<ActiveTaskAction>) => {
     try {
@@ -102,3 +103,22 @@ export const activeTask = (taskId: string) => {
   };
 };
 
+export const deleteTask = (taskId: string) => {
+  return async (dispatch: Dispatch<DeleteTaskAction>) => {
+    try {
+      console.log("#deleteTask()");
+      await taskRepository.deleteTask(taskId);
+      dispatch({
+        type: TASK_DELETE,
+        payload: taskId,
+      });
+    } catch (error) {
+      console.error(`deleteTask(error=${error})`);
+      dispatch({
+        type: TASK_DELETE,
+        error: true,
+        payload: error as Error,
+      });
+    }
+  };
+};

@@ -23,6 +23,7 @@ import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
 import { SCREEN_TASK_NEW, SCREEN_TASK_FILTER_CHOOSER } from "../../navigation";
 import { Result } from "../../../module/model/result";
 import { TaskSortSetting, TaskVisibilityFilter, TaskSortByOrder } from "../../../module/model/settings";
+import TaskListHeader from "./taskListHeader";
 
 type Props = {
   navigation: NavigationScreenProp<NavigationRoute>;
@@ -33,10 +34,12 @@ type Props = {
   createTaskResult: Result<Task>;
   completeTaskResult: Result<Task>;
   activeTaskResult: Result<Task>;
+  deleteTaskResult: Result<string>;
 
   getTasks(): void;
   completeTask(taskId: string): void;
   activeTask(taskId: string): void;
+  deleteTask(taskId: string): void;
   updateTaskSortOrder(order: TaskSortByOrder): void;
 };
 
@@ -118,7 +121,6 @@ class TaskListScreen extends Component<Props, State> {
     }
   }
 
-
   public render() {
     return (
       <Container>
@@ -141,8 +143,7 @@ class TaskListScreen extends Component<Props, State> {
         {...this.props}
         onItemPress={this.onTaskItemPress.bind(this)}
         onCompleteChecBoxPress={this.onTaskCompleteCheckBoxPress.bind(this)}
-        onFilterPress={this.onFilterButtonPress.bind(this)}
-        onSortPress={this.onSortButtonPress.bind(this)}
+        onItemDeletePress={this.onDeleteButtonPress.bind(this)}
       />
     } else {
       content = <EmptyView text="No TO-DOs." />;
@@ -150,11 +151,16 @@ class TaskListScreen extends Component<Props, State> {
 
     return (
       <Content contentContainerStyle={{ flex: 1 }}>
+        <TaskListHeader
+          {...this.props}
+          onFilterPress={this.onFilterButtonPress.bind(this)}
+          onSortPress={this.onSortButtonPress.bind(this)}
+        />
         {content}
         <Fab
           active={true}
           position="bottomRight"
-          onPress={this.onAddButtonClick.bind(this)}
+          onPress={this.onAddButtonPress.bind(this)}
         >
           <Icon name="add" />
         </Fab>
@@ -175,9 +181,14 @@ class TaskListScreen extends Component<Props, State> {
     }
   }
 
-  private onAddButtonClick() {
-    console.log("#onAddButtonClick()");
+  private onAddButtonPress() {
+    console.log("#onAddButtonPress()");
     this.props.navigation.navigate(SCREEN_TASK_NEW)
+  }
+
+  private onDeleteButtonPress(task: Task) {
+    console.log("#onDeleteButtonPress()")
+    this.props.deleteTask(task.id);
   }
 
   private onFilterButtonPress() {
@@ -206,6 +217,7 @@ const mapStateToProps = (
     createTaskResult: state.task.createResult,
     completeTaskResult: state.task.completeResult,
     activeTaskResult: state.task.activeResult,
+    deleteTaskResult: state.task.deleteResult,
   };
 };
 
@@ -221,6 +233,9 @@ const mapDispatchToProps = (
     },
     activeTask: (taskId) => {
       dispatch(TaskActions.activeTask(taskId));
+    },
+    deleteTask: (taskId) => {
+      dispatch(TaskActions.deleteTask(taskId));
     },
     updateTaskSortOrder: (order) => {
       dispatch(SettingsActions.updateTaskSortByOrder(order));

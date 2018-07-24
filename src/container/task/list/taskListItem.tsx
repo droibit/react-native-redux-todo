@@ -4,6 +4,8 @@ import {
   StyleSheet,
 } from "react-native";
 import {
+  Button,
+  Icon,
   ListItem,
   CheckBox,
   Body,
@@ -11,10 +13,15 @@ import {
 } from 'native-base';
 import { Task } from "../../../module/model/task";
 
-type Props = {
+type TaskListItemProps = {
   task: Task;
-  onPress(task: Task): void;
-  onChecBoxPress(task: Task): void;
+  onItemPress(task: Task): void;
+  onCompleteChecBoxPress(task: Task): void;
+};
+
+type DeleteTaskListItemButtonProps = {
+  task: Task;
+  onItemDeletePress(task: Task): void;
 };
 
 const styles = StyleSheet.create({
@@ -23,7 +30,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    marginLeft: 8,
+    marginLeft: 16,
   },
   completeCheckBox: {
     marginLeft: 8,
@@ -31,11 +38,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const TaskListItem: React.SFC<Props> = (props) => {
-  const { task, onPress, onChecBoxPress, } = props;
+export const TaskListItem: React.SFC<TaskListItemProps> = (props) => {
+  const { task, onItemPress, onCompleteChecBoxPress, } = props;
   return (
     <ListItem
-      onPress={() => onPress(task)}
+      onPress={() => onItemPress(task)}
       style={styles.listItem}>
       <Body>
         <Text
@@ -46,7 +53,7 @@ const TaskListItem: React.SFC<Props> = (props) => {
       <Right>
         <CheckBox
           checked={task.completed}
-          onPress={() => onChecBoxPress(task)}
+          onPress={() => onCompleteChecBoxPress(task)}
           style={styles.completeCheckBox}
         />
       </Right>
@@ -54,4 +61,11 @@ const TaskListItem: React.SFC<Props> = (props) => {
   );
 };
 
-export default TaskListItem;
+export const DeleteTaskListItemButton: React.SFC<DeleteTaskListItemButtonProps> = (props) => {
+  const { task, onItemDeletePress } = props;
+  return (
+    <Button full danger onPress={() => onItemDeletePress(task)}>
+      <Icon active type="MaterialIcons" name="delete" />
+    </Button>
+  );
+}

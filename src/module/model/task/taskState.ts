@@ -22,7 +22,7 @@ export class TaskState extends Immutable.Record({
   activeResult: new Result<Task>(),
   completeResult: new Result<Task>(),
   clearCompletedResult: {},
-  deleteResult: {}
+  deleteResult: new Result<string>(),
 } as Props) {
   public readonly tasks!: TaskList;
   public readonly loadingResult!: Result<void>;
