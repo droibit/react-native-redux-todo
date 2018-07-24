@@ -1,24 +1,30 @@
 import React, {
   Component
 } from "react";
-import { View, AsyncStorage } from "react-native";
 import { store, configurePersistStore } from "../../module/state";
 import { NavigationScreenProp } from "react-navigation";
 import { SCREEN_MAIN } from "../navigation";
+import { Persistor } from "redux-persist";
 
 type Props = {
   navigation: NavigationScreenProp<any>,
 };
 export default class Bootstrap extends Component<Props> {
 
+  private persistor!: Persistor;
+
   constructor(props: Props) {
     super(props);
     console.log("Bootstrap.")
-    configurePersistStore(store, this.onPersitBootstrapped.bind(this));
+  }
+
+  public componentDidMount() {
+    this.persistor = configurePersistStore(store, this.onPersitBootstrapped.bind(this));
   }
 
   private async onPersitBootstrapped() {
     console.log("Bootstrapped.");
+    // await this.persistor.purge();
     this.props.navigation.navigate(SCREEN_MAIN);
   }
 

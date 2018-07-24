@@ -1,4 +1,3 @@
-import { FSA } from "flux-standard-action";
 import AppSettings from "../../model/settings/appSettings";
 import {
   TaskSortSetting,

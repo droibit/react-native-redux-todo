@@ -17,9 +17,7 @@ const TaskList: React.SFC<Props> = (props) => {
   const { tasks, onItemPress, onCompleteChecBoxPress } = props;
   return (
     <Content>
-      <TaskListHeader
-        {...props}
-      />
+      <TaskListHeader {...props} />
       <FlatList
         data={tasks}
         keyExtractor={(item) => item.id}

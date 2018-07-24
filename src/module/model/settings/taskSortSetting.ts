@@ -16,7 +16,7 @@ type Props = {
 export class TaskSortSetting extends Record({
   taskSortBy: TaskSortBy.TITLE,
   taskSortByOrder: TaskSortByOrder.ASC,
-} as Props) {
+} as Props, "TaskSortSetting") {
 
   public readonly taskSortBy!: TaskSortBy;
 

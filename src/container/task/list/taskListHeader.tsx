@@ -69,6 +69,7 @@ type SortLabelProps = {
 };
 const SortLabel: React.SFC<SortLabelProps> = (props) => {
   const { taskSortSetting, onSortPress } = props;
+  console.log(`SortLabel: ${taskSortSetting.taskSortBy}`);
   return (
     <TouchableOpacity
       onPress={onSortPress}
