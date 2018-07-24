@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
   },
   sortLabel: {
     fontSize: 18.5,
+    fontWeight: "bold",
     marginRight: 4,
   },
 });
