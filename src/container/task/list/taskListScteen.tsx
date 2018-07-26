@@ -20,10 +20,19 @@ import { Task } from "../../../module/model/task";
 import * as TaskActions from "../../../module/state/task/action";
 import * as SettingsActions from "../../../module/state/settings/action";
 import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
-import { SCREEN_TASK_NEW, SCREEN_TASK_FILTER_CHOOSER } from "../../navigation";
+import {
+  SCREEN_TASK_NEW,
+  SCREEN_TASK_FILTER_CHOOSER,
+  SCREEN_TASK_DETAIL
+} from "../../navigation";
 import { Result } from "../../../module/model/result";
-import { TaskSortSetting, TaskVisibilityFilter, TaskSortByOrder } from "../../../module/model/settings";
+import {
+  TaskSortSetting,
+  TaskVisibilityFilter,
+  TaskSortByOrder
+} from "../../../module/model/settings";
 import TaskListHeader from "./taskListHeader";
+import { NavigationParams as DetailNavigationParams } from "../detail/detailScreen";
 
 type Props = {
   navigation: NavigationScreenProp<NavigationRoute>;
@@ -168,6 +177,11 @@ class TaskListScreen extends Component<Props, State> {
 
   private onTaskItemPress(task: Task) {
     console.log(`#onTaskItemPress(task=${JSON.stringify(task)})`);
+    this.props.navigation.navigate(
+      SCREEN_TASK_DETAIL, {
+        taskId: task.id,
+      } as DetailNavigationParams,
+    );
   }
 
   private onTaskCompleteCheckBoxPress(task: Task) {

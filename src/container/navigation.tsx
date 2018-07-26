@@ -7,6 +7,7 @@ import {
 import Icon from "react-native-vector-icons/MaterialIcons";
 import Bootstrap from "./bootstrap/bootstrap";
 import TaskListScreen from "./task/list/taskListScteen";
+import TaskDetailScreen from "./task/detail/detailScreen";
 import statisticsScreen from "./statistics/statisticsScreen";
 import NewTaskScreen from "./task/edit/newTaskScreen";
 import TaskFilterChooserScreen from "./task/filter/FilterChooserScreen";
@@ -15,6 +16,7 @@ export const SCREEN_BOOTSTRAP = "Bootstrap";
 export const SCREEN_MAIN = "Main";
 export const SCREEN_MAIN_TASK_TAB = "Tasks";
 export const SCREEN_TASK_LIST = "List";
+export const SCREEN_TASK_DETAIL = "Detail";
 export const SCREEN_STATISTICS = "Statistics";
 export const SCREEN_TASK_NEW = "NewTask";
 export const SCREEN_TASK_FILTER_CHOOSER = "TaskFilterChooser";
@@ -36,6 +38,7 @@ const mainTabIcons: { [key: string]: TabIcon } = {
 const MainTab = createBottomTabNavigator({
   Tasks: createStackNavigator({
     List: TaskListScreen,
+    Detail: TaskDetailScreen,
   }),
   Statistics: createStackNavigator({
     Statistics: statisticsScreen
