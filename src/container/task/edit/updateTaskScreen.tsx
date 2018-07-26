@@ -42,6 +42,7 @@ class UpdateTaskScreen extends Component<Props, State> {
     // const { disabledDoneButton, onDoneButtonPressed } = navigation.state.params as NavigationParams
     return {
       title: "Edit TO-DO",
+      headerLeft: <CloseHeaderButton onPress={() => navigation.goBack(null)} />,
       headerRight: (
         <DoneHeaderButton
           disabled={navigation.getParam("disabledDoneButton")}

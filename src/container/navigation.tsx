@@ -41,7 +41,6 @@ const MainTab = createBottomTabNavigator({
   Tasks: createStackNavigator({
     List: TaskListScreen,
     Detail: TaskDetailScreen,
-    UpdateTask: UpdateTaskScreen,
   }),
   Statistics: createStackNavigator({
     Statistics: statisticsScreen
@@ -68,6 +67,11 @@ const MainModal = createSwitchNavigator({
   }, {
       mode: "modal",
     }),
+  UpdateTask: createStackNavigator({
+    UpdateTask: UpdateTaskScreen,
+  }, {
+       mode: "modal",
+  }),
   TaskFilterChooser: createStackNavigator({
     TaskFilterChooser: TaskFilterChooserScreen,
   }, {

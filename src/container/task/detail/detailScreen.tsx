@@ -13,7 +13,8 @@ import { connect } from "react-redux";
 import {
   NavigationScreenOptions,
   NavigationScreenProp,
-  NavigationRoute
+  NavigationRoute,
+  NavigationActions
 } from "react-navigation";
 import {
   Icon,
@@ -170,11 +171,14 @@ class TaskDetailScreen extends Component<Props> {
   private onEditButtonPress() {
     console.log("#onEditButtonPress()");
     const { task, navigation } = this.props;
-    navigation.push(SCREEN_TASK_UPDATE, {
-      taskId: task.id,
-      taskTitle: task.title,
-      taskDescription: task.description,
-    } as UpdateNavigationParams);
+    navigation.navigate(SCREEN_TASK_UPDATE, {}, NavigationActions.navigate({
+      routeName: SCREEN_TASK_UPDATE,
+      params: {
+        taskId: task.id,
+        taskTitle: task.title,
+        taskDescription: task.description,
+      } as UpdateNavigationParams
+    }));
   }
 }
 
