@@ -26,6 +26,8 @@ import { TaskStateProps } from "../../../module/state/type";
 import { Container } from "native-base";
 import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
 import * as Actions from "../../../module/state/task/action";
+import { SCREEN_TASK_UPDATE } from "../../navigation";
+import { NavigationParams as UpdateNavigationParams } from "../edit/updateTaskScreen";
 
 export type NavigationParams = {
   taskId: string;
@@ -129,7 +131,7 @@ class TaskDetailScreen extends Component<Props> {
               style={styles.description}>
               {(task.description !== "") ? task.description : EMPTY_DESCRIPTION}
             </Text>
-          </View>            
+          </View>
           <View style={styles.timestampItem}>
             <Icon
               name="calendar"
@@ -167,6 +169,12 @@ class TaskDetailScreen extends Component<Props> {
 
   private onEditButtonPress() {
     console.log("#onEditButtonPress()");
+    const { task, navigation } = this.props;
+    navigation.push(SCREEN_TASK_UPDATE, {
+      taskId: task.id,
+      taskTitle: task.title,
+      taskDescription: task.description,
+    } as UpdateNavigationParams);
   }
 }
 

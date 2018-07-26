@@ -16,7 +16,7 @@ export default class TaskRepositoryImpl implements TaskRepository {
     return this.store.create(title, description);
   }
 
-  public updateTask(taskId: string, title: string, description?: string): Promise<TaskEntity> {
+  public updateTask(taskId: string, title: string, description: string): Promise<TaskEntity> {
     return this.store.update(taskId, title, description);
   }
 

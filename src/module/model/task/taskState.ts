@@ -6,7 +6,7 @@ type Props = {
   tasks: TaskList;
   loadingResult: Result<any>;
   createResult: Result<Task>;
-  editResult: Result<Task>;
+  updateResult: Result<Task>;
   activeResult: Result<Task>;
   completeResult: Result<Task>;
   clearCompletedResult: Result<any>;
@@ -18,7 +18,7 @@ export class TaskState extends Immutable.Record({
   tasks: new TaskList(),
   loadingResult: new Result<Task>(),
   createResult: new Result<Task>(),
-  editResult: {},
+  updateResult: new Result<Task>(),
   activeResult: new Result<Task>(),
   completeResult: new Result<Task>(),
   clearCompletedResult: {},
@@ -27,7 +27,7 @@ export class TaskState extends Immutable.Record({
   public readonly tasks!: TaskList;
   public readonly loadingResult!: Result<void>;
   public readonly createResult!: Result<Task>;
-  public readonly editResult!: Result<Task>;
+  public readonly updateResult!: Result<Task>;
   public readonly activeResult!: Result<Task>;
   public readonly completeResult!: Result<Task>;
   public readonly clearCompletedResult!: Result<any>;
@@ -57,9 +57,9 @@ export class TaskState extends Immutable.Record({
     }) as TaskState;
   }
 
-  public withEditResult(result: Result<Task>): TaskState {
+  public withUpdateResult(result: Result<Task>): TaskState {
     return this.withMutations(s => {
-      this.updateTasksIfNeeded(s, result).set("editResult", result);
+      this.updateTasksIfNeeded(s, result).set("updateResult", result);
     }) as TaskState;
   }
 

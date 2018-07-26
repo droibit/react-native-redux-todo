@@ -6,7 +6,7 @@ export default interface TaskRepository {
 
   createTask(title: string, description: string): Promise<TaskEntity>;
 
-  updateTask(taskId: string, title: string, description?: string): Promise<TaskEntity>;
+  updateTask(taskId: string, title: string, description: string): Promise<TaskEntity>;
 
   activeTask(taskId: string): Promise<TaskEntity>;
 

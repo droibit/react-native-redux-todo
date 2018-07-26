@@ -177,7 +177,7 @@ class TaskListScreen extends Component<Props, State> {
 
   private onTaskItemPress(task: Task) {
     console.log(`#onTaskItemPress(task=${JSON.stringify(task)})`);
-    this.props.navigation.navigate(
+    this.props.navigation.push(
       SCREEN_TASK_DETAIL, {
         taskId: task.id,
       } as DetailNavigationParams,

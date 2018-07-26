@@ -16,29 +16,32 @@ import * as Actions from "../../../module/state/task/action";
 import { Toast } from "native-base";
 
 export type NavigationParams = {
+  taskId: string;
+  taskTitle: string;
+  taskDescription: string;
   disabledDoneButton: boolean;
   onDoneButtonPressed(): void;
 };
 
 type Props = {
   navigation: NavigationScreenProp<NavigationRoute, NavigationParams>;
-  createTaskResult: Result<Task>;
-  createTask(title: string, description: string): void;
+  updateTaskResult: Result<Task>;
+  updateTask(taskId: string, title: string, description: string): void;
 };
 
 type State = {
+  taskId: string;
   title: string;
   description: string;
 };
 
-class NewTaskScreen extends Component<Props, State> {
+class UpdateTaskScreen extends Component<Props, State> {
   static navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = ({
     navigation
   }) => {
     // const { disabledDoneButton, onDoneButtonPressed } = navigation.state.params as NavigationParams
     return {
-      title: "New TO-DO",
-      headerLeft: <CloseHeaderButton onPress={() => navigation.goBack(null)} />,
+      title: "Edit TO-DO",
       headerRight: (
         <DoneHeaderButton
           disabled={navigation.getParam("disabledDoneButton")}
@@ -50,39 +53,42 @@ class NewTaskScreen extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    console.log(`UpdateTaskScreen(props=${JSON.stringify(props)})`);
 
+    const { navigation } = this.props;
     this.state = {
-      title: "",
-      description: ""
+      taskId: navigation.getParam("taskId"),
+      title: navigation.getParam("taskTitle"),
+      description: navigation.getParam("taskDescription")
     };
     this.props.navigation.setParams({
-      disabledDoneButton: true,
+      disabledDoneButton: false,
       onDoneButtonPressed: this.onDoneButtonPressed.bind(this)
     });
   }
 
   public componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) {
-    console.log(`NewTaskScreen.componentDidUpdate(
-        prevProps=${JSON.stringify(prevProps.createTaskResult)},
-        props=${JSON.stringify(this.props.createTaskResult)},
+    console.log(`UpdateTaskScreen.componentDidUpdate(
+        prevProps=${JSON.stringify(prevProps.updateTaskResult)},
+        props=${JSON.stringify(this.props.updateTaskResult)},
     )`);
 
-    if (this.props.createTaskResult !== prevProps.createTaskResult) {
-      this.onCreateTask(this.props.createTaskResult);
+    if (this.props.updateTaskResult !== prevProps.updateTaskResult) {
+      this.onUpdateTask(this.props.updateTaskResult);
     }
   }
 
-  private onCreateTask(result: Result<Task>) {
+  private onUpdateTask(result: Result<Task>) {
     const { navigation } = this.props;
     if (result.isSuccess) {
-      console.log(`Create task success: ${JSON.stringify(result.data)}.`);
+      console.log(`Update task success: ${JSON.stringify(result.data)}.`);
       navigation.goBack(null);
     } else if (result.isError) {
       Toast.show({
-        text: "Failed to create new TO-DO.",
+        text: "Failed to edit TO-DO.",
         type: "danger",
       })
-      console.log(`Create task error: ${result.error!.message}.`);
+      console.log(`Update task error: ${result.error!.message}.`);
     }
   }
 
@@ -100,10 +106,10 @@ class NewTaskScreen extends Component<Props, State> {
 
   private onDoneButtonPressed() {
     console.log("#onDoneButtonPressed()");
-    if (!this.props.createTaskResult.inProgress) {
-      const { title, description } = this.state;
-      this.props.createTask(title, description);
-      console.log("Dispatch create task action.")
+    if (!this.props.updateTaskResult.inProgress) {
+      const { taskId, title, description } = this.state;
+      this.props.updateTask(taskId, title, description);
+      console.log("Dispatch update task action.")
     }
   }
 
@@ -122,7 +128,7 @@ const mapStateToProps = (
   state: TaskStateProps
 ): Partial<Props> => {
   return {
-    createTaskResult: state.task.createResult,
+    updateTaskResult: state.task.updateResult,
   };
 }
 
@@ -130,10 +136,10 @@ const mapDispatchToProps = (
   dispatch: ReduxThunkDispatch<Action>
 ): Partial<Props> => {
   return {
-    createTask: (title, description) => {
-      dispatch(Actions.createTask(title, description));
+    updateTask: (taskId, title, description) => {
+      dispatch(Actions.updateTask(taskId, title, description));
     },
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewTaskScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateTaskScreen);

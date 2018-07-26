@@ -1,5 +1,4 @@
-import { Task, TaskList, TaskState } from "../../model/task";
-import { FSA, isError, ErrorFSA } from "flux-standard-action";
+import { isError } from "flux-standard-action";
 import {
   TASK_GET_DONE,
   TASK_CREATE_STARTED,
@@ -7,8 +6,11 @@ import {
   TASK_GET_STARTED,
   TASK_COMPLETE,
   TASK_ACTIVE,
-  TASK_DELETE
+  TASK_DELETE,
+  TASK_UPDATE_STARTED,
+  TASK_UPDATE_DONE
 } from "../action";
+import { Task, TaskList, TaskState } from "../../model/task";
 import { Result } from "../../model/result";
 import { TaskEntity } from "../../data/source/task";
 import {
@@ -18,7 +20,9 @@ import {
   CreateTaskDoneAction,
   CompleteTaskAction,
   ActiveTaskAction,
-  DeleteTaskAction
+  DeleteTaskAction,
+  UpdateTaskStartAction,
+  UpdateTaskDoneAction
 } from "./action";
 
 type TaskAction =
@@ -28,7 +32,9 @@ type TaskAction =
   | CreateTaskDoneAction
   | CompleteTaskAction
   | ActiveTaskAction
-  | DeleteTaskAction;
+  | DeleteTaskAction
+  | UpdateTaskStartAction
+  | UpdateTaskDoneAction;
 
 export function taskReducer(
   state: TaskState = new TaskState(),
@@ -50,6 +56,10 @@ export function taskReducer(
       return onActiveTask(state, action as ActiveTaskAction);
     case TASK_DELETE:
       return onDeleteTask(state, action as DeleteTaskAction);
+    case TASK_UPDATE_STARTED:
+      return onWillUpdateTask(state);
+    case TASK_UPDATE_DONE:
+      return onDidUpdateTask(state, action as UpdateTaskDoneAction);
     default:
       return state;
   }
@@ -113,6 +123,21 @@ function onDeleteTask(state: TaskState, action: DeleteTaskAction): TaskState {
     result = state.deleteResult.asSuccess(action.payload!);
   }
   return state.withDeleteResult(result);
+}
+
+function onWillUpdateTask(state: TaskState): TaskState {
+  return state.withUpdateResult(state.createResult.asInProgress());
+}
+
+function onDidUpdateTask(state: TaskState, action: UpdateTaskDoneAction): TaskState {
+  let result: Result<Task>;
+  if (isError(action)) {
+    // TODO: Convert custom error.
+    result = state.updateResult.asError(action.payload!);
+  } else {
+    result = state.updateResult.asSuccess(entityToTask(action.payload!));
+  }
+  return state.withUpdateResult(result);
 }
 
 function entityToTask(entity: TaskEntity): Task {

@@ -50,7 +50,7 @@ export default class TaskStoreImpl implements TaskStore {
     return updatedTask;
   }
 
-  async active(id: string): Promise<TaskEntity> {
+  public async active(id: string): Promise<TaskEntity> {
     const tasks: Array<TaskEntity> = await this.getTasks();
     const srcTaskIndex = tasks.findIndex(t => t.id === id);
     if (srcTaskIndex === -1) {

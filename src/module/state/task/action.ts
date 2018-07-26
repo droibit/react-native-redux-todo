@@ -6,13 +6,14 @@ import {
   TASK_COMPLETE,
   TASK_ACTIVE,
   TASK_DELETE,
+  TASK_UPDATE_STARTED,
+  TASK_UPDATE_DONE,
 } from "../action";
-import { Dispatch, Action } from "redux";
+import { Dispatch } from "redux";
 import { FSActionOnly } from "../reduxActionType";
 import { FSA, ErrorFSA } from "flux-standard-action";
 import { taskRepository } from "../../data/repository";
 import { TaskEntity } from "../../data/repository/task";
-import { TaskSortBy, TaskSortByOrder, TaskVisibilityFilter } from "../../model/settings";
 
 export type GetTaskStartAction = FSActionOnly;
 export type GetTaskDoneAction = FSA<ReadonlyArray<TaskEntity>>;
@@ -21,6 +22,8 @@ export type CreateTaskDoneAction = FSA<TaskEntity> | ErrorFSA<Error>;
 export type CompleteTaskAction = FSA<TaskEntity> | ErrorFSA<Error>;
 export type ActiveTaskAction = FSA<TaskEntity> | ErrorFSA<Error>;
 export type DeleteTaskAction = FSA<string> | ErrorFSA<Error>;
+export type UpdateTaskStartAction = FSActionOnly;
+export type UpdateTaskDoneAction = FSA<TaskEntity> | ErrorFSA<Error>;
 
 export const getTasks = () => {
   return async (dispatch: Dispatch<GetTaskStartAction | GetTaskDoneAction>) => {
@@ -118,6 +121,29 @@ export const deleteTask = (taskId: string) => {
         type: TASK_DELETE,
         error: true,
         payload: error as Error,
+      });
+    }
+  };
+};
+
+export const updateTask = (taskId: string, title: string, description: string) => {
+  return async (
+    dispatch: Dispatch<CreateTaskStartAction | CreateTaskDoneAction>,
+  ) => {
+    console.log("updateTask()");
+    try {
+      dispatch({ type: TASK_UPDATE_STARTED });
+      const entity = await taskRepository.updateTask(taskId, title, description);
+      dispatch({
+        type: TASK_UPDATE_DONE,
+        payload: entity
+      });
+    } catch (error) {
+      console.error(`updateTask(error=${error})`);
+      dispatch({
+        type: TASK_UPDATE_DONE,
+        error: true,
+        payload: error as Error
       });
     }
   };
