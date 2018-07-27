@@ -33,6 +33,7 @@ import {
 } from "../../../module/model/settings";
 import TaskListHeader from "./taskListHeader";
 import { NavigationParams as DetailNavigationParams } from "../detail/detailScreen";
+import I18n from "../../../i18n";
 
 type Props = {
   navigation: NavigationScreenProp<NavigationRoute>;
@@ -59,7 +60,7 @@ type State = {
 
 class TaskListScreen extends Component<Props, State> {
   static navigationOptions: NavigationScreenOptions = {
-    title: "TO-DO",
+    title: I18n.t("title"),
     // ref. https://github.com/react-navigation/react-navigation/issues/790#issuecomment-310332665
     headerStyle: {
       elevation: 0, //remove shadow on Android
@@ -71,11 +72,11 @@ class TaskListScreen extends Component<Props, State> {
     nextProps: Readonly<Props>,
     prevState: State
   ): Partial<State> | null {
-    console.log(
-      `#getDerivedStateFromProps(nextProps${JSON.stringify(
-        nextProps
-      )}, prevState=${JSON.stringify(prevState)})`
-    );
+    // console.log(
+    //   `#getDerivedStateFromProps(nextProps${JSON.stringify(
+    //     nextProps
+    //   )}, prevState=${JSON.stringify(prevState)})`
+    // );
 
     if (!prevState.mounted) {
       return { mounted: true };
@@ -110,24 +111,24 @@ class TaskListScreen extends Component<Props, State> {
     const { createTaskResult, completeTaskResult, activeTaskResult } = this.props;
     if (createTaskResult !== prevProps.createTaskResult && createTaskResult.isSuccess) {
       Toast.show({
-        text: "TO-DO created.",
+        text: I18n.t("newTaskSuccessfulToCreate"),
         type: "success",
       });
     }
 
     if (completeTaskResult !== prevProps.completeTaskResult && completeTaskResult.isError) {
       Toast.show({
-        text: "Failed to complete TO-DO.",
+        text: I18n.t("newTaskFailedToCreate"),
         type: "danger",
       });
     }
 
-    if (activeTaskResult !== prevProps.activeTaskResult && activeTaskResult.isError) {
-      Toast.show({
-        text: "Failed to active TO-DO.",
-        type: "danger",
-      });
-    }
+    // if (activeTaskResult !== prevProps.activeTaskResult && activeTaskResult.isError) {
+    //   Toast.show({
+    //     text: "Failed to active TO-DO.",
+    //     type: "danger",
+    //   });
+    // }
   }
 
   public render() {
@@ -136,7 +137,7 @@ class TaskListScreen extends Component<Props, State> {
     if (loading) {
       return (
         <Container>
-          <Loading label="Loading..." />
+          <Loading label={I18n.t("todoListLoading")} />
         </Container>
       );
     }
@@ -151,7 +152,7 @@ class TaskListScreen extends Component<Props, State> {
         onItemDeletePress={this.onDeleteButtonPress.bind(this)}
       />
     } else {
-      content = <EmptyView text="No TO-DOs." />;
+      content = <EmptyView text={I18n.t("noTasks")} />;
     }
 
     return (

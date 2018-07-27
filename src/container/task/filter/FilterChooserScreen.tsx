@@ -23,6 +23,7 @@ import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
 import { CloseHeaderButton, DoneHeaderButton } from "../../shared/headerItem";
 import { resolveSortByText, resolveVisiblFilterShortText } from "./textResolover";
 import * as Actions from "../../../module/state/settings/action";
+import I18n from "../../../i18n";
 
 type NavigationParams = {
   onDoneButtonPressed(): void;
@@ -58,7 +59,7 @@ class TaskFilterChooserScreen extends Component<Props, State> {
   }) => {
     // const { disabledDoneButton, onDoneButtonPressed } = navigation.state.params as NavigationParams
     return {
-      title: "Filter & Sort",
+      title: I18n.t("filterAndSortTask"),
       headerLeft: <CloseHeaderButton onPress={() => navigation.goBack(null)} />,
     };
   };
@@ -102,11 +103,11 @@ class TaskFilterChooserScreen extends Component<Props, State> {
         <Content>
           <List>
             <ListItem itemDivider first>
-              <Text style={styles.headerLabel}>Filter</Text>
+              <Text style={styles.headerLabel}>{I18n.t("filterTask")}</Text>
             </ListItem>
             {this.createVisibilityFilterItems({ selected: visibilityFilter })}
             <ListItem itemDivider>
-              <Text style={styles.headerLabel}>Sort</Text>
+              <Text style={styles.headerLabel}>{I18n.t("sortTask")}</Text>
             </ListItem>
             {this.createSortByiItems({ selected: taskSortBy })}
           </List>

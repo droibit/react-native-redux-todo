@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Text, StyleSheet, ScrollView, TextInput, Platform } from "react-native";
 import { Container, Content } from "native-base";
+import I18n from "../../../i18n";
 
 type Props = {
   title: string;
@@ -63,7 +64,7 @@ export default class EditTask extends Component<Props, State> {
     return (
       <Container>
         <ScrollView contentContainerStyle={styles.container}>
-          <Text style={styles.label}>Title</Text>
+          <Text style={styles.label}>{I18n.t("editTaskTitleLabel")}</Text>
           <TextInput
             value={title}
             onChangeText={onTitleChanged}
@@ -72,10 +73,10 @@ export default class EditTask extends Component<Props, State> {
             autoFocus={true}
             style={styles.titleInput}
           />
-          <Text style={styles.label}>Description</Text>
+          <Text style={styles.label}>{I18n.t("editTaskDescLabel")}</Text>
           <TextInput
             value={description}
-            placeholder="Enter your TO-DO here."
+            placeholder={I18n.t("editTaskDescHint")}
             onChangeText={onDescriptionChanged}
             maxLength={500}
             multiline={true}

@@ -7,6 +7,7 @@ import { NavigationScreenOptions } from "react-navigation";
 import { Container, Content, Icon } from "native-base";
 import { TaskStateProps } from "../../module/state/type";
 import { countCompletedTask, countActiveTask } from "../../module/state/task/selector";
+import I18n from "../../i18n";
 
 type Props = {
   activeTaskCount: number;
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
 
 class StatisticsScreen extends Component<Props> {
   static navigationOptions: NavigationScreenOptions = {
-    title: "Statistics",
+    title: I18n.t("statistics"),
   };
 
   constructor(props: Props) {
@@ -46,11 +47,11 @@ class StatisticsScreen extends Component<Props> {
         <Content contentContainerStyle={styles.container}>
           <View style={styles.item}>
             <Icon name="schedule" type="MaterialIcons" />
-            <Text style={styles.label}>{"Active TO-DOs: " + activeTaskCount}</Text>
+            <Text style={styles.label}>{I18n.t("statisticsActiveTasks") + activeTaskCount}</Text>
           </View>
           <View style={styles.item}>
             <Icon name="done" type="MaterialIcons" />
-            <Text style={styles.label}>{"Completed TO-DOs: " + completedTaskCount}</Text>
+            <Text style={styles.label}>{I18n.t("statisticsCompletedTasks") + completedTaskCount}</Text>
           </View>
         </Content>
       </Container>

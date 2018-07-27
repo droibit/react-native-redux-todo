@@ -1,24 +1,25 @@
 import { TaskSortBy, TaskVisibilityFilter } from "../../../module/model/settings";
+import I18n from "../../../i18n";
 
 export function resolveVisiblFilterLongText(filter: TaskVisibilityFilter): string {
   switch (filter) {
-    case TaskVisibilityFilter.ALL: return "All TO-DOs";
-    case TaskVisibilityFilter.ACTIVE: return "Active TO-DOs";
-    case TaskVisibilityFilter.COMPLETED: return "Completed TO-DOs";
+    case TaskVisibilityFilter.ALL: return I18n.t("todoListHeaderAll");
+    case TaskVisibilityFilter.ACTIVE: return I18n.t("todoListHeaderActive");
+    case TaskVisibilityFilter.COMPLETED: return I18n.t("todoListHeaderCompleted");
   }
 }
 
 export function resolveVisiblFilterShortText(filter: TaskVisibilityFilter): string {
   switch (filter) {
-    case TaskVisibilityFilter.ALL: return "All";
-    case TaskVisibilityFilter.ACTIVE: return "Active";
-    case TaskVisibilityFilter.COMPLETED: return "Completed";
+    case TaskVisibilityFilter.ALL: return I18n.t("filterTaskAll");
+    case TaskVisibilityFilter.ACTIVE: return I18n.t("filterTaskActive");
+    case TaskVisibilityFilter.COMPLETED: return I18n.t("filterTaskCompleted");
   }
 }
 
 export function resolveSortByText(sortBy: TaskSortBy): string {
   switch (sortBy) {
-    case TaskSortBy.TITLE: return "Title";
-    case TaskSortBy.TIMESTAMP: return "Created Date";
+    case TaskSortBy.TITLE: return I18n.t("sortTaskByTitle")
+    case TaskSortBy.TIMESTAMP: return I18n.t("sortTaskByTimpestamp");
   }
 }

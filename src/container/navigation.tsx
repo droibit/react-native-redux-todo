@@ -12,6 +12,7 @@ import statisticsScreen from "./statistics/statisticsScreen";
 import NewTaskScreen from "./task/edit/newTaskScreen";
 import TaskFilterChooserScreen from "./task/filter/FilterChooserScreen";
 import UpdateTaskScreen from "./task/edit/updateTaskScreen";
+import I18n from "../i18n";
 
 export const SCREEN_BOOTSTRAP = "Bootstrap";
 export const SCREEN_MAIN = "Main";
@@ -30,11 +31,11 @@ type TabIcon = {
 const mainTabIcons: { [key: string]: TabIcon } = {
   Tasks: {
     icon: "list",
-    label: "TO-DO",
+    label: I18n.t("title"),
   },
   Statistics: {
     icon: "assessment",
-    label: "Statistics",
+    label: I18n.t("statistics"),
   },
 };
 const MainTab = createBottomTabNavigator({

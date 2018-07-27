@@ -14,6 +14,7 @@ import { TaskStateProps } from "../../../module/state/type";
 import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
 import * as Actions from "../../../module/state/task/action";
 import { Toast } from "native-base";
+import I18n from "../../../i18n";
 
 export type NavigationParams = {
   taskId: string;
@@ -41,7 +42,7 @@ class UpdateTaskScreen extends Component<Props, State> {
   }) => {
     // const { disabledDoneButton, onDoneButtonPressed } = navigation.state.params as NavigationParams
     return {
-      title: "Edit TO-DO",
+      title: I18n.t("updateTask"),
       headerLeft: <CloseHeaderButton onPress={() => navigation.goBack(null)} />,
       headerRight: (
         <DoneHeaderButton
