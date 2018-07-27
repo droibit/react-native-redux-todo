@@ -2636,9 +2636,9 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-i18n-js@^3.0.3:
-  version "3.0.10"
-  resolved "https://registry.yarnpkg.com/i18n-js/-/i18n-js-3.0.10.tgz#6b19baa726d715201eccc74a2c12070bfefdb281"
+i18n-js@3.0.11:
+  version "3.0.11"
+  resolved "https://registry.yarnpkg.com/i18n-js/-/i18n-js-3.0.11.tgz#f9e96bdb641c5b9d6be12759d7c422089987ef02"
 
 iconv-lite@0.4.19:
   version "0.4.19"
@@ -4557,11 +4557,11 @@ react-native-i18n-ts@^0.1.1:
     mkdirp "^0.5.1"
     typescript "^2.7.2"
 
-react-native-i18n@^2.0.12:
-  version "2.0.12"
-  resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-2.0.12.tgz#4a503cc73b2fe55e8518f6d4a1340d3b449d8d1a"
+react-native-i18n@^2.0.15:
+  version "2.0.15"
+  resolved "https://registry.yarnpkg.com/react-native-i18n/-/react-native-i18n-2.0.15.tgz#09b5a9836116fa7dbd0054c46e2d1014c1ef3c65"
   dependencies:
-    i18n-js "^3.0.3"
+    i18n-js "3.0.11"
 
 react-native-iphone-x-helper@^1.0.1:
   version "1.0.3"
