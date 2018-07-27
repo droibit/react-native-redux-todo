@@ -65,7 +65,7 @@
     "cacheDirectory": ".jest/cache"
   },
   "react-native-i18n-ts": {
-    "model": "./src/locale/languages/en.json",
-    "outputDir": "./typings"
+    "model": "./src/i18n/lang/en.json",
+    "outputDir": "./typings/"
   }
 }
