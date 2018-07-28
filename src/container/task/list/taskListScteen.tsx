@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import {
   NavigationScreenOptions,
   NavigationScreenProp,
-  NavigationRoute
+  NavigationRoute,
+  NavigationScreenConfig
 } from "react-navigation";
 import { Action } from "redux";
 import { Container, Toast, Content, Fab } from "native-base";
@@ -34,9 +35,14 @@ import {
 import TaskListHeader from "./taskListHeader";
 import { NavigationParams as DetailNavigationParams } from "../detail/detailScreen";
 import I18n from "../../../i18n";
+import { SettingsHeaderButton } from "../../shared/headerItem";
+
+type NavigationParams = {
+  onSettingsHeaderButtonPress(): void;
+};
 
 type Props = {
-  navigation: NavigationScreenProp<NavigationRoute>;
+  navigation: NavigationScreenProp<NavigationRoute, NavigationParams>;
   loading: boolean;
   tasks: ReadonlyArray<Task>;
   taskSortSetting: TaskSortSetting;
@@ -59,13 +65,22 @@ type State = {
 };
 
 class TaskListScreen extends Component<Props, State> {
-  static navigationOptions: NavigationScreenOptions = {
-    title: I18n.t("title"),
-    // ref. https://github.com/react-navigation/react-navigation/issues/790#issuecomment-310332665
-    headerStyle: {
-      elevation: 0, //remove shadow on Android
-      shadowOpacity: 0, //remove shadow on iOS
-    },
+  static navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = ({
+    navigation
+  }) => {
+    return {
+      title: I18n.t("title"),
+      // ref. https://github.com/react-navigation/react-navigation/issues/790#issuecomment-310332665
+      headerStyle: {
+        elevation: 0, //remove shadow on Android
+        shadowOpacity: 0 //remove shadow on iOS
+      },
+      headerRight: (
+        <SettingsHeaderButton
+          onPress={navigation.getParam("onSettingsHeaderButtonPress")}
+        />
+      )
+    };
   };
 
   static getDerivedStateFromProps(
@@ -83,7 +98,7 @@ class TaskListScreen extends Component<Props, State> {
     }
     if (prevState.loading !== nextProps.loading) {
       return {
-        loading: nextProps.loading,
+        loading: nextProps.loading
       };
     }
     return null;
@@ -94,8 +109,11 @@ class TaskListScreen extends Component<Props, State> {
     console.log(`TaskListScreen.props: ${JSON.stringify(props)}`);
     this.state = {
       loading: true,
-      mounted: false,
+      mounted: false
     };
+    this.props.navigation.setParams({
+      onSettingsHeaderButtonPress: this.onSettingsHeaderButtonPress.bind(this)
+    });
   }
 
   public componentDidMount() {
@@ -103,23 +121,36 @@ class TaskListScreen extends Component<Props, State> {
     console.log("Dispatch get tasks action.");
   }
 
-  public componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
+  public componentDidUpdate(
+    prevProps: Readonly<Props>,
+    prevState: Readonly<State>
+  ) {
     // console.log(`#componentDidUpdate(
     //   prevProps=${JSON.stringify(prevProps)},
     //   props=${JSON.stringify(this.props)},
     // )`);
-    const { createTaskResult, completeTaskResult, activeTaskResult } = this.props;
-    if (createTaskResult !== prevProps.createTaskResult && createTaskResult.isSuccess) {
+    const {
+      createTaskResult,
+      completeTaskResult,
+      activeTaskResult
+    } = this.props;
+    if (
+      createTaskResult !== prevProps.createTaskResult &&
+      createTaskResult.isSuccess
+    ) {
       Toast.show({
         text: I18n.t("newTaskSuccessfulToCreate"),
-        type: "success",
+        type: "success"
       });
     }
 
-    if (completeTaskResult !== prevProps.completeTaskResult && completeTaskResult.isError) {
+    if (
+      completeTaskResult !== prevProps.completeTaskResult &&
+      completeTaskResult.isError
+    ) {
       Toast.show({
         text: I18n.t("newTaskFailedToCreate"),
-        type: "danger",
+        type: "danger"
       });
     }
 
@@ -145,12 +176,14 @@ class TaskListScreen extends Component<Props, State> {
     // const { tasks, taskVisibleFilter, taskSortSetting, } = this.props;
     let content: JSX.Element;
     if (this.props.tasks.length > 0) {
-      content = <TaskList
-        {...this.props}
-        onItemPress={this.onTaskItemPress.bind(this)}
-        onCompleteChecBoxPress={this.onTaskCompleteCheckBoxPress.bind(this)}
-        onItemDeletePress={this.onDeleteButtonPress.bind(this)}
-      />
+      content = (
+        <TaskList
+          {...this.props}
+          onItemPress={this.onTaskItemPress.bind(this)}
+          onCompleteChecBoxPress={this.onTaskCompleteCheckBoxPress.bind(this)}
+          onItemDeletePress={this.onDeleteButtonPress.bind(this)}
+        />
+      );
     } else {
       content = <EmptyView text={I18n.t("noTasks")} />;
     }
@@ -162,9 +195,7 @@ class TaskListScreen extends Component<Props, State> {
           onFilterPress={this.onFilterButtonPress.bind(this)}
           onSortPress={this.onSortButtonPress.bind(this)}
         />
-      <Content contentContainerStyle={{ flex: 1 }}>
-        {content}
-        </Content>
+        <Content contentContainerStyle={{ flex: 1 }}>{content}</Content>
         <Fab
           active={true}
           position="bottomRight"
@@ -178,11 +209,9 @@ class TaskListScreen extends Component<Props, State> {
 
   private onTaskItemPress(task: Task) {
     console.log(`#onTaskItemPress(task=${JSON.stringify(task)})`);
-    this.props.navigation.push(
-      SCREEN_TASK_DETAIL, {
-        taskId: task.id,
-      } as DetailNavigationParams,
-    );
+    this.props.navigation.push(SCREEN_TASK_DETAIL, {
+      taskId: task.id
+    } as DetailNavigationParams);
   }
 
   private onTaskCompleteCheckBoxPress(task: Task) {
@@ -196,11 +225,11 @@ class TaskListScreen extends Component<Props, State> {
 
   private onAddButtonPress() {
     console.log("#onAddButtonPress()");
-    this.props.navigation.navigate(SCREEN_TASK_NEW)
+    this.props.navigation.navigate(SCREEN_TASK_NEW);
   }
 
   private onDeleteButtonPress(task: Task) {
-    console.log("#onDeleteButtonPress()")
+    console.log("#onDeleteButtonPress()");
     this.props.deleteTask(task.id);
   }
 
@@ -213,8 +242,13 @@ class TaskListScreen extends Component<Props, State> {
     console.log("#onSortButtonPress()");
     this.props.updateTaskSortOrder(
       this.props.taskSortSetting.taskSortByOrder == TaskSortByOrder.ASC
-        ? TaskSortByOrder.DESC : TaskSortByOrder.ASC
-    )
+        ? TaskSortByOrder.DESC
+        : TaskSortByOrder.ASC
+    );
+  }
+
+  private onSettingsHeaderButtonPress() {
+    console.log("#onSettingsHeaderButtonPress()");
   }
 }
 
@@ -230,7 +264,7 @@ const mapStateToProps = (
     createTaskResult: state.task.createResult,
     completeTaskResult: state.task.completeResult,
     activeTaskResult: state.task.activeResult,
-    deleteTaskResult: state.task.deleteResult,
+    deleteTaskResult: state.task.deleteResult
   };
 };
 
@@ -241,18 +275,18 @@ const mapDispatchToProps = (
     getTasks: () => {
       dispatch(TaskActions.getTasks());
     },
-    completeTask: (taskId) => {
+    completeTask: taskId => {
       dispatch(TaskActions.completeTask(taskId));
     },
-    activeTask: (taskId) => {
+    activeTask: taskId => {
       dispatch(TaskActions.activeTask(taskId));
     },
-    deleteTask: (taskId) => {
+    deleteTask: taskId => {
       dispatch(TaskActions.deleteTask(taskId));
     },
-    updateTaskSortOrder: (order) => {
+    updateTaskSortOrder: order => {
       dispatch(SettingsActions.updateTaskSortByOrder(order));
-    },
+    }
   };
 };
 

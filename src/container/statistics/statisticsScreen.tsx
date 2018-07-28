@@ -1,15 +1,27 @@
-import React, {
-  Component
-} from "react";
+import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import { NavigationScreenOptions } from "react-navigation";
+import {
+  NavigationScreenOptions,
+  NavigationScreenConfig,
+  NavigationScreenProp,
+  NavigationRoute
+} from "react-navigation";
 import { Container, Content, Icon } from "native-base";
 import { TaskStateProps } from "../../module/state/type";
-import { countCompletedTask, countActiveTask } from "../../module/state/task/selector";
+import {
+  countCompletedTask,
+  countActiveTask
+} from "../../module/state/task/selector";
 import I18n from "../../i18n";
+import { SettingsHeaderButton } from "../shared/headerItem";
+
+type NavigationParams = {
+  onSettingsHeaderButtonPress(): void;
+};
 
 type Props = {
+  navigation: NavigationScreenProp<NavigationRoute, NavigationParams>;
   activeTaskCount: number;
   completedTaskCount: number;
 };
@@ -17,27 +29,40 @@ type Props = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center"
   },
   item: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "center"
   },
   label: {
     fontSize: 24,
     fontWeight: "bold",
-    marginLeft: 8,
-  },
+    marginLeft: 8
+  }
 });
 
 class StatisticsScreen extends Component<Props> {
-  static navigationOptions: NavigationScreenOptions = {
-    title: I18n.t("statistics"),
+  static navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = ({
+    navigation
+  }) => {
+    return {
+      title: I18n.t("statistics"),
+      headerRight: (
+        <SettingsHeaderButton
+          onPress={navigation.getParam("onSettingsHeaderButtonPress")}
+        />
+      )
+    };
   };
 
   constructor(props: Props) {
     super(props);
+
+    this.props.navigation.setParams({
+      onSettingsHeaderButtonPress: this.onSettingsHeaderButtonPress.bind(this)
+    });
   }
 
   public render() {
@@ -47,25 +72,31 @@ class StatisticsScreen extends Component<Props> {
         <Content contentContainerStyle={styles.container}>
           <View style={styles.item}>
             <Icon name="schedule" type="MaterialIcons" />
-            <Text style={styles.label}>{I18n.t("statisticsActiveTasks") + activeTaskCount}</Text>
+            <Text style={styles.label}>
+              {I18n.t("statisticsActiveTasks") + activeTaskCount}
+            </Text>
           </View>
           <View style={styles.item}>
             <Icon name="done" type="MaterialIcons" />
-            <Text style={styles.label}>{I18n.t("statisticsCompletedTasks") + completedTaskCount}</Text>
+            <Text style={styles.label}>
+              {I18n.t("statisticsCompletedTasks") + completedTaskCount}
+            </Text>
           </View>
         </Content>
       </Container>
     );
+  }
+
+  private onSettingsHeaderButtonPress() {
+    console.log("#onSettingsHeaderButtonPress()");
   }
 }
 
 const mapStateToProps = (state: TaskStateProps): Partial<Props> => {
   return {
     activeTaskCount: countActiveTask(state),
-    completedTaskCount: countCompletedTask(state),
+    completedTaskCount: countCompletedTask(state)
   };
 };
 
-export default connect(
-  mapStateToProps,
-)(StatisticsScreen);
+export default connect(mapStateToProps)(StatisticsScreen);

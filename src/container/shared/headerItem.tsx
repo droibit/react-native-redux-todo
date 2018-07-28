@@ -1,37 +1,46 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import HeaderButtons, { HeaderButton } from "react-navigation-header-buttons";
 
-const styles = StyleSheet.create({
-  close: {
-    marginLeft: 16,
-  },
-  done: {
-    marginRight: 16,
-  }
-})
-
-type CloseHeaderButtonProps = {
+type HeaderButtonProps = {
   onPress(): void;
-};
-
-export const CloseHeaderButton: React.SFC<CloseHeaderButtonProps> = props => {
-  return (
-    <TouchableOpacity {...props}>
-      <Icon name="close" size={24} style={styles.close} />
-    </TouchableOpacity>
-  );
 };
 
 type DoneHeaderButtonProps = {
   disabled: boolean;
-  onPress(): void;
-};
+} & HeaderButtonProps;
 
-export const DoneHeaderButton: React.SFC<DoneHeaderButtonProps> = props => {
-  return (
-    <TouchableOpacity {...props}>
-      <Icon name="done" size={24} style={styles.done} />
-    </TouchableOpacity>
-  );
-};
+const NavHeaderButton: React.SFC = (props: any) => (
+  <HeaderButton {...props} IconComponent={Icon} iconSize={23} />
+);
+
+export const CloseHeaderButton: React.SFC<HeaderButtonProps> = props => (
+  <HeaderButtons left HeaderButtonComponent={NavHeaderButton}>
+    <HeaderButtons.Item
+      iconName="close"
+      title="close"
+      onPress={props.onPress}
+    />
+  </HeaderButtons>
+);
+
+export const DoneHeaderButton: React.SFC<DoneHeaderButtonProps> = props => (
+  <HeaderButtons HeaderButtonComponent={NavHeaderButton}>
+    <HeaderButtons.Item
+      onPress={props.disabled ? undefined : props.onPress}
+      iconName="done"
+      title="done"
+    />
+  </HeaderButtons>
+);
+
+export const SettingsHeaderButton: React.SFC<HeaderButtonProps> = props => (
+  <HeaderButtons HeaderButtonComponent={NavHeaderButton}>
+    <HeaderButtons.Item
+      {...props}
+      iconName="settings"
+      title="settings"
+    />
+  </HeaderButtons>
+);

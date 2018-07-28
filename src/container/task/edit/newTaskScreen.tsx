@@ -15,6 +15,7 @@ import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
 import * as Actions from "../../../module/state/task/action";
 import { Toast } from "native-base";
 import I18n from "../../../i18n";
+import { Task } from "../../../module/model/task";
 
 export type NavigationParams = {
   disabledDoneButton: boolean;
@@ -33,6 +34,7 @@ type State = {
 };
 
 class NewTaskScreen extends Component<Props, State> {
+  
   static navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = ({
     navigation
   }) => {
