@@ -24,7 +24,8 @@ import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
 import {
   SCREEN_TASK_NEW,
   SCREEN_TASK_FILTER_CHOOSER,
-  SCREEN_TASK_DETAIL
+  SCREEN_TASK_DETAIL,
+  SCREEN_SETTINGS
 } from "../../navigation";
 import { Result } from "../../../module/model/result";
 import {
@@ -249,6 +250,7 @@ class TaskListScreen extends Component<Props, State> {
 
   private onSettingsHeaderButtonPress() {
     console.log("#onSettingsHeaderButtonPress()");
+    this.props.navigation.navigate(SCREEN_SETTINGS);
   }
 }
 

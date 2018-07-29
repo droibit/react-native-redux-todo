@@ -15,6 +15,7 @@ import {
 } from "../../module/state/task/selector";
 import I18n from "../../i18n";
 import { SettingsHeaderButton } from "../shared/headerItem";
+import { SCREEN_SETTINGS } from "../navigation";
 
 type NavigationParams = {
   onSettingsHeaderButtonPress(): void;
@@ -89,6 +90,7 @@ class StatisticsScreen extends Component<Props> {
 
   private onSettingsHeaderButtonPress() {
     console.log("#onSettingsHeaderButtonPress()");
+    this.props.navigation.navigate(SCREEN_SETTINGS);
   }
 }
 

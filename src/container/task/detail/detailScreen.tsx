@@ -29,6 +29,7 @@ import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
 import * as Actions from "../../../module/state/task/action";
 import { SCREEN_TASK_UPDATE } from "../../navigation";
 import { NavigationParams as UpdateNavigationParams } from "../edit/updateTaskScreen";
+import I18n from "../../../i18n";
 
 export type NavigationParams = {
   taskId: string;
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
 class TaskDetailScreen extends Component<Props> {
 
   static navigationOptions: NavigationScreenOptions = {
-    title: "TO-DO",
+    title: I18n.t("title"),
   };
 
   public render() {
