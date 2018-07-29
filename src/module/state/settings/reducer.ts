@@ -9,12 +9,12 @@ import {
   SETTINGS_UPDATE_TASK_SORT_BY,
   SETTINGS_UPDATE_TASK_SORT_BY_ORDER,
   SETTINGS_UPDATE_TASK_VISIBILITY_FILTER
-} from "../action";
+} from "../actionType";
 import {
   UpdateTaskSortByAction,
   UpdateTaskSortByOrderAction,
   UpdateTaskVisiblityFilterAction
-} from "./action";
+} from "./actionCreator";
 
 type FSAction =
   UpdateTaskSortByAction |

@@ -2,16 +2,27 @@ import { FSA } from "flux-standard-action";
 import { Action, ActionCreator, Store } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
-export type FSActionOnly = FSA<undefined>;
-export type ThunkActionCreator<
+export type FSActionNoPayload = FSA<undefined>;
+
+export type AsyncThunkAction<
+  A extends Action,
   S = any,
-  A extends Action = Action
-> = ActionCreator<ThunkAction<void, S, any, A>>;
-export type AsyncThunkActionCreator<
-  S = any,
-  A extends Action = Action
-> = ActionCreator<ThunkAction<Promise<void>, S, any, A>>;
+  R = void,
+> = ThunkAction<Promise<R>, S, undefined, A>;
+
 export type ReduxThunkDispatch<
+  A extends Action = Action,
   S = any,
-  A extends Action = Action
 > = ThunkDispatch<S, any, A>;
+
+export type ThunkActionCreator<
+  A extends Action = Action,
+  S = any
+> = ActionCreator<ThunkAction<void, S, any, A>>;
+
+export type AsyncThunkActionCreator<
+  A extends Action = Action,
+  S = any
+> = ActionCreator<ThunkAction<Promise<void>, S, any, A>>;
+
+

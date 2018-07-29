@@ -10,11 +10,12 @@ import { Action } from "redux";
 import EditTask from "./editTask";
 import { CloseHeaderButton, DoneHeaderButton } from "../../shared/headerItem";
 import { Result } from "../../../module/model/result";
-import { TaskStateProps } from "../../../module/state/type";
+import { TaskStateProps } from "../../../module/state/stateType";
 import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
-import * as Actions from "../../../module/state/task/action";
+import * as Actions from "../../../module/state/task/actionCreator";
 import { Toast } from "native-base";
 import I18n from "../../../i18n";
+import { Task } from "../../../module/model/task";
 
 export type NavigationParams = {
   taskId: string;
@@ -135,7 +136,7 @@ const mapStateToProps = (
 }
 
 const mapDispatchToProps = (
-  dispatch: ReduxThunkDispatch<Action>
+  dispatch: ReduxThunkDispatch
 ): Partial<Props> => {
   return {
     updateTask: (taskId, title, description) => {

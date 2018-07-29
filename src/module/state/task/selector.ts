@@ -16,7 +16,7 @@ import {
 import {
   TaskStateProps,
   AppSettingsStateProps,
-} from "../type";
+} from "../stateType";
 
 export const filteredAndSortedTasks = createSelector<TaskStateProps & AppSettingsStateProps, TaskList, TaskSortSetting, TaskVisibilityFilter, Array<Task>>(
   (state) => state.task.tasks,

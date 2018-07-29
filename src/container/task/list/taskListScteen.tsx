@@ -15,11 +15,11 @@ import TaskList from "./taskList";
 import {
   TaskStateProps,
   AppSettingsStateProps
-} from "../../../module/state/type";
+} from "../../../module/state/stateType";
 import { filteredAndSortedTasks } from "../../../module/state/task/selector";
 import { Task } from "../../../module/model/task";
-import * as TaskActions from "../../../module/state/task/action";
-import * as SettingsActions from "../../../module/state/settings/action";
+import * as TaskActions from "../../../module/state/task/actionCreator";
+import * as SettingsActions from "../../../module/state/settings/actionCreator";
 import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
 import {
   SCREEN_TASK_NEW,
@@ -271,7 +271,7 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = (
-  dispatch: ReduxThunkDispatch<Action>
+  dispatch: ReduxThunkDispatch
 ): Partial<Props> => {
   return {
     getTasks: () => {

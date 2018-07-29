@@ -18,11 +18,11 @@ import {
 } from "native-base";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { TaskSortSetting, TaskVisibilityFilter, TaskSortBy } from "../../../module/model/settings";
-import { AppSettingsStateProps } from "../../../module/state/type";
+import { AppSettingsStateProps } from "../../../module/state/stateType";
 import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
 import { CloseHeaderButton, DoneHeaderButton } from "../../shared/headerItem";
 import { resolveSortByText, resolveVisiblFilterShortText } from "./textResolover";
-import * as Actions from "../../../module/state/settings/action";
+import * as Actions from "../../../module/state/settings/actionCreator";
 import I18n from "../../../i18n";
 
 type NavigationParams = {
@@ -189,7 +189,7 @@ const mapStateToProps = (
 }
 
 const mapDispatchToProps = (
-  dispatch: ReduxThunkDispatch<Action>
+  dispatch: ReduxThunkDispatch
 ): Partial<Props> => {
   return {
     updateTaskSortBy: (sortBy: TaskSortBy) => {

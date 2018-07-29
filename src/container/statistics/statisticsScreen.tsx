@@ -8,7 +8,7 @@ import {
   NavigationRoute
 } from "react-navigation";
 import { Container, Content, Icon } from "native-base";
-import { TaskStateProps } from "../../module/state/type";
+import { TaskStateProps } from "../../module/state/stateType";
 import {
   countCompletedTask,
   countActiveTask

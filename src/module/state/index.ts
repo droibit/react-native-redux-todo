@@ -21,7 +21,7 @@ import immutableTransform from "redux-persist-transform-immutable";
 import {
   RootStateProps,
   RootStateKeys,
-} from "./type";
+} from "./stateType";
 import { AppSettings, TaskSortSetting } from "../model/settings";
 
 const reducers = {

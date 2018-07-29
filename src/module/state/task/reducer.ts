@@ -9,7 +9,7 @@ import {
   TASK_DELETE,
   TASK_UPDATE_STARTED,
   TASK_UPDATE_DONE
-} from "../action";
+} from "../actionType";
 import { Task, TaskList, TaskState } from "../../model/task";
 import { Result } from "../../model/result";
 import { TaskEntity } from "../../data/source/task";
@@ -23,7 +23,7 @@ import {
   DeleteTaskAction,
   UpdateTaskStartAction,
   UpdateTaskDoneAction
-} from "./action";
+} from "./actionCreator";
 
 type TaskAction =
   | GetTaskStartAction

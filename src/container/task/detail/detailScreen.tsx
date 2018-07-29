@@ -8,7 +8,6 @@ import {
   ViewStyle,
   TextStyle,
 } from "react-native";
-import { Action } from "redux";
 import { connect } from "react-redux";
 import {
   NavigationScreenOptions,
@@ -23,10 +22,10 @@ import {
 } from 'native-base';
 import moment from 'moment';
 import { Task } from "../../../module/model/task";
-import { TaskStateProps } from "../../../module/state/type";
+import { TaskStateProps } from "../../../module/state/stateType";
 import { Container } from "native-base";
 import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
-import * as Actions from "../../../module/state/task/action";
+import * as Actions from "../../../module/state/task/actionCreator";
 import { SCREEN_TASK_UPDATE } from "../../navigation";
 import { NavigationParams as UpdateNavigationParams } from "../edit/updateTaskScreen";
 import I18n from "../../../i18n";
@@ -190,7 +189,7 @@ const mapStateToProps = (state: TaskStateProps, props: Props): Partial<Props> =>
 };
 
 const mapDispatchToProps = (
-  dispatch: ReduxThunkDispatch<Action>
+  dispatch: ReduxThunkDispatch
 ): Partial<Props> => {
   return {
     completeTask: (taskId) => {
