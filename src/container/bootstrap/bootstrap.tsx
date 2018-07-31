@@ -18,11 +18,11 @@ export default class Bootstrap extends Component<Props> {
   public componentDidMount() {
     this.persistor = configurePersistStore(
       store,
-      this.onPersitBootstrapped.bind(this),
+      this.onPersistBootstrapped.bind(this),
     );
   }
 
-  private async onPersitBootstrapped() {
+  private async onPersistBootstrapped() {
     console.log('Bootstrapped.');
     // await this.persistor.purge();
     this.props.navigation.navigate(SCREEN_MAIN);
