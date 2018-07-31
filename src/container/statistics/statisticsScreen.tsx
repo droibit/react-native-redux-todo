@@ -101,4 +101,5 @@ const mapStateToProps = (state: TaskStateProps): Partial<Props> => {
   };
 };
 
+// @ts-ignore
 export default connect(mapStateToProps)(StatisticsScreen);

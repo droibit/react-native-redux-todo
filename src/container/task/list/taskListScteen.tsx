@@ -65,6 +65,7 @@ type State = {
 };
 
 class TaskListScreen extends Component<Props, State> {
+  // noinspection JSUnusedGlobalSymbols
   static navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = ({
     navigation,
   }) => {
@@ -291,4 +292,5 @@ const mapDispatchToProps = (dispatch: ReduxThunkDispatch): Partial<Props> => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
+  // @ts-ignore
 )(TaskListScreen);

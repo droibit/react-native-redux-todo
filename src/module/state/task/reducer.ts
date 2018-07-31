@@ -1,4 +1,4 @@
-import { isError } from "flux-standard-action";
+import { isError } from 'flux-standard-action';
 import {
   TASK_GET_DONE,
   TASK_CREATE_STARTED,
@@ -8,11 +8,11 @@ import {
   TASK_ACTIVE,
   TASK_DELETE,
   TASK_UPDATE_STARTED,
-  TASK_UPDATE_DONE
-} from "../actionType";
-import { Task, TaskList, TaskState } from "../../model/task";
-import { Result } from "../../model/result";
-import { TaskEntity } from "../../data/source/task";
+  TASK_UPDATE_DONE,
+} from '../actionType';
+import { Task, TaskList, TaskState } from '../../model/task';
+import { Result } from '../../model/result';
+import { TaskEntity } from '../../data/source/task';
 import {
   GetTaskStartAction,
   GetTaskDoneAction,
@@ -22,8 +22,8 @@ import {
   ActiveTaskAction,
   DeleteTaskAction,
   UpdateTaskStartAction,
-  UpdateTaskDoneAction
-} from "./actionCreator";
+  UpdateTaskDoneAction,
+} from './actionCreator';
 
 type TaskAction =
   | GetTaskStartAction
@@ -38,7 +38,7 @@ type TaskAction =
 
 export function taskReducer(
   state: TaskState = new TaskState(),
-  action: TaskAction
+  action: TaskAction,
 ): TaskState {
   console.log(`taskReducer(action=${JSON.stringify(action)})`);
   switch (action.type) {
@@ -71,7 +71,7 @@ function onWillGetAllTasks(state: TaskState): TaskState {
 
 function onGetAllTasks(
   state: TaskState,
-  entities: Array<TaskEntity>
+  entities: Array<TaskEntity>,
 ): TaskState {
   const tasks = entities.map(entityToTask);
   return state.withTasks(new TaskList().addTasks(tasks));
@@ -83,7 +83,7 @@ function onWillCreateTask(state: TaskState): TaskState {
 
 function onDidCreateTask(
   state: TaskState,
-  action: CreateTaskDoneAction
+  action: CreateTaskDoneAction,
 ): TaskState {
   let result: Result<Task>;
   if (isError(action)) {
@@ -95,7 +95,10 @@ function onDidCreateTask(
   return state.withCreateResult(result);
 }
 
-function onCompleteTask(state: TaskState, action: CompleteTaskAction): TaskState {
+function onCompleteTask(
+  state: TaskState,
+  action: CompleteTaskAction,
+): TaskState {
   let result: Result<Task>;
   if (isError(action)) {
     result = state.completeResult.asError(action.payload!);
@@ -129,7 +132,10 @@ function onWillUpdateTask(state: TaskState): TaskState {
   return state.withUpdateResult(state.createResult.asInProgress());
 }
 
-function onDidUpdateTask(state: TaskState, action: UpdateTaskDoneAction): TaskState {
+function onDidUpdateTask(
+  state: TaskState,
+  action: UpdateTaskDoneAction,
+): TaskState {
   let result: Result<Task>;
   if (isError(action)) {
     // TODO: Convert custom error.
@@ -144,8 +150,8 @@ function entityToTask(entity: TaskEntity): Task {
   return new Task({
     id: entity.id,
     title: entity.title,
-    description: entity.description || "",
+    description: entity.description || '',
     timestamp: new Date(entity.timestamp),
-    completed: entity.completed
+    completed: entity.completed,
   });
 }

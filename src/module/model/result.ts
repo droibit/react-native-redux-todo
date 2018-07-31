@@ -1,4 +1,4 @@
-import * as Immutable from "immutable";
+import * as Immutable from 'immutable';
 
 type Props<T, E extends Error = Error> = {
   inProgress: boolean;
@@ -11,7 +11,6 @@ export class Result<T, E extends Error = Error> extends Immutable.Record({
   data: undefined,
   error: undefined,
 }) {
-
   public readonly inProgress!: boolean;
 
   public readonly data?: T;
@@ -23,34 +22,42 @@ export class Result<T, E extends Error = Error> extends Immutable.Record({
   }
 
   public get isSuccess(): boolean {
-    return this.inProgress === false && this.error === undefined && this.data !== undefined;
+    return (
+      this.inProgress === false &&
+      this.error === undefined &&
+      this.data !== undefined
+    );
   }
 
   public get isError(): boolean {
-    return this.inProgress === false && this.data === undefined && this.error !== undefined;
+    return (
+      this.inProgress === false &&
+      this.data === undefined &&
+      this.error !== undefined
+    );
   }
 
   public asInProgress(): Result<T, E> {
     return this.withMutations(s => {
-      s.set("inProgress", true)
-        .remove("data")
-        .remove("error");
+      s.set('inProgress', true)
+        .remove('data')
+        .remove('error');
     }) as Result<T, E>;
   }
 
   public asSuccess(data: T): Result<T, E> {
     return this.withMutations(s => {
-      s.set("inProgress", false)
-        .set("data", data)
-        .remove("error");
+      s.set('inProgress', false)
+        .set('data', data)
+        .remove('error');
     }) as Result<T, E>;
   }
 
   public asError(e: E): Result<T, E> {
     return this.withMutations(s => {
-      s.set("inProgress", false)
-        .remove("data")
-        .set("error", e);
+      s.set('inProgress', false)
+        .remove('data')
+        .set('error', e);
     }) as Result<T, E>;
   }
 }

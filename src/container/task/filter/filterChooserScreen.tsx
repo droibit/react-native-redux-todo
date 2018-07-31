@@ -188,7 +188,7 @@ const mapDispatchToProps = (dispatch: ReduxThunkDispatch): Partial<Props> => {
       dispatch(Actions.updateTaskSortBy(sortBy));
     },
     updateTaskVisibilityFilter: (filter: TaskVisibilityFilter) => {
-      dispatch(Actions.updateTaskVisiblityFilter(filter));
+      dispatch(Actions.updateTaskVisibilityFilter(filter));
     },
   };
 };
@@ -196,4 +196,5 @@ const mapDispatchToProps = (dispatch: ReduxThunkDispatch): Partial<Props> => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
+  // @ts-ignore
 )(TaskFilterChooserScreen);

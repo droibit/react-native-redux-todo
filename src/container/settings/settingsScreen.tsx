@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import {
-  NavigationScreenProp,
   NavigationRoute,
-  NavigationScreenOptions,
   NavigationScreenConfig,
+  NavigationScreenOptions,
+  NavigationScreenProp,
 } from 'react-navigation';
 import I18n from '../../i18n';
-import { Container, Content, List, ListItem, Text, Body } from 'native-base';
+import { Body, Container, Content, List, ListItem, Text } from 'native-base';
 import { CloseHeaderButton } from '../shared/headerItem';
 
 type Props = {
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
 });
 
 class SettingsScreen extends Component<Props> {
+  // noinspection JSUnusedGlobalSymbols
   static navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = ({
     navigation,
   }) => {

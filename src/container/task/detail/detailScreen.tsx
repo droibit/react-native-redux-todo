@@ -197,4 +197,5 @@ const mapDispatchToProps = (dispatch: ReduxThunkDispatch): Partial<Props> => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
+  // @ts-ignore
 )(TaskDetailScreen);

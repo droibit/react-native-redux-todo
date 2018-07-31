@@ -1,3 +1,5 @@
 export enum TaskVisibilityFilter {
-  ALL, ACTIVE, COMPLETED,
-};
+  ALL,
+  ACTIVE,
+  COMPLETED,
+}

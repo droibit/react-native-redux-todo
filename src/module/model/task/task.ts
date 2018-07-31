@@ -1,4 +1,4 @@
-import { Record } from "immutable";
+import { Record } from 'immutable';
 
 type Props = {
   id: string;
@@ -12,9 +12,9 @@ type UpdatableProps = {
 };
 
 export class Task extends Record({
-  id: "",
-  title: "",
-  description: "",
+  id: '',
+  title: '',
+  description: '',
   timestamp: {},
   completed: false,
 } as Props) {

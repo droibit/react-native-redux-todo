@@ -1,12 +1,8 @@
-import TaskRepository from "./taskReposirory";
-import { TaskEntity, TaskStore } from "../../source/task";
+import TaskRepository from './taskReposirory';
+import { TaskEntity, TaskStore } from '../../source/task';
 
 export default class TaskRepositoryImpl implements TaskRepository {
-
-  constructor(
-    private readonly store: TaskStore,
-  ) {
-  }
+  constructor(private readonly store: TaskStore) {}
 
   public getTasks(): Promise<ReadonlyArray<TaskEntity>> {
     return this.store.getTasks();
@@ -16,7 +12,11 @@ export default class TaskRepositoryImpl implements TaskRepository {
     return this.store.create(title, description);
   }
 
-  public updateTask(taskId: string, title: string, description: string): Promise<TaskEntity> {
+  public updateTask(
+    taskId: string,
+    title: string,
+    description: string,
+  ): Promise<TaskEntity> {
     return this.store.update(taskId, title, description);
   }
 

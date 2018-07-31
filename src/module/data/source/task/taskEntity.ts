@@ -7,7 +7,6 @@ export type Props = {
 };
 
 export default class TaskEntity {
-
   public readonly id: string;
   public readonly title: string;
   public readonly description?: string;
@@ -24,11 +23,11 @@ export default class TaskEntity {
 
   public copyWith(src: Partial<Props>): TaskEntity {
     return new TaskEntity({
-      id: (src.id || this.id),
-      title: (src.title || this.title),
-      description: (src.description || this.description),
-      timestamp: (src.timestamp || this.timestamp),
-      completed: (src.completed !== undefined) ? src.completed :  this.completed,
+      id: src.id || this.id,
+      title: src.title || this.title,
+      description: src.description || this.description,
+      timestamp: src.timestamp || this.timestamp,
+      completed: src.completed !== undefined ? src.completed : this.completed,
     });
   }
 }

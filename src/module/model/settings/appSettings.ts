@@ -1,17 +1,19 @@
-import { Record } from "immutable";
-import { TaskSortSetting } from "./taskSortSetting";
-import { TaskVisibilityFilter } from "./taskVisiblityFilter";
+import { Record } from 'immutable';
+import { TaskSortSetting } from './taskSortSetting';
+import { TaskVisibilityFilter } from './taskVisiblityFilter';
 
 type Props = {
-  taskSortSetting: TaskSortSetting,
-  taskVisibilityFilter: TaskVisibilityFilter,
+  taskSortSetting: TaskSortSetting;
+  taskVisibilityFilter: TaskVisibilityFilter;
 };
 
-export default class AppSettings extends Record({
-  taskSortSetting: {},
-  taskVisibilityFilter: {},
-} as Props, "AppSettings") {
-
+export default class AppSettings extends Record(
+  {
+    taskSortSetting: {},
+    taskVisibilityFilter: {},
+  } as Props,
+  'AppSettings',
+) {
   public readonly taskSortSetting!: TaskSortSetting;
 
   public readonly taskVisibilityFilter!: TaskVisibilityFilter;
