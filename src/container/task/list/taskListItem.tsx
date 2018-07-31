@@ -1,22 +1,12 @@
-import React, { Component } from "react";
-import {
-  Text,
-  StyleSheet,
-} from "react-native";
-import {
-  Button,
-  Icon,
-  ListItem,
-  CheckBox,
-  Body,
-  Right,
-} from 'native-base';
-import { Task } from "../../../module/model/task";
+import React from 'react';
+import { Text, StyleSheet } from 'react-native';
+import { Button, Icon, ListItem, CheckBox, Body, Right } from 'native-base';
+import { Task } from '../../../module/model/task';
 
 type TaskListItemProps = {
   task: Task;
   onItemPress(task: Task): void;
-  onCompleteChecBoxPress(task: Task): void;
+  onCompleteCheckBoxPress(task: Task): void;
 };
 
 type DeleteTaskListItemButtonProps = {
@@ -38,22 +28,19 @@ const styles = StyleSheet.create({
   },
 });
 
-export const TaskListItem: React.SFC<TaskListItemProps> = (props) => {
-  const { task, onItemPress, onCompleteChecBoxPress, } = props;
+export const TaskListItem: React.SFC<TaskListItemProps> = props => {
+  const { task, onItemPress, onCompleteCheckBoxPress } = props;
   return (
-    <ListItem
-      onPress={() => onItemPress(task)}
-      style={styles.listItem}>
+    <ListItem onPress={() => onItemPress(task)} style={styles.listItem}>
       <Body>
-        <Text
-          ellipsizeMode="tail"
-          numberOfLines={1}
-          style={styles.title}>{task.title}</Text>
+        <Text ellipsizeMode="tail" numberOfLines={1} style={styles.title}>
+          {task.title}
+        </Text>
       </Body>
       <Right>
         <CheckBox
           checked={task.completed}
-          onPress={() => onCompleteChecBoxPress(task)}
+          onPress={() => onCompleteCheckBoxPress(task)}
           style={styles.completeCheckBox}
         />
       </Right>
@@ -61,11 +48,13 @@ export const TaskListItem: React.SFC<TaskListItemProps> = (props) => {
   );
 };
 
-export const DeleteTaskListItemButton: React.SFC<DeleteTaskListItemButtonProps> = (props) => {
+export const DeleteTaskListItemButton: React.SFC<
+  DeleteTaskListItemButtonProps
+> = props => {
   const { task, onItemDeletePress } = props;
   return (
     <Button full danger onPress={() => onItemDeletePress(task)}>
       <Icon active type="MaterialIcons" name="delete" />
     </Button>
   );
-}
+};

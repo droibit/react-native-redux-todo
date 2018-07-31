@@ -1,30 +1,30 @@
-import React from "react";
+import React from 'react';
 import {
   createStackNavigator,
   createBottomTabNavigator,
-  createSwitchNavigator
-} from "react-navigation";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import Bootstrap from "./bootstrap/bootstrap";
-import TaskListScreen from "./task/list/taskListScteen";
-import TaskDetailScreen from "./task/detail/detailScreen";
-import statisticsScreen from "./statistics/statisticsScreen";
-import NewTaskScreen from "./task/edit/newTaskScreen";
-import TaskFilterChooserScreen from "./task/filter/FilterChooserScreen";
-import UpdateTaskScreen from "./task/edit/updateTaskScreen";
-import SettingsScreen from "./settings/settingsScreen";
-import I18n from "../i18n";
+  createSwitchNavigator,
+} from 'react-navigation';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Bootstrap from './bootstrap/bootstrap';
+import TaskListScreen from './task/list/taskListScteen';
+import TaskDetailScreen from './task/detail/detailScreen';
+import statisticsScreen from './statistics/statisticsScreen';
+import NewTaskScreen from './task/edit/newTaskScreen';
+import TaskFilterChooserScreen from './task/filter/filterChooserScreen';
+import UpdateTaskScreen from './task/edit/updateTaskScreen';
+import SettingsScreen from './settings/settingsScreen';
+import I18n from '../i18n';
 
-export const SCREEN_BOOTSTRAP = "Bootstrap";
-export const SCREEN_MAIN = "Main";
-export const SCREEN_MAIN_TASK_TAB = "Tasks";
-export const SCREEN_TASK_LIST = "List";
-export const SCREEN_TASK_DETAIL = "Detail";
-export const SCREEN_STATISTICS = "Statistics";
-export const SCREEN_TASK_NEW = "NewTask";
-export const SCREEN_TASK_UPDATE = "UpdateTask";
-export const SCREEN_TASK_FILTER_CHOOSER = "TaskFilterChooser";
-export const SCREEN_SETTINGS = "Settings";
+export const SCREEN_BOOTSTRAP = 'Bootstrap';
+export const SCREEN_MAIN = 'Main';
+export const SCREEN_MAIN_TASK_TAB = 'Tasks';
+export const SCREEN_TASK_LIST = 'List';
+export const SCREEN_TASK_DETAIL = 'Detail';
+export const SCREEN_STATISTICS = 'Statistics';
+export const SCREEN_TASK_NEW = 'NewTask';
+export const SCREEN_TASK_UPDATE = 'UpdateTask';
+export const SCREEN_TASK_FILTER_CHOOSER = 'TaskFilterChooser';
+export const SCREEN_SETTINGS = 'Settings';
 
 type TabIcon = {
   icon: string;
@@ -32,23 +32,23 @@ type TabIcon = {
 };
 const mainTabIcons: { [key: string]: TabIcon } = {
   Tasks: {
-    icon: "list",
-    label: I18n.t("title")
+    icon: 'list',
+    label: I18n.t('title'),
   },
   Statistics: {
-    icon: "assessment",
-    label: I18n.t("statistics")
-  }
+    icon: 'assessment',
+    label: I18n.t('statistics'),
+  },
 };
 const MainTab = createBottomTabNavigator(
   {
     Tasks: createStackNavigator({
       List: TaskListScreen,
-      Detail: TaskDetailScreen
+      Detail: TaskDetailScreen,
     }),
     Statistics: createStackNavigator({
-      Statistics: statisticsScreen
-    })
+      Statistics: statisticsScreen,
+    }),
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -58,62 +58,62 @@ const MainTab = createBottomTabNavigator(
         // console.log(`Selected Tab: ${routeName}, icon:${iconName}`);
         return <Icon name={iconName} size={24} color={tintColor!} />;
       },
-      tabBarLabel: mainTabIcons[navigation.state.routeName].label
-    })
-  }
+      tabBarLabel: mainTabIcons[navigation.state.routeName].label,
+    }),
+  },
 );
 const MainModal = createSwitchNavigator({
   NewTask: createStackNavigator(
     {
-      NewTask: NewTaskScreen
+      NewTask: NewTaskScreen,
     },
     {
-      mode: "modal"
-    }
+      mode: 'modal',
+    },
   ),
   UpdateTask: createStackNavigator(
     {
-      UpdateTask: UpdateTaskScreen
+      UpdateTask: UpdateTaskScreen,
     },
     {
-      mode: "modal"
-    }
+      mode: 'modal',
+    },
   ),
   TaskFilterChooser: createStackNavigator(
     {
-      TaskFilterChooser: TaskFilterChooserScreen
+      TaskFilterChooser: TaskFilterChooserScreen,
     },
     {
-      mode: "modal"
-    }
+      mode: 'modal',
+    },
   ),
   Settings: createStackNavigator(
     {
-      Settings: SettingsScreen
+      Settings: SettingsScreen,
     },
     {
-      mode: "modal"
-    }
-  )
+      mode: 'modal',
+    },
+  ),
 });
 
 const MainStack = createStackNavigator(
   {
     Main: MainTab,
-    Modal: MainModal
+    Modal: MainModal,
   },
   {
     initialRouteName: SCREEN_MAIN,
-    headerMode: "none"
-  }
+    headerMode: 'none',
+  },
 );
 
 export const AppNavigator = createSwitchNavigator(
   {
     Bootstrap: Bootstrap,
-    Main: MainStack
+    Main: MainStack,
   },
   {
-    initialRouteName: SCREEN_BOOTSTRAP
-  }
+    initialRouteName: SCREEN_BOOTSTRAP,
+  },
 );

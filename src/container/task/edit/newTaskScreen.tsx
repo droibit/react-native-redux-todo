@@ -1,21 +1,20 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   NavigationScreenOptions,
   NavigationScreenProp,
   NavigationRoute,
-  NavigationScreenConfig
-} from "react-navigation";
-import { Action } from "redux";
-import EditTask from "./editTask";
-import { CloseHeaderButton, DoneHeaderButton } from "../../shared/headerItem";
-import { Result } from "../../../module/model/result";
-import { TaskStateProps } from "../../../module/state/stateType";
-import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
-import * as Actions from "../../../module/state/task/actionCreator";
-import { Toast } from "native-base";
-import I18n from "../../../i18n";
-import { Task } from "../../../module/model/task";
+  NavigationScreenConfig,
+} from 'react-navigation';
+import EditTask from './editTask';
+import { CloseHeaderButton, DoneHeaderButton } from '../../shared/headerItem';
+import { Result } from '../../../module/model/result';
+import { TaskStateProps } from '../../../module/state/stateType';
+import { ReduxThunkDispatch } from '../../../module/state/reduxActionType';
+import * as Actions from '../../../module/state/task/actionCreator';
+import { Toast } from 'native-base';
+import I18n from '../../../i18n';
+import { Task } from '../../../module/model/task';
 
 export type NavigationParams = {
   disabledDoneButton: boolean;
@@ -34,20 +33,19 @@ type State = {
 };
 
 class NewTaskScreen extends Component<Props, State> {
-  
   static navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = ({
-    navigation
+    navigation,
   }) => {
     // const { disabledDoneButton, onDoneButtonPressed } = navigation.state.params as NavigationParams
     return {
-      title: I18n.t("newTask"),
+      title: I18n.t('newTask'),
       headerLeft: <CloseHeaderButton onPress={() => navigation.goBack(null)} />,
       headerRight: (
         <DoneHeaderButton
-          disabled={navigation.getParam("disabledDoneButton")}
-          onPress={navigation.getParam("onDoneButtonPressed")}
+          disabled={navigation.getParam('disabledDoneButton')}
+          onPress={navigation.getParam('onDoneButtonPressed')}
         />
-      )
+      ),
     };
   };
 
@@ -55,16 +53,20 @@ class NewTaskScreen extends Component<Props, State> {
     super(props);
 
     this.state = {
-      title: "",
-      description: ""
+      title: '',
+      description: '',
     };
     this.props.navigation.setParams({
       disabledDoneButton: true,
-      onDoneButtonPressed: this.onDoneButtonPressed.bind(this)
+      onDoneButtonPressed: this.onDoneButtonPressed.bind(this),
     });
   }
 
-  public componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any) {
+  public componentDidUpdate(
+    prevProps: Readonly<Props>,
+    prevState: Readonly<State>,
+    snapshot?: any,
+  ) {
     console.log(`NewTaskScreen.componentDidUpdate(
         prevProps=${JSON.stringify(prevProps.createTaskResult)},
         props=${JSON.stringify(this.props.createTaskResult)},
@@ -82,9 +84,9 @@ class NewTaskScreen extends Component<Props, State> {
       navigation.goBack(null);
     } else if (result.isError) {
       Toast.show({
-        text: "Failed to create new TO-DO.",
-        type: "danger",
-      })
+        text: 'Failed to create new TO-DO.',
+        type: 'danger',
+      });
       console.log(`Create task error: ${result.error!.message}.`);
     }
   }
@@ -102,18 +104,18 @@ class NewTaskScreen extends Component<Props, State> {
   }
 
   private onDoneButtonPressed() {
-    console.log("#onDoneButtonPressed()");
+    console.log('#onDoneButtonPressed()');
     if (!this.props.createTaskResult.inProgress) {
       const { title, description } = this.state;
       this.props.createTask(title, description);
-      console.log("Dispatch create task action.")
+      console.log('Dispatch create task action.');
     }
   }
 
   private onTitleChanged(title: string) {
     console.log(`#onTitleChanged(title=${title})`);
     this.setState({ title });
-    this.props.navigation.setParams({ disabledDoneButton: title === "" });
+    this.props.navigation.setParams({ disabledDoneButton: title === '' });
   }
 
   private onDescriptionChanged(description: string) {
@@ -121,22 +123,21 @@ class NewTaskScreen extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = (
-  state: TaskStateProps
-): Partial<Props> => {
+const mapStateToProps = (state: TaskStateProps): Partial<Props> => {
   return {
     createTaskResult: state.task.createResult,
   };
-}
+};
 
-const mapDispatchToProps = (
-  dispatch: ReduxThunkDispatch
-): Partial<Props> => {
+const mapDispatchToProps = (dispatch: ReduxThunkDispatch): Partial<Props> => {
   return {
     createTask: (title, description) => {
       dispatch(Actions.createTask(title, description));
     },
   };
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewTaskScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NewTaskScreen);

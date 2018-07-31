@@ -1,7 +1,6 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import HeaderButtons, { HeaderButton } from "react-navigation-header-buttons";
+import React from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import HeaderButtons, { HeaderButton } from 'react-navigation-header-buttons';
 
 type HeaderButtonProps = {
   onPress(): void;
@@ -37,10 +36,6 @@ export const DoneHeaderButton: React.SFC<DoneHeaderButtonProps> = props => (
 
 export const SettingsHeaderButton: React.SFC<HeaderButtonProps> = props => (
   <HeaderButtons HeaderButtonComponent={NavHeaderButton}>
-    <HeaderButtons.Item
-      {...props}
-      iconName="settings"
-      title="settings"
-    />
+    <HeaderButtons.Item {...props} iconName="settings" title="settings" />
   </HeaderButtons>
 );

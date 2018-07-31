@@ -1,42 +1,41 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   NavigationScreenOptions,
   NavigationScreenProp,
   NavigationRoute,
-  NavigationScreenConfig
-} from "react-navigation";
-import { Action } from "redux";
-import { Container, Toast, Content, Fab } from "native-base";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import Loading from "./loading";
-import EmptyView from "./emptyView";
-import TaskList from "./taskList";
+  NavigationScreenConfig,
+} from 'react-navigation';
+import { Container, Toast, Content, Fab } from 'native-base';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Loading from './loading';
+import EmptyView from './emptyView';
+import TaskList from './taskList';
 import {
   TaskStateProps,
-  AppSettingsStateProps
-} from "../../../module/state/stateType";
-import { filteredAndSortedTasks } from "../../../module/state/task/selector";
-import { Task } from "../../../module/model/task";
-import * as TaskActions from "../../../module/state/task/actionCreator";
-import * as SettingsActions from "../../../module/state/settings/actionCreator";
-import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
+  AppSettingsStateProps,
+} from '../../../module/state/stateType';
+import { filteredAndSortedTasks } from '../../../module/state/task/selector';
+import { Task } from '../../../module/model/task';
+import * as TaskActions from '../../../module/state/task/actionCreator';
+import * as SettingsActions from '../../../module/state/settings/actionCreator';
+import { ReduxThunkDispatch } from '../../../module/state/reduxActionType';
 import {
   SCREEN_TASK_NEW,
   SCREEN_TASK_FILTER_CHOOSER,
   SCREEN_TASK_DETAIL,
-  SCREEN_SETTINGS
-} from "../../navigation";
-import { Result } from "../../../module/model/result";
+  SCREEN_SETTINGS,
+} from '../../navigation';
+import { Result } from '../../../module/model/result';
 import {
   TaskSortSetting,
   TaskVisibilityFilter,
-  TaskSortByOrder
-} from "../../../module/model/settings";
-import TaskListHeader from "./taskListHeader";
-import { NavigationParams as DetailNavigationParams } from "../detail/detailScreen";
-import I18n from "../../../i18n";
-import { SettingsHeaderButton } from "../../shared/headerItem";
+  TaskSortByOrder,
+} from '../../../module/model/settings';
+import TaskListHeader from './taskListHeader';
+import { NavigationParams as DetailNavigationParams } from '../detail/detailScreen';
+import I18n from '../../../i18n';
+import { SettingsHeaderButton } from '../../shared/headerItem';
 
 type NavigationParams = {
   onSettingsHeaderButtonPress(): void;
@@ -67,26 +66,26 @@ type State = {
 
 class TaskListScreen extends Component<Props, State> {
   static navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = ({
-    navigation
+    navigation,
   }) => {
     return {
-      title: I18n.t("title"),
+      title: I18n.t('title'),
       // ref. https://github.com/react-navigation/react-navigation/issues/790#issuecomment-310332665
       headerStyle: {
         elevation: 0, //remove shadow on Android
-        shadowOpacity: 0 //remove shadow on iOS
+        shadowOpacity: 0, //remove shadow on iOS
       },
       headerRight: (
         <SettingsHeaderButton
-          onPress={navigation.getParam("onSettingsHeaderButtonPress")}
+          onPress={navigation.getParam('onSettingsHeaderButtonPress')}
         />
-      )
+      ),
     };
   };
 
   static getDerivedStateFromProps(
     nextProps: Readonly<Props>,
-    prevState: State
+    prevState: State,
   ): Partial<State> | null {
     // console.log(
     //   `#getDerivedStateFromProps(nextProps${JSON.stringify(
@@ -99,7 +98,7 @@ class TaskListScreen extends Component<Props, State> {
     }
     if (prevState.loading !== nextProps.loading) {
       return {
-        loading: nextProps.loading
+        loading: nextProps.loading,
       };
     }
     return null;
@@ -110,21 +109,21 @@ class TaskListScreen extends Component<Props, State> {
     console.log(`TaskListScreen.props: ${JSON.stringify(props)}`);
     this.state = {
       loading: true,
-      mounted: false
+      mounted: false,
     };
     this.props.navigation.setParams({
-      onSettingsHeaderButtonPress: this.onSettingsHeaderButtonPress.bind(this)
+      onSettingsHeaderButtonPress: this.onSettingsHeaderButtonPress.bind(this),
     });
   }
 
   public componentDidMount() {
     this.props.getTasks();
-    console.log("Dispatch get tasks action.");
+    console.log('Dispatch get tasks action.');
   }
 
   public componentDidUpdate(
     prevProps: Readonly<Props>,
-    prevState: Readonly<State>
+    prevState: Readonly<State>,
   ) {
     // console.log(`#componentDidUpdate(
     //   prevProps=${JSON.stringify(prevProps)},
@@ -133,15 +132,15 @@ class TaskListScreen extends Component<Props, State> {
     const {
       createTaskResult,
       completeTaskResult,
-      activeTaskResult
+      activeTaskResult,
     } = this.props;
     if (
       createTaskResult !== prevProps.createTaskResult &&
       createTaskResult.isSuccess
     ) {
       Toast.show({
-        text: I18n.t("newTaskSuccessfulToCreate"),
-        type: "success"
+        text: I18n.t('newTaskSuccessfulToCreate'),
+        type: 'success',
       });
     }
 
@@ -150,8 +149,8 @@ class TaskListScreen extends Component<Props, State> {
       completeTaskResult.isError
     ) {
       Toast.show({
-        text: I18n.t("newTaskFailedToCreate"),
-        type: "danger"
+        text: I18n.t('newTaskFailedToCreate'),
+        type: 'danger',
       });
     }
 
@@ -169,7 +168,7 @@ class TaskListScreen extends Component<Props, State> {
     if (loading) {
       return (
         <Container>
-          <Loading label={I18n.t("todoListLoading")} />
+          <Loading label={I18n.t('todoListLoading')} />
         </Container>
       );
     }
@@ -181,12 +180,12 @@ class TaskListScreen extends Component<Props, State> {
         <TaskList
           {...this.props}
           onItemPress={this.onTaskItemPress.bind(this)}
-          onCompleteChecBoxPress={this.onTaskCompleteCheckBoxPress.bind(this)}
+          onCompleteCheckBoxPress={this.onTaskCompleteCheckBoxPress.bind(this)}
           onItemDeletePress={this.onDeleteButtonPress.bind(this)}
         />
       );
     } else {
-      content = <EmptyView text={I18n.t("noTasks")} />;
+      content = <EmptyView text={I18n.t('noTasks')} />;
     }
 
     return (
@@ -200,8 +199,7 @@ class TaskListScreen extends Component<Props, State> {
         <Fab
           active={true}
           position="bottomRight"
-          onPress={this.onAddButtonPress.bind(this)}
-        >
+          onPress={this.onAddButtonPress.bind(this)}>
           <Icon name="add" />
         </Fab>
       </Container>
@@ -211,7 +209,7 @@ class TaskListScreen extends Component<Props, State> {
   private onTaskItemPress(task: Task) {
     console.log(`#onTaskItemPress(task=${JSON.stringify(task)})`);
     this.props.navigation.push(SCREEN_TASK_DETAIL, {
-      taskId: task.id
+      taskId: task.id,
     } as DetailNavigationParams);
   }
 
@@ -225,37 +223,37 @@ class TaskListScreen extends Component<Props, State> {
   }
 
   private onAddButtonPress() {
-    console.log("#onAddButtonPress()");
+    console.log('#onAddButtonPress()');
     this.props.navigation.navigate(SCREEN_TASK_NEW);
   }
 
   private onDeleteButtonPress(task: Task) {
-    console.log("#onDeleteButtonPress()");
+    console.log('#onDeleteButtonPress()');
     this.props.deleteTask(task.id);
   }
 
   private onFilterButtonPress() {
-    console.log("#onFilterButtonPress()");
+    console.log('#onFilterButtonPress()');
     this.props.navigation.navigate(SCREEN_TASK_FILTER_CHOOSER);
   }
 
   private onSortButtonPress() {
-    console.log("#onSortButtonPress()");
+    console.log('#onSortButtonPress()');
     this.props.updateTaskSortOrder(
       this.props.taskSortSetting.taskSortByOrder == TaskSortByOrder.ASC
         ? TaskSortByOrder.DESC
-        : TaskSortByOrder.ASC
+        : TaskSortByOrder.ASC,
     );
   }
 
   private onSettingsHeaderButtonPress() {
-    console.log("#onSettingsHeaderButtonPress()");
+    console.log('#onSettingsHeaderButtonPress()');
     this.props.navigation.navigate(SCREEN_SETTINGS);
   }
 }
 
 const mapStateToProps = (
-  state: TaskStateProps & AppSettingsStateProps
+  state: TaskStateProps & AppSettingsStateProps,
 ): Partial<Props> => {
   // console.log(`mapStateToProps: ${JSON.stringify(state)}`);
   return {
@@ -266,13 +264,11 @@ const mapStateToProps = (
     createTaskResult: state.task.createResult,
     completeTaskResult: state.task.completeResult,
     activeTaskResult: state.task.activeResult,
-    deleteTaskResult: state.task.deleteResult
+    deleteTaskResult: state.task.deleteResult,
   };
 };
 
-const mapDispatchToProps = (
-  dispatch: ReduxThunkDispatch
-): Partial<Props> => {
+const mapDispatchToProps = (dispatch: ReduxThunkDispatch): Partial<Props> => {
   return {
     getTasks: () => {
       dispatch(TaskActions.getTasks());
@@ -288,11 +284,11 @@ const mapDispatchToProps = (
     },
     updateTaskSortOrder: order => {
       dispatch(SettingsActions.updateTaskSortByOrder(order));
-    }
+    },
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(TaskListScreen);

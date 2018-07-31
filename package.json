@@ -6,8 +6,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "lint": "tslint 'src/**/*.ts{,x}'",
     "i18n-ts": "i18n-ts",
-    "i18n-ts:watch": "i18n-ts -w",
-    "test": "jest"
+    "test": "jest",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json"
   },
   "dependencies": {
     "flux-standard-action": "^2.0.3",
@@ -41,10 +41,13 @@
     "babel-jest": "23.2.0",
     "babel-preset-react-native": "4.0.0",
     "jest": "23.2.0",
+    "prettier": "^1.14.0",
     "react-native-i18n-ts": "^0.1.1",
     "react-native-typescript-transformer": "^1.2.10",
     "react-test-renderer": "16.3.1",
     "ts-jest": "^23.0.0",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.14.0",
     "typescript": "^2.9.2"
   },
   "jest": {

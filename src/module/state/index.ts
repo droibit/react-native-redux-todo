@@ -1,28 +1,25 @@
 import {
-  createStore,
+  Action,
   applyMiddleware,
   combineReducers,
+  createStore,
   Store,
-  Action,
-} from "redux";
+} from 'redux';
 import {
-  persistReducer,
-  persistStore,
+  BoostrappedCallback,
   PersistConfig,
   Persistor,
-  BoostrappedCallback,
-} from "redux-persist";
-import thunk from "redux-thunk";
-import { AsyncStorage } from "react-native";
-import * as Config from "../../config/config";
-import { taskReducer } from "./task/reducer";
-import { appSettingsReducer } from "./settings/reducer";
-import immutableTransform from "redux-persist-transform-immutable";
-import {
-  RootStateProps,
-  RootStateKeys,
-} from "./stateType";
-import { AppSettings, TaskSortSetting } from "../model/settings";
+  persistReducer,
+  persistStore,
+} from 'redux-persist';
+import thunk from 'redux-thunk';
+import { AsyncStorage } from 'react-native';
+import * as Config from '../../config/config';
+import { taskReducer } from './task/reducer';
+import { appSettingsReducer } from './settings/reducer';
+import immutableTransform from 'redux-persist-transform-immutable';
+import { RootStateKeys, RootStateProps } from './stateType';
+import { AppSettings, TaskSortSetting } from '../model/settings';
 
 const reducers = {
   task: taskReducer,
@@ -37,14 +34,11 @@ const persistConfig: PersistConfig = {
   version: PERSIST_VERSION,
   transforms: [
     immutableTransform({
-      records: [
-        AppSettings,
-        TaskSortSetting,
-      ],
-      whitelist: ["appSettings"] as Array<RootStateKeys>,    
+      records: [AppSettings, TaskSortSetting],
+      whitelist: ['appSettings'] as Array<RootStateKeys>,
     }),
   ],
-  whitelist: ["appSettings"] as Array<RootStateKeys>,
+  whitelist: ['appSettings'] as Array<RootStateKeys>,
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -53,7 +47,10 @@ export const store: Store<RootStateProps, Action> = createStore(
   applyMiddleware(thunk),
 );
 
-export function configurePersistStore(store: Store, bootstrappedCallback: BoostrappedCallback): Persistor {
-  console.log("Start Boot.")
+export function configurePersistStore(
+  store: Store,
+  bootstrappedCallback: BoostrappedCallback,
+): Persistor {
+  console.log('Start Boot.');
   return persistStore(store, {}, bootstrappedCallback);
 }
