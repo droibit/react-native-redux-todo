@@ -1,18 +1,18 @@
-import React from 'react';
-import { Text, StyleSheet } from 'react-native';
-import { Button, Icon, ListItem, CheckBox, Body, Right } from 'native-base';
-import { Task } from '../../../module/model/task';
+import { Body, Button, CheckBox, Icon, ListItem, Right } from "native-base";
+import React from "react";
+import { StyleSheet, Text } from "react-native";
+import { Task } from "../../../module/model/task";
 
-type TaskListItemProps = {
+interface TaskListItemProps {
   task: Task;
   onItemPress(task: Task): void;
   onCompleteCheckBoxPress(task: Task): void;
-};
+}
 
-type DeleteTaskListItemButtonProps = {
+interface DeleteTaskListItemButtonProps {
   task: Task;
   onItemDeletePress(task: Task): void;
-};
+}
 
 const styles = StyleSheet.create({
   listItem: {

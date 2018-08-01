@@ -1,10 +1,10 @@
-import * as Immutable from 'immutable';
+import * as Immutable from "immutable";
 
-type Props<T, E extends Error = Error> = {
+interface Props<T, E extends Error = Error> {
   inProgress: boolean;
   data?: T;
   error?: E;
-};
+}
 
 export class Result<T, E extends Error = Error> extends Immutable.Record({
   inProgress: false,
@@ -39,25 +39,25 @@ export class Result<T, E extends Error = Error> extends Immutable.Record({
 
   public asInProgress(): Result<T, E> {
     return this.withMutations(s => {
-      s.set('inProgress', true)
-        .remove('data')
-        .remove('error');
+      s.set("inProgress", true)
+        .remove("data")
+        .remove("error");
     }) as Result<T, E>;
   }
 
   public asSuccess(data: T): Result<T, E> {
     return this.withMutations(s => {
-      s.set('inProgress', false)
-        .set('data', data)
-        .remove('error');
+      s.set("inProgress", false)
+        .set("data", data)
+        .remove("error");
     }) as Result<T, E>;
   }
 
   public asError(e: E): Result<T, E> {
     return this.withMutations(s => {
-      s.set('inProgress', false)
-        .remove('data')
-        .set('error', e);
+      s.set("inProgress", false)
+        .remove("data")
+        .set("error", e);
     }) as Result<T, E>;
   }
 }

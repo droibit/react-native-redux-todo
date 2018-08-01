@@ -1,20 +1,20 @@
-import AppSettings from '../../model/settings/appSettings';
 import {
-  TaskSortSetting,
   TaskSortBy,
   TaskSortByOrder,
+  TaskSortSetting,
   TaskVisibilityFilter,
-} from '../../model/settings';
+} from "../../model/settings";
+import AppSettings from "../../model/settings/appSettings";
 import {
   SETTINGS_UPDATE_TASK_SORT_BY,
   SETTINGS_UPDATE_TASK_SORT_BY_ORDER,
   SETTINGS_UPDATE_TASK_VISIBILITY_FILTER,
-} from '../actionType';
+} from "../actionType";
 import {
   UpdateTaskSortByAction,
   UpdateTaskSortByOrderAction,
   UpdateTaskVisibilityFilterAction,
-} from './actionCreator';
+} from "./actionCreator";
 
 type FSAction =
   | UpdateTaskSortByAction

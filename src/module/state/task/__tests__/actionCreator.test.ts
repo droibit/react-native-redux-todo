@@ -1,30 +1,30 @@
-import configureMockStore, { MockStoreEnhanced } from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import { TaskStateProps } from '../../stateType';
-import { TaskState } from '../../../model/task';
-import * as Actions from '../actionCreator';
-import {
-  CreateTaskDoneAction,
-  CreateTaskStartAction,
-  GetTaskDoneAction,
-  GetTaskStartAction,
-} from '../actionCreator';
-import { Action } from 'redux';
-import { ReduxThunkDispatch } from '../../reduxActionType';
+import { Action } from "redux";
+import configureMockStore, { MockStoreEnhanced } from "redux-mock-store";
+import thunk from "redux-thunk";
+import { taskRepository } from "../../../data/repository";
+import TaskEntity from "../../../data/source/task/taskEntity";
+import { TaskState } from "../../../model/task";
 import {
   TASK_CREATE_DONE,
   TASK_CREATE_STARTED,
   TASK_GET_DONE,
   TASK_GET_STARTED,
-} from '../../actionType';
-import { taskRepository } from '../../../data/repository';
-import TaskEntity from '../../../data/source/task/taskEntity';
+} from "../../actionType";
+import { ReduxThunkDispatch } from "../../reduxActionType";
+import { TaskStateProps } from "../../stateType";
+import * as Actions from "../actionCreator";
+import {
+  CreateTaskDoneAction,
+  CreateTaskStartAction,
+  GetTaskDoneAction,
+  GetTaskStartAction,
+} from "../actionCreator";
 
-jest.mock('../../../data/repository');
+jest.mock("../../../data/repository");
 
 const mockStore = configureMockStore<TaskStateProps>([thunk]);
 
-describe('TaskActionCreator', () => {
+describe("TaskActionCreator", () => {
   let store: MockStoreEnhanced<TaskStateProps, {}>;
   let dispatch: ReduxThunkDispatch<Action>;
   beforeEach(() => {
@@ -34,7 +34,7 @@ describe('TaskActionCreator', () => {
     dispatch = store.dispatch;
   });
 
-  test('getTasks()', async () => {
+  test("getTasks()", async () => {
     const mockTasks = [{} as TaskEntity, {} as TaskEntity];
     (taskRepository.getTasks as jest.Mock).mockReturnValue(mockTasks);
 
@@ -52,12 +52,12 @@ describe('TaskActionCreator', () => {
     expect(taskRepository.getTasks).toHaveBeenCalled();
   });
 
-  test('createTask()', async () => {
+  test("createTask()", async () => {
     const mockTask = {} as TaskEntity;
     (taskRepository.createTask as jest.Mock).mockReturnValue(mockTask);
 
-    const expectTitle = 'title';
-    const expectDesc = 'desc';
+    const expectTitle = "title";
+    const expectDesc = "desc";
     await dispatch(Actions.createTask(expectTitle, expectDesc));
 
     const expectStartedAction: CreateTaskStartAction = {

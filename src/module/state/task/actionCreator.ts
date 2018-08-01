@@ -1,18 +1,18 @@
+import { ErrorFSA, FSA } from "flux-standard-action";
+import { taskRepository } from "../../data/repository";
+import { TaskEntity } from "../../data/repository/task";
 import {
-  TASK_GET_STARTED,
-  TASK_GET_DONE,
-  TASK_CREATE_STARTED,
-  TASK_CREATE_DONE,
-  TASK_COMPLETE,
   TASK_ACTIVE,
+  TASK_COMPLETE,
+  TASK_CREATE_DONE,
+  TASK_CREATE_STARTED,
   TASK_DELETE,
-  TASK_UPDATE_STARTED,
+  TASK_GET_DONE,
+  TASK_GET_STARTED,
   TASK_UPDATE_DONE,
-} from '../actionType';
-import { AsyncThunkAction, FSActionNoPayload } from '../reduxActionType';
-import { FSA, ErrorFSA } from 'flux-standard-action';
-import { taskRepository } from '../../data/repository';
-import { TaskEntity } from '../../data/repository/task';
+  TASK_UPDATE_STARTED,
+} from "../actionType";
+import { AsyncThunkAction, FSActionNoPayload } from "../reduxActionType";
 
 export type GetTaskStartAction = FSActionNoPayload;
 export type GetTaskDoneAction = FSA<ReadonlyArray<TaskEntity>>;
@@ -28,7 +28,7 @@ export const getTasks = (): AsyncThunkAction<
   GetTaskStartAction | GetTaskDoneAction
 > => async dispatch => {
   try {
-    console.log('getTasks()');
+    console.log("getTasks()");
     dispatch({ type: TASK_GET_STARTED });
     const taskEntities = await taskRepository.getTasks();
     console.log(`getTasks(${JSON.stringify(taskEntities)})`);
@@ -51,7 +51,7 @@ export const createTask = (
 ): AsyncThunkAction<
   CreateTaskStartAction | CreateTaskDoneAction
 > => async dispatch => {
-  console.log('createTask()');
+  console.log("createTask()");
   try {
     dispatch({ type: TASK_CREATE_STARTED });
     const taskEntity = await taskRepository.createTask(title, description);
@@ -92,7 +92,7 @@ export const activeTask = (
   taskId: string,
 ): AsyncThunkAction<ActiveTaskAction> => async dispatch => {
   try {
-    console.log('#activeTask()');
+    console.log("#activeTask()");
     const activedTask = await taskRepository.activeTask(taskId);
     dispatch({
       type: TASK_ACTIVE,
@@ -112,7 +112,7 @@ export const deleteTask = (
   taskId: string,
 ): AsyncThunkAction<DeleteTaskAction> => async dispatch => {
   try {
-    console.log('#deleteTask()');
+    console.log("#deleteTask()");
     await taskRepository.deleteTask(taskId);
     dispatch({
       type: TASK_DELETE,
@@ -135,7 +135,7 @@ export const updateTask = (
 ): AsyncThunkAction<
   CreateTaskStartAction | CreateTaskDoneAction
 > => async dispatch => {
-  console.log('updateTask()');
+  console.log("updateTask()");
   try {
     dispatch({ type: TASK_UPDATE_STARTED });
     const entity = await taskRepository.updateTask(taskId, title, description);

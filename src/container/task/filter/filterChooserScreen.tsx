@@ -1,49 +1,49 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { connect } from 'react-redux';
+import { Body, Container, Content, List, ListItem, Right } from "native-base";
+import React, { Component } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import {
-  NavigationScreenOptions,
-  NavigationScreenProp,
   NavigationRoute,
   NavigationScreenConfig,
-} from 'react-navigation';
-import { Container, Content, List, ListItem, Body, Right } from 'native-base';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+  NavigationScreenOptions,
+  NavigationScreenProp,
+} from "react-navigation";
+import { connect } from "react-redux";
+import I18n from "../../../i18n";
 import {
-  TaskVisibilityFilter,
   TaskSortBy,
-} from '../../../module/model/settings';
-import { AppSettingsStateProps } from '../../../module/state/stateType';
-import { ReduxThunkDispatch } from '../../../module/state/reduxActionType';
-import { CloseHeaderButton } from '../../shared/headerItem';
+  TaskVisibilityFilter,
+} from "../../../module/model/settings";
+import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
+import * as Actions from "../../../module/state/settings/actionCreator";
+import { AppSettingsStateProps } from "../../../module/state/stateType";
+import { CloseHeaderButton } from "../../shared/headerItem";
 import {
   resolveSortByText,
   resolveVisibleFilterShortText,
-} from './textResolover';
-import * as Actions from '../../../module/state/settings/actionCreator';
-import I18n from '../../../i18n';
+} from "./textResolover";
 
-type NavigationParams = {
+interface NavigationParams {
   onDoneButtonPressed(): void;
-};
+}
 
-type Props = {
+interface Props {
   navigation: NavigationScreenProp<NavigationRoute, NavigationParams>;
   taskSortBy: TaskSortBy;
   visibilityFilter: TaskVisibilityFilter;
   updateTaskSortBy(sortBy: TaskSortBy): void;
   updateTaskVisibilityFilter(filter: TaskVisibilityFilter): void;
-};
+}
 
-type State = {
+interface State {
   taskSortBy: TaskSortBy;
   visibilityFilter: TaskVisibilityFilter;
-};
+}
 
 const styles = StyleSheet.create({
   headerLabel: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   itemLabel: {
     fontSize: 18,
@@ -51,17 +51,18 @@ const styles = StyleSheet.create({
 });
 
 class TaskFilterChooserScreen extends Component<Props, State> {
-  static navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = ({
-    navigation,
-  }) => {
+  // noinspection JSUnusedGlobalSymbols
+  public static navigationOptions: NavigationScreenConfig<
+    NavigationScreenOptions
+  > = ({ navigation }) => {
     // const { disabledDoneButton, onDoneButtonPressed } = navigation.state.params as NavigationParams
     return {
-      title: I18n.t('filterAndSortTask'),
+      title: I18n.t("filterAndSortTask"),
       headerLeft: <CloseHeaderButton onPress={() => navigation.goBack(null)} />,
     };
   };
 
-  static getDerivedStateFromProps(
+  public static getDerivedStateFromProps(
     nextProps: Readonly<Props>,
     prevState: State,
   ): Partial<State> | null {
@@ -92,7 +93,7 @@ class TaskFilterChooserScreen extends Component<Props, State> {
   }
 
   private onDoneButtonPressed() {
-    console.log('#onDoneButtonPressed()');
+    console.log("#onDoneButtonPressed()");
   }
 
   public render() {
@@ -102,11 +103,11 @@ class TaskFilterChooserScreen extends Component<Props, State> {
         <Content>
           <List>
             <ListItem itemDivider first>
-              <Text style={styles.headerLabel}>{I18n.t('filterTask')}</Text>
+              <Text style={styles.headerLabel}>{I18n.t("filterTask")}</Text>
             </ListItem>
             {this.createVisibilityFilterItems({ selected: visibilityFilter })}
             <ListItem itemDivider>
-              <Text style={styles.headerLabel}>{I18n.t('sortTask')}</Text>
+              <Text style={styles.headerLabel}>{I18n.t("sortTask")}</Text>
             </ListItem>
             {this.createSortByiItems({ selected: taskSortBy })}
           </List>
@@ -134,7 +135,7 @@ class TaskFilterChooserScreen extends Component<Props, State> {
             </Text>
           </Body>
           <Right>
-            {filter.selected == v ? <Icon name="done" size={20} /> : <View />}
+            {filter.selected === v ? <Icon name="done" size={20} /> : <View />}
           </Right>
         </ListItem>
       );
@@ -162,7 +163,7 @@ class TaskFilterChooserScreen extends Component<Props, State> {
             </Text>
           </Body>
           <Right>
-            {sortBy.selected == v ? <Icon name="done" size={20} /> : <View />}
+            {sortBy.selected === v ? <Icon name="done" size={20} /> : <View />}
           </Right>
         </ListItem>
       );

@@ -1,25 +1,25 @@
+import { AsyncStorage } from "react-native";
 import {
   Action,
   applyMiddleware,
   combineReducers,
   createStore,
   Store,
-} from 'redux';
+} from "redux";
 import {
   BoostrappedCallback,
   PersistConfig,
   Persistor,
   persistReducer,
   persistStore,
-} from 'redux-persist';
-import thunk from 'redux-thunk';
-import { AsyncStorage } from 'react-native';
-import * as Config from '../../config/config';
-import { taskReducer } from './task/reducer';
-import { appSettingsReducer } from './settings/reducer';
-import immutableTransform from 'redux-persist-transform-immutable';
-import { RootStateKeys, RootStateProps } from './stateType';
-import { AppSettings, TaskSortSetting } from '../model/settings';
+} from "redux-persist";
+import immutableTransform from "redux-persist-transform-immutable";
+import thunk from "redux-thunk";
+import * as Config from "../../config/config";
+import { AppSettings, TaskSortSetting } from "../model/settings";
+import { appSettingsReducer } from "./settings/reducer";
+import { RootStateKeys, RootStateProps } from "./stateType";
+import { taskReducer } from "./task/reducer";
 
 const reducers = {
   task: taskReducer,
@@ -35,10 +35,10 @@ const persistConfig: PersistConfig = {
   transforms: [
     immutableTransform({
       records: [AppSettings, TaskSortSetting],
-      whitelist: ['appSettings'] as Array<RootStateKeys>,
+      whitelist: ["appSettings"] as Array<RootStateKeys>,
     }),
   ],
-  whitelist: ['appSettings'] as Array<RootStateKeys>,
+  whitelist: ["appSettings"] as Array<RootStateKeys>,
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -47,10 +47,11 @@ export const store: Store<RootStateProps, Action> = createStore(
   applyMiddleware(thunk),
 );
 
+// noinspection TsLint
 export function configurePersistStore(
-  store: Store,
+  srcStore: Store,
   bootstrappedCallback: BoostrappedCallback,
 ): Persistor {
-  console.log('Start Boot.');
-  return persistStore(store, {}, bootstrappedCallback);
+  console.log("Start Boot.");
+  return persistStore(srcStore, {}, bootstrappedCallback);
 }

@@ -1,5 +1,5 @@
-import TaskEntity from './taskEntity';
-import uuid from 'uuid/v4';
+import uuid from "uuid/v4";
+import TaskEntity from "./taskEntity";
 
 export interface TaskStore {
   getTasks(): Promise<ReadonlyArray<TaskEntity>>;
@@ -24,8 +24,9 @@ export class TaskNotFoundError extends Error {
 }
 
 export namespace TaskStore {
+  // tslint:disable-next-line
   export class IdProvider {
-    generateId(): string {
+    public generateId(): string {
       return uuid();
     }
   }

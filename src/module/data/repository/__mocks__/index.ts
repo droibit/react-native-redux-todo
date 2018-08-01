@@ -1,4 +1,4 @@
-import TaskRepository from '../task/taskReposirory';
+import TaskRepository from "../task/taskReposirory";
 
 export const taskRepository: TaskRepository = {
   getTasks: jest.fn(),

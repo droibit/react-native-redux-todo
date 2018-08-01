@@ -1,17 +1,17 @@
-import React from 'react';
-import { Text, StyleSheet } from 'react-native';
-import { Content, Spinner } from 'native-base';
+import { Content, Spinner } from "native-base";
+import React from "react";
+import { StyleSheet, Text } from "react-native";
 
-type Props = {
+interface Props {
   color?: string;
   label: string;
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   label: {
     fontSize: 14,

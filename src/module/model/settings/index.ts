@@ -1,7 +1,7 @@
-export { default as AppSettings } from './appSettings';
+export { default as AppSettings } from "./appSettings";
 export {
   TaskSortSetting,
   TaskSortBy,
   TaskSortByOrder,
-} from './taskSortSetting';
-export { TaskVisibilityFilter } from './taskVisiblityFilter';
+} from "./taskSortSetting";
+export { TaskVisibilityFilter } from "./taskVisiblityFilter";

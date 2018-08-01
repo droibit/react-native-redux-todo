@@ -1,36 +1,36 @@
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
+import { Body, Container, Content, List, ListItem, Text } from "native-base";
+import React, { Component } from "react";
+import { StyleSheet } from "react-native";
 import {
   NavigationRoute,
   NavigationScreenConfig,
   NavigationScreenOptions,
   NavigationScreenProp,
-} from 'react-navigation';
-import I18n from '../../i18n';
-import { Body, Container, Content, List, ListItem, Text } from 'native-base';
-import { CloseHeaderButton } from '../shared/headerItem';
+} from "react-navigation";
+import { connect } from "react-redux";
+import I18n from "../../i18n";
+import { CloseHeaderButton } from "../shared/headerItem";
 
-type Props = {
+interface Props {
   navigation: NavigationScreenProp<NavigationRoute>;
-};
+}
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     flex: 1,
-    backgroundColor: 'white',
   },
 });
 
 class SettingsScreen extends Component<Props> {
   // noinspection JSUnusedGlobalSymbols
-  static navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = ({
-    navigation,
-  }) => {
+  public static navigationOptions: NavigationScreenConfig<
+    NavigationScreenOptions
+  > = ({ navigation }) => {
     // const { disabledDoneButton, onDoneButtonPressed } = navigation.state.params as NavigationParams
     return {
-      title: I18n.t('settings'),
       headerLeft: <CloseHeaderButton onPress={() => navigation.goBack(null)} />,
+      title: I18n.t("settings"),
     };
   };
 
@@ -40,12 +40,12 @@ class SettingsScreen extends Component<Props> {
         <Content contentContainerStyle={styles.container}>
           <List>
             <ListItem itemHeader first>
-              <Text>{I18n.t('appCategory')}</Text>
+              <Text>{I18n.t("appCategory")}</Text>
             </ListItem>
             <ListItem>
               <Body>
-                <Text>{I18n.t('buildVersionTitle')}</Text>
-                <Text note>{I18n.t('buildVersionSubtitle') + '1.0.0'}</Text>
+                <Text>{I18n.t("buildVersionTitle")}</Text>
+                <Text note>{I18n.t("buildVersionSubtitle") + "1.0.0"}</Text>
               </Body>
             </ListItem>
           </List>

@@ -1,9 +1,9 @@
-import { Map, Record, List } from 'immutable';
-import { Task } from './task';
+import { List, Map, Record } from "immutable";
+import { Task } from "./task";
 
-type Props = {
+interface Props {
   src: Map<string, Task>;
-};
+}
 
 export class TaskList extends Record({
   src: Map<string, Task>(),
@@ -31,26 +31,26 @@ export class TaskList extends Record({
 
   public addTasks(tasks: Array<Task>): TaskList {
     return this.withMutations(s => {
-      let newTasks = s.get('src') as Map<string, Task>;
-      for (let task of tasks) {
+      let newTasks = s.get("src") as Map<string, Task>;
+      for (const task of tasks) {
         newTasks = newTasks.set(task.id, task);
       }
-      s.set('src', newTasks);
+      s.set("src", newTasks);
     }) as TaskList;
   }
 
   public addTask(task: Task): TaskList {
     return this.withMutations(s => {
-      const newTasks = s.get('src').set(task.id, task);
-      s.set('src', newTasks);
+      const newTasks = s.get("src").set(task.id, task);
+      s.set("src", newTasks);
     }) as TaskList;
   }
 
   public updateTask(task: Task): TaskList {
     return this.withMutations(s => {
-      const src = s.get('src') as Map<string, Task>;
+      const src = s.get("src") as Map<string, Task>;
       const newTasks = src.update(task.id, () => task);
-      s.set('src', newTasks);
+      s.set("src", newTasks);
     }) as TaskList;
   }
 
@@ -59,16 +59,16 @@ export class TaskList extends Record({
     //   return this;
     // }
     return this.withMutations(s => {
-      const src = s.get('src') as Map<string, Task>;
-      s.set('src', src.remove(taskId));
+      const src = s.get("src") as Map<string, Task>;
+      s.set("src", src.remove(taskId));
     }) as TaskList;
   }
 
   public clearCompletedTasks(): TaskList {
     return this.withMutations(s => {
-      const src = s.get('src') as Map<string, Task>;
+      const src = s.get("src") as Map<string, Task>;
       const newTasks = src.filterNot((v, k) => (v && v.completed) === true);
-      s.set('src', newTasks);
+      s.set("src", newTasks);
     }) as TaskList;
   }
 }

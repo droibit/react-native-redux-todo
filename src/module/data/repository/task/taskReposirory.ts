@@ -1,4 +1,4 @@
-import TaskEntity from '../../source/task/taskEntity';
+import TaskEntity from "../../source/task/taskEntity";
 
 export default interface TaskRepository {
   getTasks(): Promise<ReadonlyArray<TaskEntity>>;

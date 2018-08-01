@@ -3,14 +3,13 @@
  * https://github.com/facebook/react-native
  */
 
-import React, { Component } from 'react';
-import { store } from '../module/state';
-import { Provider } from 'react-redux';
-import { AppNavigator } from './navigation';
-import { Root } from 'native-base';
+import { Root } from "native-base";
+import React, { Component } from "react";
+import { Provider } from "react-redux";
+import { store } from "../module/state";
+import { AppNavigator } from "./navigation";
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   public render() {
     return (
       <Provider store={store}>

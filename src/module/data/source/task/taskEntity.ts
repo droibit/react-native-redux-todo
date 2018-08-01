@@ -1,10 +1,10 @@
-export type Props = {
+export interface Props {
   id: string;
   title: string;
   description?: string;
   timestamp: number;
   completed: boolean;
-};
+}
 
 export default class TaskEntity {
   public readonly id: string;

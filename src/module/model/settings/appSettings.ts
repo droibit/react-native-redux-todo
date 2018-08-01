@@ -1,18 +1,18 @@
-import { Record } from 'immutable';
-import { TaskSortSetting } from './taskSortSetting';
-import { TaskVisibilityFilter } from './taskVisiblityFilter';
+import { Record } from "immutable";
+import { TaskSortSetting } from "./taskSortSetting";
+import { TaskVisibilityFilter } from "./taskVisiblityFilter";
 
-type Props = {
+interface Props {
   taskSortSetting: TaskSortSetting;
   taskVisibilityFilter: TaskVisibilityFilter;
-};
+}
 
 export default class AppSettings extends Record(
   {
     taskSortSetting: {},
     taskVisibilityFilter: {},
   } as Props,
-  'AppSettings',
+  "AppSettings",
 ) {
   public readonly taskSortSetting!: TaskSortSetting;
 

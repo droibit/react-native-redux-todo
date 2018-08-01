@@ -1,25 +1,25 @@
-import React from 'react';
-import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import {
+  TaskSortByOrder,
   TaskSortSetting,
   TaskVisibilityFilter,
-  TaskSortByOrder,
-} from '../../../module/model/settings';
+} from "../../../module/model/settings";
 import {
   resolveSortByText,
   resolveVisibleFilterLongText,
-} from '../filter/textResolover';
+} from "../filter/textResolover";
 
 const styles = StyleSheet.create({
   header: {
     height: 48,
-    backgroundColor: 'white',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    backgroundColor: "white",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     // ref. http://masarufuruya.hatenadiary.jp/entry/2018/01/26/160238
-    shadowColor: '#ccc',
+    shadowColor: "#ccc",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -30,30 +30,30 @@ const styles = StyleSheet.create({
   },
   headerFilter: {
     paddingLeft: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   filterLabel: {
     fontSize: 18.5,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginRight: 4,
   },
   headerSort: {
     paddingRight: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   sortLabel: {
     fontSize: 18.5,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginRight: 4,
   },
 });
 
-type FilterButtonProps = {
+interface FilterButtonProps {
   taskVisibilityFilter: TaskVisibilityFilter;
   onFilterPress(): void;
-};
+}
 const FilterAndSortButton: React.SFC<FilterButtonProps> = props => {
   const { taskVisibilityFilter, onFilterPress } = props;
   return (
@@ -66,10 +66,10 @@ const FilterAndSortButton: React.SFC<FilterButtonProps> = props => {
   );
 };
 
-type SortLabelProps = {
+interface SortLabelProps {
   taskSortSetting: TaskSortSetting;
   onSortPress(): void;
-};
+}
 
 const SortLabel: React.SFC<SortLabelProps> = props => {
   const { taskSortSetting, onSortPress } = props;
@@ -90,9 +90,9 @@ const SortLabel: React.SFC<SortLabelProps> = props => {
 function resolveSortByOrderIconName(order: TaskSortByOrder): string {
   switch (order) {
     case TaskSortByOrder.ASC:
-      return 'arrow-downward';
+      return "arrow-downward";
     case TaskSortByOrder.DESC:
-      return 'arrow-upward';
+      return "arrow-upward";
   }
 }
 

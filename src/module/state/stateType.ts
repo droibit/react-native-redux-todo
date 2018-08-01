@@ -1,13 +1,13 @@
-import { AppSettings } from '../model/settings';
-import { TaskState } from '../model/task';
+import { AppSettings } from "../model/settings";
+import { TaskState } from "../model/task";
 
-export type AppSettingsStateProps = {
+export interface AppSettingsStateProps {
   appSettings: AppSettings;
-};
+}
 
-export type TaskStateProps = {
+export interface TaskStateProps {
   task: TaskState;
-};
+}
 
 export type RootStateProps = AppSettingsStateProps & TaskStateProps;
 export type RootStateKeys = keyof RootStateProps;

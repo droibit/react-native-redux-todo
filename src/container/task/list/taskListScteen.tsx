@@ -1,47 +1,47 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { Container, Content, Fab, Toast } from "native-base";
+import React, { Component } from "react";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import {
-  NavigationScreenOptions,
-  NavigationScreenProp,
   NavigationRoute,
   NavigationScreenConfig,
-} from 'react-navigation';
-import { Container, Toast, Content, Fab } from 'native-base';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Loading from './loading';
-import EmptyView from './emptyView';
-import TaskList from './taskList';
+  NavigationScreenOptions,
+  NavigationScreenProp,
+} from "react-navigation";
+import { connect } from "react-redux";
+import I18n from "../../../i18n";
+import { Result } from "../../../module/model/result";
 import {
-  TaskStateProps,
-  AppSettingsStateProps,
-} from '../../../module/state/stateType';
-import { filteredAndSortedTasks } from '../../../module/state/task/selector';
-import { Task } from '../../../module/model/task';
-import * as TaskActions from '../../../module/state/task/actionCreator';
-import * as SettingsActions from '../../../module/state/settings/actionCreator';
-import { ReduxThunkDispatch } from '../../../module/state/reduxActionType';
-import {
-  SCREEN_TASK_NEW,
-  SCREEN_TASK_FILTER_CHOOSER,
-  SCREEN_TASK_DETAIL,
-  SCREEN_SETTINGS,
-} from '../../navigation';
-import { Result } from '../../../module/model/result';
-import {
+  TaskSortByOrder,
   TaskSortSetting,
   TaskVisibilityFilter,
-  TaskSortByOrder,
-} from '../../../module/model/settings';
-import TaskListHeader from './taskListHeader';
-import { NavigationParams as DetailNavigationParams } from '../detail/detailScreen';
-import I18n from '../../../i18n';
-import { SettingsHeaderButton } from '../../shared/headerItem';
+} from "../../../module/model/settings";
+import { Task } from "../../../module/model/task";
+import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
+import * as SettingsActions from "../../../module/state/settings/actionCreator";
+import {
+  AppSettingsStateProps,
+  TaskStateProps,
+} from "../../../module/state/stateType";
+import * as TaskActions from "../../../module/state/task/actionCreator";
+import { filteredAndSortedTasks } from "../../../module/state/task/selector";
+import {
+  SCREEN_SETTINGS,
+  SCREEN_TASK_DETAIL,
+  SCREEN_TASK_FILTER_CHOOSER,
+  SCREEN_TASK_NEW,
+} from "../../navigation";
+import { SettingsHeaderButton } from "../../shared/headerItem";
+import { NavigationParams as DetailNavigationParams } from "../detail/detailScreen";
+import EmptyView from "./emptyView";
+import Loading from "./loading";
+import TaskList from "./taskList";
+import TaskListHeader from "./taskListHeader";
 
-type NavigationParams = {
+interface NavigationParams {
   onSettingsHeaderButtonPress(): void;
-};
+}
 
-type Props = {
+interface Props {
   navigation: NavigationScreenProp<NavigationRoute, NavigationParams>;
   loading: boolean;
   tasks: ReadonlyArray<Task>;
@@ -57,34 +57,34 @@ type Props = {
   activeTask(taskId: string): void;
   deleteTask(taskId: string): void;
   updateTaskSortOrder(order: TaskSortByOrder): void;
-};
+}
 
-type State = {
+interface State {
   loading: boolean;
   mounted: boolean;
-};
+}
 
 class TaskListScreen extends Component<Props, State> {
   // noinspection JSUnusedGlobalSymbols
-  static navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = ({
-    navigation,
-  }) => {
+  public static navigationOptions: NavigationScreenConfig<
+    NavigationScreenOptions
+  > = ({ navigation }) => {
     return {
-      title: I18n.t('title'),
+      title: I18n.t("title"),
       // ref. https://github.com/react-navigation/react-navigation/issues/790#issuecomment-310332665
       headerStyle: {
-        elevation: 0, //remove shadow on Android
-        shadowOpacity: 0, //remove shadow on iOS
+        elevation: 0, // remove shadow on Android
+        shadowOpacity: 0, // remove shadow on iOS
       },
       headerRight: (
         <SettingsHeaderButton
-          onPress={navigation.getParam('onSettingsHeaderButtonPress')}
+          onPress={navigation.getParam("onSettingsHeaderButtonPress")}
         />
       ),
     };
   };
 
-  static getDerivedStateFromProps(
+  public static getDerivedStateFromProps(
     nextProps: Readonly<Props>,
     prevState: State,
   ): Partial<State> | null {
@@ -119,7 +119,7 @@ class TaskListScreen extends Component<Props, State> {
 
   public componentDidMount() {
     this.props.getTasks();
-    console.log('Dispatch get tasks action.');
+    console.log("Dispatch get tasks action.");
   }
 
   public componentDidUpdate(
@@ -140,8 +140,8 @@ class TaskListScreen extends Component<Props, State> {
       createTaskResult.isSuccess
     ) {
       Toast.show({
-        text: I18n.t('newTaskSuccessfulToCreate'),
-        type: 'success',
+        text: I18n.t("newTaskSuccessfulToCreate"),
+        type: "success",
       });
     }
 
@@ -150,8 +150,8 @@ class TaskListScreen extends Component<Props, State> {
       completeTaskResult.isError
     ) {
       Toast.show({
-        text: I18n.t('newTaskFailedToCreate'),
-        type: 'danger',
+        text: I18n.t("newTaskFailedToCreate"),
+        type: "danger",
       });
     }
 
@@ -169,7 +169,7 @@ class TaskListScreen extends Component<Props, State> {
     if (loading) {
       return (
         <Container>
-          <Loading label={I18n.t('todoListLoading')} />
+          <Loading label={I18n.t("todoListLoading")} />
         </Container>
       );
     }
@@ -186,7 +186,7 @@ class TaskListScreen extends Component<Props, State> {
         />
       );
     } else {
-      content = <EmptyView text={I18n.t('noTasks')} />;
+      content = <EmptyView text={I18n.t("noTasks")} />;
     }
 
     return (
@@ -224,31 +224,31 @@ class TaskListScreen extends Component<Props, State> {
   }
 
   private onAddButtonPress() {
-    console.log('#onAddButtonPress()');
+    console.log("#onAddButtonPress()");
     this.props.navigation.navigate(SCREEN_TASK_NEW);
   }
 
   private onDeleteButtonPress(task: Task) {
-    console.log('#onDeleteButtonPress()');
+    console.log("#onDeleteButtonPress()");
     this.props.deleteTask(task.id);
   }
 
   private onFilterButtonPress() {
-    console.log('#onFilterButtonPress()');
+    console.log("#onFilterButtonPress()");
     this.props.navigation.navigate(SCREEN_TASK_FILTER_CHOOSER);
   }
 
   private onSortButtonPress() {
-    console.log('#onSortButtonPress()');
+    console.log("#onSortButtonPress()");
     this.props.updateTaskSortOrder(
-      this.props.taskSortSetting.taskSortByOrder == TaskSortByOrder.ASC
+      this.props.taskSortSetting.taskSortByOrder === TaskSortByOrder.ASC
         ? TaskSortByOrder.DESC
         : TaskSortByOrder.ASC,
     );
   }
 
   private onSettingsHeaderButtonPress() {
-    console.log('#onSettingsHeaderButtonPress()');
+    console.log("#onSettingsHeaderButtonPress()");
     this.props.navigation.navigate(SCREEN_SETTINGS);
   }
 }

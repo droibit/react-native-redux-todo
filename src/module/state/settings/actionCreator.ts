@@ -1,14 +1,14 @@
-import { FSA } from 'flux-standard-action';
-import {
-  SETTINGS_UPDATE_TASK_VISIBILITY_FILTER,
-  SETTINGS_UPDATE_TASK_SORT_BY,
-  SETTINGS_UPDATE_TASK_SORT_BY_ORDER,
-} from '../actionType';
+import { FSA } from "flux-standard-action";
 import {
   TaskSortBy,
   TaskSortByOrder,
   TaskVisibilityFilter,
-} from '../../model/settings';
+} from "../../model/settings";
+import {
+  SETTINGS_UPDATE_TASK_SORT_BY,
+  SETTINGS_UPDATE_TASK_SORT_BY_ORDER,
+  SETTINGS_UPDATE_TASK_VISIBILITY_FILTER,
+} from "../actionType";
 
 export type UpdateTaskSortByAction = FSA<TaskSortBy>;
 export type UpdateTaskSortByOrderAction = FSA<TaskSortByOrder>;

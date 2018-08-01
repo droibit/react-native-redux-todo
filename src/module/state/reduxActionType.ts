@@ -1,6 +1,6 @@
-import { FSA } from 'flux-standard-action';
-import { Action, ActionCreator, Store } from 'redux';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { FSA } from "flux-standard-action";
+import { Action, ActionCreator } from "redux";
+import { ThunkAction, ThunkDispatch } from "redux-thunk";
 
 export type FSActionNoPayload = FSA<undefined>;
 

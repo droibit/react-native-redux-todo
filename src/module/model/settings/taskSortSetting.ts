@@ -1,4 +1,4 @@
-import { Record } from 'immutable';
+import { Record } from "immutable";
 
 export enum TaskSortBy {
   TITLE = 0,
@@ -10,17 +10,17 @@ export enum TaskSortByOrder {
   DESC,
 }
 
-type Props = {
+interface Props {
   taskSortBy: TaskSortBy;
   taskSortByOrder: TaskSortByOrder;
-};
+}
 
 export class TaskSortSetting extends Record(
   {
     taskSortBy: TaskSortBy.TITLE,
     taskSortByOrder: TaskSortByOrder.ASC,
   } as Props,
-  'TaskSortSetting',
+  "TaskSortSetting",
 ) {
   public readonly taskSortBy!: TaskSortBy;
 

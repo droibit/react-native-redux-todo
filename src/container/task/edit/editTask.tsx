@@ -1,35 +1,35 @@
-import React, { Component } from 'react';
+import { Container } from "native-base";
+import React, { Component } from "react";
 import {
   Platform,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
-} from 'react-native';
-import { Container } from 'native-base';
-import I18n from '../../../i18n';
+} from "react-native";
+import I18n from "../../../i18n";
 
-type Props = {
+interface Props {
   title: string;
   description: string;
   onTitleChanged(title: string): void;
   onDescriptionChanged(title: string): void;
-};
+}
 
-type State = {
+interface State {
   title?: string;
   description?: string;
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   label: {
+    color: "black",
     fontSize: 18,
-    marginTop: 16,
     marginLeft: 16,
-    color: 'black',
+    marginTop: 16,
   },
   titleInput: {
     fontSize: 22,
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     marginRight: 16,
     ...Platform.select({
       ios: {
+        borderBottomColor: "black",
         borderBottomWidth: 1,
-        borderBottomColor: 'black',
       },
     }),
   },
@@ -46,11 +46,11 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginLeft: 16,
     marginRight: 16,
-    textAlignVertical: 'top',
+    textAlignVertical: "top",
     ...Platform.select({
       ios: {
+        borderBottomColor: "black",
         borderBottomWidth: 1,
-        borderBottomColor: 'black',
         paddingBottom: 4,
       },
     }),
@@ -75,7 +75,7 @@ export default class EditTask extends Component<Props, State> {
     return (
       <Container>
         <ScrollView contentContainerStyle={styles.container}>
-          <Text style={styles.label}>{I18n.t('editTaskTitleLabel')}</Text>
+          <Text style={styles.label}>{I18n.t("editTaskTitleLabel")}</Text>
           <TextInput
             value={title}
             onChangeText={onTitleChanged}
@@ -84,10 +84,10 @@ export default class EditTask extends Component<Props, State> {
             autoFocus={true}
             style={styles.titleInput}
           />
-          <Text style={styles.label}>{I18n.t('editTaskDescLabel')}</Text>
+          <Text style={styles.label}>{I18n.t("editTaskDescLabel")}</Text>
           <TextInput
             value={description}
-            placeholder={I18n.t('editTaskDescHint')}
+            placeholder={I18n.t("editTaskDescHint")}
             onChangeText={onDescriptionChanged}
             maxLength={500}
             multiline={true}

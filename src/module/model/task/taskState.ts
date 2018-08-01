@@ -1,8 +1,8 @@
-import { Task, TaskList } from '.';
-import { Result } from '../result';
-import * as Immutable from 'immutable';
+import * as Immutable from "immutable";
+import { Task, TaskList } from ".";
+import { Result } from "../result";
 
-type Props = {
+interface Props {
   tasks: TaskList;
   loadingResult: Result<any>;
   createResult: Result<Task>;
@@ -11,7 +11,7 @@ type Props = {
   completeResult: Result<Task>;
   clearCompletedResult: Result<any>;
   deleteResult: Result<string>;
-};
+}
 
 // TODO: Unit test.
 export class TaskState extends Immutable.Record({
@@ -36,62 +36,62 @@ export class TaskState extends Immutable.Record({
   public withTasks(tasks: TaskList): TaskState {
     return this.withMutations(s => {
       s.set(
-        'loadingResult',
+        "loadingResult",
         new Result<any>({
           inProgress: false,
           data: {},
         }),
-      ).set('tasks', tasks);
+      ).set("tasks", tasks);
     }) as TaskState;
   }
 
   public withLoadingResult(result: Result<any>): TaskState {
     return this.withMutations(s => {
-      s.set('loadingResult', result);
+      s.set("loadingResult", result);
     }) as TaskState;
   }
 
   public withCreateResult(result: Result<Task>): TaskState {
     return this.withMutations(s => {
-      this.updateTasksIfNeeded(s, result).set('createResult', result);
+      this.updateTasksIfNeeded(s, result).set("createResult", result);
     }) as TaskState;
   }
 
   public withUpdateResult(result: Result<Task>): TaskState {
     return this.withMutations(s => {
-      this.updateTasksIfNeeded(s, result).set('updateResult', result);
+      this.updateTasksIfNeeded(s, result).set("updateResult", result);
     }) as TaskState;
   }
 
   public withActiveResult(result: Result<Task>): TaskState {
     return this.withMutations(s => {
-      this.updateTasksIfNeeded(s, result).set('activeResult', result);
+      this.updateTasksIfNeeded(s, result).set("activeResult", result);
     }) as TaskState;
   }
 
   public withCompleteResult(result: Result<Task>): TaskState {
     return this.withMutations(s => {
-      this.updateTasksIfNeeded(s, result).set('completeResult', result);
+      this.updateTasksIfNeeded(s, result).set("completeResult", result);
     }) as TaskState;
   }
 
   public withClearCompletedResult(result: Result<any>): TaskState {
     return this.withMutations(s => {
       if (result.isSuccess) {
-        const tasks = s.get('tasks') as TaskList;
-        s.set('tasks', tasks.clearCompletedTasks());
+        const tasks = s.get("tasks") as TaskList;
+        s.set("tasks", tasks.clearCompletedTasks());
       }
-      s.set('clearCompletedResult', result);
+      s.set("clearCompletedResult", result);
     }) as TaskState;
   }
 
   public withDeleteResult(result: Result<string>): TaskState {
     return this.withMutations(s => {
       if (result.isSuccess) {
-        const tasks = s.get('tasks') as TaskList;
-        s.set('tasks', tasks.deleteTask(result.data!));
+        const tasks = s.get("tasks") as TaskList;
+        s.set("tasks", tasks.deleteTask(result.data!));
       }
-      s.set('deleteResult', result);
+      s.set("deleteResult", result);
     }) as TaskState;
   }
 
@@ -100,8 +100,8 @@ export class TaskState extends Immutable.Record({
     result: Result<Task>,
   ): Immutable.Map<string, any> {
     if (result.isSuccess) {
-      const tasks = s.get('tasks') as TaskList;
-      s.set('tasks', tasks.updateTask(result.data!));
+      const tasks = s.get("tasks") as TaskList;
+      s.set("tasks", tasks.updateTask(result.data!));
     }
     return s;
   }

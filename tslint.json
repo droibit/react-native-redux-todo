@@ -5,8 +5,34 @@
     "tslint-config-prettier"
   ],
   "jsRules": {},
-  "rules": {},
-  "rulesDirectory": [],
+  "rules": {
+    "object-literal-sort-keys": false,
+    "no-console": false,
+    "member-ordering": false,
+    "array-type": [
+      true,
+      "generic"
+    ],
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "prettier": [
+      true,
+      {
+        "printWidth": 80,
+        "singleQuote": false,
+        "trailingComma": "all",
+        "bracketSpacing": true,
+        "jsxBracketSameLine": true,
+        "parser": "typescript",
+        "tabWidth": 2
+      }
+    ]
+  },
+  "rulesDirectory": [
+    "tslint-plugin-prettier"
+  ],
   "linterOptions": {
     "exclude": [
       "**/node_modules/**"

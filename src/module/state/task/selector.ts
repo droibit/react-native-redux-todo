@@ -1,13 +1,12 @@
-import { List } from 'immutable';
-import { createSelector } from 'reselect';
-import { Task, TaskList, TaskState } from '../../model/task';
+import { createSelector } from "reselect";
 import {
-  TaskSortSetting,
   TaskSortBy,
   TaskSortByOrder,
+  TaskSortSetting,
   TaskVisibilityFilter,
-} from '../../model/settings';
-import { TaskStateProps, AppSettingsStateProps } from '../stateType';
+} from "../../model/settings";
+import { Task, TaskList } from "../../model/task";
+import { AppSettingsStateProps, TaskStateProps } from "../stateType";
 
 export const filteredAndSortedTasks = createSelector<
   TaskStateProps & AppSettingsStateProps,
@@ -34,12 +33,12 @@ export const filteredAndSortedTasks = createSelector<
       .sort((lhs, rhs) => {
         switch (sortSetting.taskSortBy) {
           case TaskSortBy.TITLE:
-            return sortSetting.taskSortByOrder == TaskSortByOrder.ASC
+            return sortSetting.taskSortByOrder === TaskSortByOrder.ASC
               ? lhs.title.localeCompare(rhs.title)
               : rhs.title.localeCompare(lhs.title);
           case TaskSortBy.TIMESTAMP:
             // ref. https://github.com/Microsoft/TypeScript/issues/5710
-            return sortSetting.taskSortByOrder == TaskSortByOrder.ASC
+            return sortSetting.taskSortByOrder === TaskSortByOrder.ASC
               ? +lhs.timestamp - +rhs.timestamp
               : +rhs.timestamp - +lhs.timestamp;
         }

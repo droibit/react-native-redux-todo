@@ -1,60 +1,61 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { connect } from 'react-redux';
+import { Container, Content, Icon } from "native-base";
+import React, { Component } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import {
   NavigationRoute,
   NavigationScreenConfig,
   NavigationScreenOptions,
   NavigationScreenProp,
-} from 'react-navigation';
-import { Container, Content, Icon } from 'native-base';
-import { TaskStateProps } from '../../module/state/stateType';
+} from "react-navigation";
+import { connect } from "react-redux";
+import I18n from "../../i18n";
+import { TaskStateProps } from "../../module/state/stateType";
 import {
   countActiveTask,
   countCompletedTask,
-} from '../../module/state/task/selector';
-import I18n from '../../i18n';
-import { SettingsHeaderButton } from '../shared/headerItem';
-import { SCREEN_SETTINGS } from '../navigation';
+} from "../../module/state/task/selector";
+import { SCREEN_SETTINGS } from "../navigation";
+import { SettingsHeaderButton } from "../shared/headerItem";
 
-type NavigationParams = {
+interface NavigationParams {
   onSettingsHeaderButtonPress(): void;
-};
+}
 
-type Props = {
+interface Props {
   navigation: NavigationScreenProp<NavigationRoute, NavigationParams>;
   activeTaskCount: number;
   completedTaskCount: number;
-};
+}
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
   },
   item: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: "center",
+    flexDirection: "row",
   },
   label: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginLeft: 8,
   },
 });
 
 class StatisticsScreen extends Component<Props> {
-  static navigationOptions: NavigationScreenConfig<NavigationScreenOptions> = ({
-    navigation,
-  }) => {
+  // noinspection JSUnusedGlobalSymbols
+  public static navigationOptions: NavigationScreenConfig<
+    NavigationScreenOptions
+  > = ({ navigation }) => {
     return {
-      title: I18n.t('statistics'),
       headerRight: (
         <SettingsHeaderButton
-          onPress={navigation.getParam('onSettingsHeaderButtonPress')}
+          onPress={navigation.getParam("onSettingsHeaderButtonPress")}
         />
       ),
+      title: I18n.t("statistics"),
     };
   };
 
@@ -74,13 +75,13 @@ class StatisticsScreen extends Component<Props> {
           <View style={styles.item}>
             <Icon name="schedule" type="MaterialIcons" />
             <Text style={styles.label}>
-              {I18n.t('statisticsActiveTasks') + activeTaskCount}
+              {I18n.t("statisticsActiveTasks") + activeTaskCount}
             </Text>
           </View>
           <View style={styles.item}>
             <Icon name="done" type="MaterialIcons" />
             <Text style={styles.label}>
-              {I18n.t('statisticsCompletedTasks') + completedTaskCount}
+              {I18n.t("statisticsCompletedTasks") + completedTaskCount}
             </Text>
           </View>
         </Content>
@@ -89,7 +90,7 @@ class StatisticsScreen extends Component<Props> {
   }
 
   private onSettingsHeaderButtonPress() {
-    console.log('#onSettingsHeaderButtonPress()');
+    console.log("#onSettingsHeaderButtonPress()");
     this.props.navigation.navigate(SCREEN_SETTINGS);
   }
 }

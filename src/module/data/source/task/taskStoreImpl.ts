@@ -1,8 +1,8 @@
-import { AsyncStorage } from 'react-native';
-import TaskEntity from './taskEntity';
-import { TaskStore, TaskNotFoundError } from './taskStore';
-import * as Config from '../../../../config/config';
-import TimeProvider from '../time/timeProvider';
+import { AsyncStorage } from "react-native";
+import * as Config from "../../../../config/config";
+import TimeProvider from "../time/timeProvider";
+import TaskEntity from "./taskEntity";
+import { TaskNotFoundError, TaskStore } from "./taskStore";
 
 const { KEY_TASKS } = Config.Storage;
 
@@ -14,11 +14,11 @@ export default class TaskStoreImpl implements TaskStore {
   ) {}
 
   public async getTasks(): Promise<Array<TaskEntity>> {
-    const json = await this.storage.getItem(KEY_TASKS);
-    if (json === null) {
+    const srcJson = await this.storage.getItem(KEY_TASKS);
+    if (srcJson === null) {
       return [];
     }
-    const tasksJson: Array<any> = JSON.parse(json);
+    const tasksJson: Array<any> = JSON.parse(srcJson);
     return tasksJson.map(json => new TaskEntity(json));
   }
 

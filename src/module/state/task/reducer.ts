@@ -1,29 +1,29 @@
-import { isError } from 'flux-standard-action';
+import { isError } from "flux-standard-action";
+import { TaskEntity } from "../../data/source/task";
+import { Result } from "../../model/result";
+import { Task, TaskList, TaskState } from "../../model/task";
 import {
-  TASK_GET_DONE,
-  TASK_CREATE_STARTED,
-  TASK_CREATE_DONE,
-  TASK_GET_STARTED,
-  TASK_COMPLETE,
   TASK_ACTIVE,
+  TASK_COMPLETE,
+  TASK_CREATE_DONE,
+  TASK_CREATE_STARTED,
   TASK_DELETE,
-  TASK_UPDATE_STARTED,
+  TASK_GET_DONE,
+  TASK_GET_STARTED,
   TASK_UPDATE_DONE,
-} from '../actionType';
-import { Task, TaskList, TaskState } from '../../model/task';
-import { Result } from '../../model/result';
-import { TaskEntity } from '../../data/source/task';
+  TASK_UPDATE_STARTED,
+} from "../actionType";
 import {
-  GetTaskStartAction,
-  GetTaskDoneAction,
-  CreateTaskStartAction,
-  CreateTaskDoneAction,
-  CompleteTaskAction,
   ActiveTaskAction,
+  CompleteTaskAction,
+  CreateTaskDoneAction,
+  CreateTaskStartAction,
   DeleteTaskAction,
-  UpdateTaskStartAction,
+  GetTaskDoneAction,
+  GetTaskStartAction,
   UpdateTaskDoneAction,
-} from './actionCreator';
+  UpdateTaskStartAction,
+} from "./actionCreator";
 
 type TaskAction =
   | GetTaskStartAction
@@ -150,7 +150,7 @@ function entityToTask(entity: TaskEntity): Task {
   return new Task({
     id: entity.id,
     title: entity.title,
-    description: entity.description || '',
+    description: entity.description || "",
     timestamp: new Date(entity.timestamp),
     completed: entity.completed,
   });

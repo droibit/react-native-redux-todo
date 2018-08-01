@@ -1,10 +1,10 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import HeaderButtons, { HeaderButton } from 'react-navigation-header-buttons';
+import React from "react";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import HeaderButtons, { HeaderButton } from "react-navigation-header-buttons";
 
-type HeaderButtonProps = {
+interface HeaderButtonProps {
   onPress(): void;
-};
+}
 
 type DoneHeaderButtonProps = {
   disabled: boolean;

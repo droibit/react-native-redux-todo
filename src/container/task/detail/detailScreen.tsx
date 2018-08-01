@@ -1,55 +1,55 @@
-import React, { Component } from 'react';
+import moment from "moment";
+import { CheckBox, Fab, Icon } from "native-base";
+import { Container } from "native-base";
+import React, { Component } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
   ScrollView,
   StyleProp,
-  ViewStyle,
+  StyleSheet,
+  Text,
   TextStyle,
-} from 'react-native';
-import { connect } from 'react-redux';
+  View,
+  ViewStyle,
+} from "react-native";
 import {
+  NavigationActions,
+  NavigationRoute,
   NavigationScreenOptions,
   NavigationScreenProp,
-  NavigationRoute,
-  NavigationActions,
-} from 'react-navigation';
-import { Icon, CheckBox, Fab } from 'native-base';
-import moment from 'moment';
-import { Task } from '../../../module/model/task';
-import { TaskStateProps } from '../../../module/state/stateType';
-import { Container } from 'native-base';
-import { ReduxThunkDispatch } from '../../../module/state/reduxActionType';
-import * as Actions from '../../../module/state/task/actionCreator';
-import { SCREEN_TASK_UPDATE } from '../../navigation';
-import { NavigationParams as UpdateNavigationParams } from '../edit/updateTaskScreen';
-import I18n from '../../../i18n';
+} from "react-navigation";
+import { connect } from "react-redux";
+import I18n from "../../../i18n";
+import { Task } from "../../../module/model/task";
+import { ReduxThunkDispatch } from "../../../module/state/reduxActionType";
+import { TaskStateProps } from "../../../module/state/stateType";
+import * as Actions from "../../../module/state/task/actionCreator";
+import { SCREEN_TASK_UPDATE } from "../../navigation";
+import { NavigationParams as UpdateNavigationParams } from "../edit/updateTaskScreen";
 
-export type NavigationParams = {
+export interface NavigationParams {
   taskId: string;
-};
+}
 
-type Props = {
+interface Props {
   navigation: NavigationScreenProp<NavigationRoute, NavigationParams>;
   task: Task;
 
   completeTask(taskId: string): void;
   activeTask(taskId: string): void;
-};
+}
 
-const EMPTY_DESCRIPTION = '---';
+const EMPTY_DESCRIPTION = "---";
 
 const itemStyle: StyleProp<ViewStyle> = {
-  flexDirection: 'row',
-  alignItems: 'center',
-  backgroundColor: 'white',
+  alignItems: "center",
+  backgroundColor: "white",
+  flexDirection: "row",
   paddingLeft: 16,
   paddingRight: 16,
 };
 const textStyle: StyleProp<TextStyle> = {
-  fontSize: 20,
   flex: 1,
+  fontSize: 20,
 };
 
 const styles = StyleSheet.create({
@@ -73,11 +73,11 @@ const styles = StyleSheet.create({
   },
   title: {
     ...textStyle,
-    color: 'black',
+    color: "black",
   },
   description: {
     ...textStyle,
-    alignItems: 'baseline',
+    alignItems: "baseline",
   },
   completeCheckBox: {
     marginRight: 16,
@@ -88,8 +88,9 @@ const styles = StyleSheet.create({
 });
 
 class TaskDetailScreen extends Component<Props> {
-  static navigationOptions: NavigationScreenOptions = {
-    title: I18n.t('title'),
+  // noinspection JSUnusedGlobalSymbols
+  public static navigationOptions: NavigationScreenOptions = {
+    title: I18n.t("title"),
   };
 
   public render() {
@@ -121,7 +122,7 @@ class TaskDetailScreen extends Component<Props> {
               style={styles.leftIcon}
             />
             <Text style={styles.description}>
-              {task.description !== '' ? task.description : EMPTY_DESCRIPTION}
+              {task.description !== "" ? task.description : EMPTY_DESCRIPTION}
             </Text>
           </View>
           <View style={styles.timestampItem}>
@@ -132,7 +133,7 @@ class TaskDetailScreen extends Component<Props> {
               style={styles.leftIcon}
             />
             <Text numberOfLines={1} style={styles.timestamp}>
-              {moment(task.timestamp).format('YYYY/MM/DD HH:mm')}
+              {moment(task.timestamp).format("YYYY/MM/DD HH:mm")}
             </Text>
           </View>
         </ScrollView>
@@ -147,7 +148,7 @@ class TaskDetailScreen extends Component<Props> {
   }
 
   private onCompletedCheckBoxPress() {
-    console.log('#onCompletedCheckBoxPress()');
+    console.log("#onCompletedCheckBoxPress()");
     const { task } = this.props;
     if (task.isActive) {
       this.props.completeTask(task.id);
@@ -157,18 +158,18 @@ class TaskDetailScreen extends Component<Props> {
   }
 
   private onEditButtonPress() {
-    console.log('#onEditButtonPress()');
+    console.log("#onEditButtonPress()");
     const { task, navigation } = this.props;
     navigation.navigate(
       SCREEN_TASK_UPDATE,
       {},
       NavigationActions.navigate({
-        routeName: SCREEN_TASK_UPDATE,
         params: {
+          taskDescription: task.description,
           taskId: task.id,
           taskTitle: task.title,
-          taskDescription: task.description,
         } as UpdateNavigationParams,
+        routeName: SCREEN_TASK_UPDATE,
       }),
     );
   }
@@ -179,17 +180,17 @@ const mapStateToProps = (
   props: Props,
 ): Partial<Props> => {
   return {
-    task: state.task.tasks.getTaskById(props.navigation.getParam('taskId'))!,
+    task: state.task.tasks.getTaskById(props.navigation.getParam("taskId"))!,
   };
 };
 
 const mapDispatchToProps = (dispatch: ReduxThunkDispatch): Partial<Props> => {
   return {
-    completeTask: taskId => {
-      dispatch(Actions.completeTask(taskId));
-    },
     activeTask: taskId => {
       dispatch(Actions.activeTask(taskId));
+    },
+    completeTask: taskId => {
+      dispatch(Actions.completeTask(taskId));
     },
   };
 };

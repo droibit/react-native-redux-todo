@@ -1,15 +1,15 @@
-import React from 'react';
-import { ListView } from 'react-native';
-import { Content, List } from 'native-base';
-import { TaskListItem, DeleteTaskListItemButton } from './taskListItem';
-import { Task } from '../../../module/model/task';
+import { Content, List } from "native-base";
+import React from "react";
+import { ListView } from "react-native";
+import { Task } from "../../../module/model/task";
+import { DeleteTaskListItemButton, TaskListItem } from "./taskListItem";
 
-type Props = {
+interface Props {
   tasks: ReadonlyArray<Task>;
   onItemPress(task: Task): void;
   onCompleteCheckBoxPress(task: Task): void;
   onItemDeletePress(task: Task): void;
-};
+}
 
 const ds = new ListView.DataSource({
   rowHasChanged: (lhs, rhs) => lhs !== rhs,

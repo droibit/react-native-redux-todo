@@ -1,17 +1,17 @@
-import { taskReducer } from '../reducer';
-import { TaskState } from '../../../model/task';
-import { GetTaskStartAction } from '../actionCreator';
-import { TASK_GET_STARTED } from '../../actionType';
-import { Result } from '../../../model/result';
+import { Result } from "../../../model/result";
+import { TaskState } from "../../../model/task";
+import { TASK_GET_STARTED } from "../../actionType";
+import { GetTaskStartAction } from "../actionCreator";
+import { taskReducer } from "../reducer";
 
-describe('TaskReducer', () => {
-  test('initialState', () => {
+describe("TaskReducer", () => {
+  test("initialState", () => {
     // @ts-ignore
     const actualState = taskReducer(undefined, {});
     expect(actualState).toEqual(new TaskState());
   });
 
-  test('TASK_GET_STARTED', () => {
+  test("TASK_GET_STARTED", () => {
     const srcAction: GetTaskStartAction = {
       type: TASK_GET_STARTED,
     };

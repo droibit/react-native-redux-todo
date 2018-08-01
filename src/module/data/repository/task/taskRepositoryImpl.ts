@@ -1,5 +1,5 @@
-import TaskRepository from './taskReposirory';
-import { TaskEntity, TaskStore } from '../../source/task';
+import { TaskEntity, TaskStore } from "../../source/task";
+import TaskRepository from "./taskReposirory";
 
 export default class TaskRepositoryImpl implements TaskRepository {
   constructor(private readonly store: TaskStore) {}
