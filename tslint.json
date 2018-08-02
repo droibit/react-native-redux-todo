@@ -17,6 +17,11 @@
       true,
       "never-prefix"
     ],
+    "triple-equals": true,
+    "semicolon": [
+      true,
+      "always"
+    ],
     "prettier": [
       true,
       {
@@ -26,7 +31,7 @@
         "bracketSpacing": true,
         "jsxBracketSameLine": true,
         "parser": "typescript",
-        "tabWidth": 2
+        "tabWidth": 2,
       }
     ]
   },

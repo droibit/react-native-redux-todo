@@ -54,13 +54,13 @@ class TaskFilterChooserScreen extends Component<Props, State> {
   // noinspection JSUnusedGlobalSymbols
   public static navigationOptions: NavigationScreenConfig<
     NavigationScreenOptions
-  > = ({ navigation }) => {
-    // const { disabledDoneButton, onDoneButtonPressed } = navigation.state.params as NavigationParams
-    return {
-      title: I18n.t("filterAndSortTask"),
-      headerLeft: <CloseHeaderButton onPress={() => navigation.goBack(null)} />,
+    > = ({ navigation }) => {
+      // const { disabledDoneButton, onDoneButtonPressed } = navigation.state.params as NavigationParams
+      return {
+        title: I18n.t("filterAndSortTask"),
+        headerLeft: <CloseHeaderButton onPress={() => navigation.goBack(null)} />,
+      };
     };
-  };
 
   public static getDerivedStateFromProps(
     nextProps: Readonly<Props>,
